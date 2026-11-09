@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "forgotten_dimensions",
+  "version": "${version}",
+  "name": "Les Dimensions Oubliées",
+  "description": "Un mod RPG : sept dimensions oubliées, magie, progression, boss et artefacts des Anciens Architectes.",
+  "authors": ["Les Dimensions Oubliées Team"],
+  "license": "MIT",
+  "icon": "assets/forgotten_dimensions/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.forgotten.dimensions.ForgottenDimensions"],
+    "client": ["com.forgotten.dimensions.client.ForgottenDimensionsClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
