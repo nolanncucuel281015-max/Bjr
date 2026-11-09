@@ -5,7 +5,12 @@
   "name": "Les Dimensions Oubliées — GameTests",
   "environment": "*",
   "entrypoints": {
-    "fabric-gametest": ["com.forgotten.dimensions.gametest.FdGameTests"]
+    "fabric-gametest": [
+      "com.forgotten.dimensions.gametest.FdGameTests"
+    ],
+    "fabric-client-gametest": [
+      "com.forgotten.dimensions.gametest.FdClientGameTest"
+    ]
   },
   "depends": {
     "forgotten_dimensions": "*",

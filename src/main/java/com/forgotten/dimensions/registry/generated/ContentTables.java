@@ -485,6 +485,11 @@ public final class ContentTables {
         );
     }
 
+    /** Minerais générés naturellement dans la Surface (placed_feature du même nom). */
+    public static List<String> overworldOres() {
+        return List.of("ancient_fragment_ore", "celestial_fragment_ore", "corrupted_fragment_ore", "ocean_fragment_ore", "chaos_fragment_ore", "eternal_fragment_ore", "depths_fragment_ore", "void_fragment_ore");
+    }
+
     public static List<ArtifactDef> artifacts() {
         return List.of(
             new ArtifactDef("heart_of_the_ancients", FdRarity.LEGENDARY),

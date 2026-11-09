@@ -31,7 +31,7 @@ fabricApi {
         createSourceSet = true
         modId = "forgotten_dimensions_gametest"
         enableGameTests = true
-        enableClientGameTests = false
+        enableClientGameTests = true
         eula = true
     }
 }

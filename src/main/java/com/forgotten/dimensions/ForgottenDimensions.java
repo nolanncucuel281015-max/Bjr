@@ -38,5 +38,6 @@ public final class ForgottenDimensions implements ModInitializer {
         CombatEvents.register();
         WorldEvents.register();
         FdCommand.register();
+        com.forgotten.dimensions.world.generation.ModWorldGen.register();
     }
 }

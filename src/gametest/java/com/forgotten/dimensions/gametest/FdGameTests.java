@@ -198,4 +198,18 @@ public class FdGameTests {
         ctx.assertTrue(ctx.getWorld().getEmittedRedstonePower(next.west(), Direction.WEST) == 15, "puissance redstone 15");
         ctx.complete();
     }
+
+    @GameTest
+    public void fragmentOresGenerateInOverworld(TestContext ctx) {
+        var biomes = ctx.getWorld().getRegistryManager().getOrThrow(RegistryKeys.BIOME);
+        var plains = biomes.getValueOrThrow(net.minecraft.world.biome.BiomeKeys.PLAINS);
+        java.util.Set<String> placed = new java.util.HashSet<>();
+        for (var list : plains.getGenerationSettings().getFeatures()) {
+            for (var entry : list) entry.getKey().ifPresent(k -> placed.add(k.getValue().toString()));
+        }
+        for (String ore : ContentTables.overworldOres()) {
+            ctx.assertTrue(placed.contains(NS + ":" + ore), "minerai absent des plaines : " + ore);
+        }
+        ctx.complete();
+    }
 }

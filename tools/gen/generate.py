@@ -36,7 +36,7 @@ OWNED_DIRS = [
     os.path.join(ASSETS, "textures", "block"), os.path.join(ASSETS, "textures", "item"),
     os.path.join(ASSETS, "textures", "entity", "equipment"), os.path.join(ASSETS, "equipment"),
     os.path.join(DATA, "recipe"), os.path.join(DATA, "loot_table", "blocks"), os.path.join(DATA, "tags"),
-    os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"),
+    os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"), os.path.join(DATA, "worldgen"),
 ]
 
 LANG_EN, LANG_FR = {}, {}
@@ -324,6 +324,23 @@ for drop, key, rgb, en, fr in surface_ores:
                   fr="Minerai — " + frname.lower() + (" (ardoise des abîmes)" if prefix else ""), loot=(drop, key == "ancient"))
         tag_item(f"{NS}:ores", rid(oid)); tag_block(f"{NS}:ores", rid(oid))
         tag_block(f"{NS}:surface_ores", rid(oid))
+
+# Génération naturelle à la Surface (Chapitre 2) : fragment ancien commun, fragments dimensionnels rares et profonds.
+SURFACE_GEN = []
+for drop, key, rgb, en, fr in surface_ores:
+    base = "ancient_fragment_ore" if key == "ancient" else f"{key}_fragment_ore"
+    deep = "deepslate_" + base
+    size, count, lo, hi = (6, 6, -48, 48) if key == "ancient" else (3, 2, -64, 16)
+    wjson(os.path.join(DATA, "worldgen", "configured_feature", base + ".json"), {"type": "minecraft:ore", "config": {
+        "discard_chance_on_air_exposure": 0.3, "size": size, "targets": [
+            {"state": {"Name": rid(base)}, "target": {"predicate_type": "minecraft:tag_match", "tag": "minecraft:stone_ore_replaceables"}},
+            {"state": {"Name": rid(deep)}, "target": {"predicate_type": "minecraft:tag_match", "tag": "minecraft:deepslate_ore_replaceables"}}]}})
+    wjson(os.path.join(DATA, "worldgen", "placed_feature", base + ".json"), {"feature": rid(base), "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:trapezoid",
+                                                     "min_inclusive": {"absolute": lo}, "max_inclusive": {"absolute": hi}}},
+        {"type": "minecraft:biome"}]})
+    SURFACE_GEN.append(base)
 
 # Essences, alliage, noyau
 for d in C.DIMENSIONS:
@@ -629,6 +646,27 @@ for adv_id, icon, parent, crit, title, desc, frame in L.ADVANCEMENTS:
     LANG_EN[f"advancements.{NS}.{adv_id}.title"], LANG_FR[f"advancements.{NS}.{adv_id}.title"] = title
     LANG_EN[f"advancements.{NS}.{adv_id}.description"], LANG_FR[f"advancements.{NS}.{adv_id}.description"] = desc
 
+# Traductions des tags d'objets (convention Fabric tag.item.<ns>.<chemin>)
+TAG_NAMES = {"ores": ("Forgotten Ores", "Minerais oubliés"), "ores_drops": ("Ancient Fragments", "Fragments anciens"),
+             "weapons": ("Forgotten Weapons", "Armes oubliées"), "armor": ("Forgotten Armor", "Armures oubliées"),
+             "artifacts": ("Artifacts", "Artefacts")}
+for tag in ITEM_TAGS:
+    ns, path = tag.split(":")
+    if ns != NS:
+        continue
+    key = f"tag.item.{NS}." + path.replace("/", ".")
+    if path in TAG_NAMES:
+        en, fr = TAG_NAMES[path]
+    elif path.startswith("repair/"):
+        item = path.split("/", 1)[1]
+        en, fr = "Repairs with " + LANG_EN.get(f"item.{NS}.{item}", item), "Répare avec : " + LANG_FR.get(f"item.{NS}.{item}", item)
+    elif path.startswith("weapons/"):
+        cat = path.split("/", 1)[1]
+        en, fr = "Weapons: " + cat, "Armes : " + cat
+    else:
+        en, fr = path, path
+    LANG_EN[key], LANG_FR[key] = en, fr
+
 # Langues : entrées générées + entrées manuelles (lang_ui.py)
 for key, (en, fr) in L.UI.items():
     LANG_EN[key] = en
@@ -710,6 +748,11 @@ lines.append(",\n".join(
     f"{a['defense'][2]}, {a['defense'][3]}, {jf(a['tough'])}, {jf(a['kb'])}, {a['ench']}, FdRarity.{a['rarity']}, {jstr(a['bonus'])})"
     for a in C.ARMOR_SETS))
 lines.append("        );")
+lines.append("    }")
+lines.append("")
+lines.append("    /** Minerais générés naturellement dans la Surface (placed_feature du même nom). */")
+lines.append("    public static List<String> overworldOres() {")
+lines.append("        return List.of(" + ", ".join(jstr(o) for o in SURFACE_GEN) + ");")
 lines.append("    }")
 lines.append("")
 lines.append("    public static List<ArtifactDef> artifacts() {")

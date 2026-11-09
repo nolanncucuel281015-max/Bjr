@@ -1,0 +1,388 @@
+# Les Dimensions Oubliées (`forgotten_dimensions`)
+
+Mod RPG pour **Minecraft Java 1.21.11** (Fabric). Il ajoute la civilisation disparue des Anciens
+Architectes, ses fragments, sa technologie, la magie, une progression RPG complète, des armes et
+armures par centaines, et prépare les sept dimensions oubliées.
+
+> **État du projet : phases 1, 2 et 3 terminées sur 10.** Les dimensions, les créatures, les boss,
+> les structures, les quêtes, les PNJ et les musiques ne sont **pas encore** présents. La section
+> [Avancement](#avancement-par-phase) détaille ce qui est fait et ce qui reste à faire.
+
+![Vitrine de blocs et HUD](docs/screenshots/world_hud.png)
+
+| Arbre de compétences | Livre de magie |
+|---|---|
+| ![Arbre de compétences](docs/screenshots/skill_tree.png) | ![Livre de magie](docs/screenshots/spell_book.png) |
+| **Armure de la Reine du Givre et Marteau Volcanique** | **Inventaire : armes, arc, arbalète, couronne** |
+| ![Armure](docs/screenshots/armor_third_person.png) | ![Inventaire](docs/screenshots/inventory.png) |
+
+Captures prises automatiquement par le test client (`FdClientGameTest`) dans un vrai Minecraft
+1.21.11.
+
+---
+
+## Sommaire
+
+1. [Prérequis](#prérequis)
+2. [Installer Java 21](#installer-java-21)
+3. [Installer Fabric (pour jouer)](#installer-fabric-pour-jouer)
+4. [Ouvrir le projet](#ouvrir-le-projet)
+5. [Compiler](#compiler)
+6. [Lancer le jeu en développement](#lancer-le-jeu-en-développement)
+7. [Installer le mod](#installer-le-mod)
+8. [Créer un serveur](#créer-un-serveur)
+9. [Commandes](#commandes)
+10. [Contenu du mod](#contenu-du-mod)
+11. [Configuration](#configuration)
+12. [Tests](#tests)
+13. [Architecture du code](#architecture-du-code)
+14. [Générateur de contenu](#générateur-de-contenu)
+15. [Problèmes fréquents](#problèmes-fréquents)
+16. [Avancement par phase](#avancement-par-phase)
+
+---
+
+## Prérequis
+
+| Outil | Version | Remarque |
+|---|---|---|
+| Java (JDK) | **21** | Obligatoire pour Minecraft 1.21.11 |
+| Minecraft Java Edition | **1.21.11** | |
+| Fabric Loader | **0.20.1** (ou plus récent) | |
+| Fabric API | **0.141.6+1.21.11** | À placer dans `mods/` avec le mod |
+| Gradle | 9.2.1 | Fourni par le Gradle Wrapper (`./gradlew`), rien à installer |
+| Python 3 + Pillow | facultatif | Uniquement pour régénérer le contenu (`tools/gen`) |
+
+Versions de compilation (fichier `gradle.properties`) : Fabric Loom 1.14.10, Yarn
+`1.21.11+build.6`, Fabric Loader 0.20.1, Fabric API 0.141.6+1.21.11. Toutes ont été vérifiées sur
+`maven.fabricmc.net`.
+
+## Installer Java 21
+
+- **Windows / macOS** : installer le JDK 21 d'[Adoptium Temurin](https://adoptium.net/) (cocher
+  « Set JAVA_HOME » sous Windows).
+- **Linux (Debian/Ubuntu)** : `sudo apt install openjdk-21-jdk`
+- Vérifier : `java -version` doit afficher `21`.
+
+## Installer Fabric (pour jouer)
+
+1. Télécharger l'installateur sur <https://fabricmc.net/use/installer/>.
+2. Choisir **Minecraft 1.21.11** et le loader **0.20.1** ou plus récent, puis « Installer ».
+3. Un profil « fabric-loader-1.21.11 » apparaît dans le launcher Minecraft.
+
+## Ouvrir le projet
+
+- **IntelliJ IDEA** (recommandé) : *File → Open…* puis sélectionner le dossier du projet. IntelliJ
+  importe Gradle automatiquement ; Loom crée les configurations « Minecraft Client » et
+  « Minecraft Server ».
+- **VS Code** : installer « Extension Pack for Java », ouvrir le dossier, puis lancer
+  `./gradlew vscode`.
+- **Eclipse** : `./gradlew eclipse`, puis importer le projet existant.
+
+Le premier import télécharge Minecraft et les dépendances (plusieurs centaines de Mo).
+
+## Compiler
+
+```bash
+./gradlew build          # compile, lance les tests JUnit + GameTests serveur, produit le JAR
+./gradlew build -x test  # compile seulement
+```
+
+Sous Windows, utiliser `gradlew.bat` à la place de `./gradlew`.
+
+Le mod compilé se trouve dans `build/libs/forgotten_dimensions-0.1.0.jar`.
+
+## Lancer le jeu en développement
+
+```bash
+./gradlew runClient   # lance Minecraft avec le mod
+./gradlew runServer   # lance un serveur dédié de développement (dossier run/)
+```
+
+## Installer le mod
+
+1. Installer Fabric (voir plus haut).
+2. Copier dans le dossier `mods` de Minecraft :
+   - `forgotten_dimensions-0.1.0.jar`
+   - `fabric-api-0.141.6+1.21.11.jar` (depuis Modrinth ou CurseForge)
+3. Emplacement du dossier `mods` :
+   - Windows : `%appdata%\.minecraft\mods`
+   - macOS : `~/Library/Application Support/minecraft/mods`
+   - Linux : `~/.minecraft/mods`
+4. Lancer le profil Fabric 1.21.11.
+
+## Créer un serveur
+
+1. Télécharger l'installateur serveur Fabric : <https://fabricmc.net/use/server/> (Minecraft 1.21.11).
+2. Lancer le JAR téléchargé une première fois : `java -Xmx4G -jar fabric-server-launch.jar nogui`.
+3. Accepter le contrat : passer `eula=false` à `eula=true` dans `eula.txt`.
+4. Copier le mod **et** Fabric API dans `mods/` du serveur.
+5. Relancer. Les joueurs doivent avoir le même mod et la même Fabric API.
+6. Donner les droits d'administration pour les commandes : `op <pseudo>` dans la console.
+
+Le serveur fait autorité : sorts, compétences, mana, expérience et recharges sont validés côté
+serveur ; le client ne fait qu'envoyer des demandes. Les données de progression sont enregistrées
+avec chaque joueur (Fabric Data Attachment API) et synchronisées uniquement vers lui.
+
+## Commandes
+
+Toutes les commandes exigent le niveau de permission « maître du jeu » (opérateur, niveau 2).
+
+| Commande | Effet |
+|---|---|
+| `/fdimension list` | Liste les sept dimensions et indique si elles sont générées |
+| `/fdimension tp <dimension>` | Téléporte dans une dimension (signale qu'elle n'existe pas encore tant que la phase 4 n'est pas faite) |
+| `/fdimension give <objet> [nombre]` | Donne un objet ou bloc du mod (auto-complétion) |
+| `/fdimension level set <joueur> <niveau>` | Fixe le niveau RPG (1 à 100) |
+| `/fdimension level get <joueur>` | Affiche niveau, expérience et points |
+| `/fdimension xp add <joueur> <quantité>` | Ajoute de l'expérience RPG |
+| `/fdimension skills reset <joueur>` | Rembourse tous les points de compétence et retire la spécialisation |
+| `/fdimension reload` | Recharge `config/forgotten_dimensions.json` |
+
+`/fdimension boss spawn <boss>` sera ajoutée avec les boss (phase 6) : elle n'est pas enregistrée
+tant qu'il n'existe aucun boss à invoquer.
+
+### Raccourcis clavier (modifiables dans Options → Commandes)
+
+| Touche | Action |
+|---|---|
+| `R` | Lancer le sort actif |
+| `G` | Passer au sort débloqué suivant |
+| `K` | Arbre de compétences |
+| `B` | Livre de magie |
+
+## Contenu du mod
+
+Tout le contenu ci-dessous est enregistré dans le jeu, a une texture, un modèle, une traduction
+FR/EN, une recette ou un moyen d'obtention, et est vérifié par les tests.
+
+### Blocs (262)
+
+- **58 minerais** : 21 matériaux × 2 variantes (pierre dimensionnelle et pierre profonde),
+  plus 16 minerais de la Surface (fragment ancien et 7 fragments dimensionnels, en pierre et en
+  ardoise des abîmes). Ils lâchent minerai brut ou gemme, avec Fortune, Toucher de soie et
+  expérience.
+- **7 pierres dimensionnelles** (pierre des nuages, pierre corrompue, pierre abyssale, pierre de
+  cendre, roche de givre, roche ombrale, pierre du néant), chacune avec variante profonde, briques,
+  polie, sculptée, dalles, et **escaliers, dalles et murets** (84 blocs de forme).
+- **28 blocs de stockage** (21 blocs de matériau + 7 blocs de minerai brut).
+- **20 blocs lumineux** (lampes, lanternes, blocs stellaires, veines lumineuses).
+- **15 blocs technologiques anciens** : le *Noyau énergétique* émet un signal de redstone de 15,
+  le *Terminal runique* raconte un fragment de l'histoire (7 archives), circuits et conduits
+  lumineux.
+- **15 blocs magiques** : cristal de mana (+30 mana au clic droit, recharge 30 s), 5 pierres
+  runiques (effet selon l'école quand on marche dessus), ligne tellurique (double la
+  régénération de mana), source guérisseuse, pierre de protection (repousse les monstres), autel
+  des sorts (affiche la maîtrise de magie), etc.
+
+Les **minerais de fragments se génèrent naturellement dans la Surface** (fragment ancien entre
+Y −48 et 48 ; fragments dimensionnels, plus rares, entre Y −64 et 16). Les 42 minerais
+dimensionnels sont prêts mais leur génération arrive avec les dimensions (phase 4) : ils sont
+disponibles en créatif et via `/fdimension give`.
+
+### Matériaux et objets (50)
+
+21 matériaux (7 lingots avec leur minerai brut, 14 gemmes), 7 fragments dimensionnels, 7
+essences dimensionnelles, fragment ancien, noyau d'Architecte, alliage primordial et 5 projectiles
+de sort (objets techniques utilisés pour l'affichage des sorts).
+
+### Armes (100)
+
+9 catégories × 10 paliers (argent astral → primordial) + 10 armes légendaires.
+
+| Catégorie | Particularité |
+|---|---|
+| Épée | équilibrée |
+| Grande épée | lente, dégâts de zone autour de la cible |
+| Dague | rapide, 15 % de chance de coup supplémentaire |
+| Hache de combat | désactive les boucliers, affaiblit la cible |
+| Lance | mécanique de lance de Minecraft 1.21.11 (charge) |
+| Bâton magique | clic droit : projectile de l'école du palier (10 mana) |
+| Baguette | clic droit : petit projectile rapide (4 mana) |
+| Arc / Arbalète | dégâts de projectile selon le palier, animations de tension |
+
+Raretés : Commun, Peu commun, Rare, Épique, Légendaire, Mythique (couleur du nom et ligne
+d'infobulle).
+
+Armes légendaires (recette : 4 essences + 4 fragments autour de l'arme de base du palier) :
+Épée Céleste (onde d'énergie), Lame de Corruption (flétrissement, vol de vie), Trident Abyssal
+(respiration aquatique, bonus sous l'eau), Marteau Volcanique (onde de choc brûlante), Arc du Néant
+(flèches sans gravité), Sceptre de la Reine du Givre (javelots de glace qui figent), Grande Épée de
+l'Empereur des Cieux (foudre), Croc des Profondeurs (poison, cécité, attaque dans le dos), Arbalète
+d'Appel-Tempête (carreaux foudroyants), et **Fin des Mondes** (mythique, bonus contre les boss).
+
+### Armures (30 ensembles, 120 pièces)
+
+4 ensembles par dimension, plus l'ensemble de l'Architecte et l'ensemble Primordial. Chaque
+ensemble a sa texture portée, ses statistiques et, pour la plupart, un **bonus d'ensemble
+complet** (chute lente, respiration aquatique, résistance au feu, immunité au gel, vision
+nocturne, régénération de mana, etc.).
+
+### Artefacts (30)
+
+Effets passifs tant que l'artefact est dans l'inventaire, ou actifs au clic droit avec recharge.
+Exemples : **Cœur des Anciens** (+50 % de régénération de mana), **Anneau du Temps** (Vitesse II et
+Célérité II, 10 s), **Œil Dimensionnel** (localise la ruine ancienne la plus proche),
+**Couronne des Sept Mondes** (+10 vie, +100 mana, +2 armure, +10 % dégâts), Plume de Phénix
+(empêche une mort, recharge 10 min), Calice de Sang (vol de vie), Orbe de Tempête (foudre ciblée)…
+Ils s'obtiennent aujourd'hui par fabrication ; les boss en lâcheront à partir de la phase 6.
+
+### Magie (50 sorts, 5 écoles)
+
+Feu, Glace, Foudre, Nature, Néant : 10 sorts chacune (projectiles, rayons, novas, zones
+persistantes, météores différés, chaînes d'éclairs, téléportation, invocations de loups et de
+golem, soins, renforcements…). Chaque sort a un coût en mana, une recharge, une puissance, un
+niveau requis, des particules et des sons.
+
+- **Mana** : 100 au départ, +5 par niveau, augmenté par les compétences et artefacts ; régénération
+  continue (ligne tellurique, Cœur des Anciens, ensemble de l'Architecte).
+- **Progression** : la puissance augmente avec le niveau, la compétence *Maîtrise des sorts*, la
+  spécialisation Mage et la **maîtrise de chaque école** (de 0 à 10, selon le nombre de sorts
+  lancés).
+
+### Progression RPG
+
+- Niveaux **1 à 100**. Expérience gagnée en tuant des créatures, en minant des minerais, en
+  découvrant de nouveaux biomes et en lançant des sorts.
+- 1 point de compétence par niveau, +1 tous les 10 niveaux (109 au total).
+- **5 arbres** (Guerrier, Mage, Archer, Explorateur, Invocateur), **30 compétences** à rangs
+  multiples avec effets réels (attributs, dégâts, esquive, bouclier de mana, invocations…).
+- **Spécialisation** au niveau 20 (une par personnage, réinitialisable par un opérateur).
+- **13 succès** (premier sort, niveaux 10/25/50/75/100, spécialisation, premier artefact,
+  première arme légendaire, alliage primordial, couronne…).
+
+### Interface
+
+- **HUD** compact (coin supérieur gauche) : niveau, barre d'expérience, barre de mana, sort actif
+  avec recharge, points de compétence disponibles. La vie et les effets restent ceux de Minecraft.
+- **Arbre de compétences** (`K`) et **Livre de magie** (`B`), utilisables à la souris et au clavier.
+- **Infobulles** : rareté, description, école de magie, dégâts des projectiles, bonus d'ensemble.
+
+## Configuration
+
+Fichier `config/forgotten_dimensions.json` (créé au premier lancement, rechargeable avec
+`/fdimension reload`) :
+
+| Option | Défaut | Effet |
+|---|---|---|
+| `xpMultiplier` | 1.0 | Multiplicateur d'expérience RPG |
+| `biomeDiscoveryXp` | 25 | Expérience par nouveau biome découvert |
+| `manaRegenMultiplier` | 1.0 | Régénération de mana |
+| `spellDamageMultiplier` | 1.0 | Puissance des sorts (difficulté de la magie) |
+| `spellCooldownMultiplier` | 1.0 | Temps de recharge des sorts |
+| `particleMultiplier` | 1.0 | Densité des particules des sorts (0 = aucune) |
+| `summonDurationSeconds` | 30 | Durée de base des invocations |
+| `spellFriendlyFire` | false | Les sorts offensifs touchent-ils les autres joueurs |
+| `rewardMultiplier` | 1.0 | Expérience des créatures tuées |
+
+Les réglages de fréquence des structures et du nombre de créatures seront ajoutés avec les phases
+correspondantes (aucune option factice n'est exposée).
+
+## Tests
+
+```bash
+./gradlew test             # JUnit + GameTests serveur (runGameTest est une dépendance de test)
+./gradlew runGameTest      # GameTests serveur seuls
+xvfb-run ./gradlew runClientGameTest   # test client avec captures d'écran (nécessite un affichage)
+```
+
+- **JUnit (18 tests, `src/test`)** : courbe d'expérience, formules de mana et de puissance,
+  recharges, expérience de combat, quantités exigées (≥ 50 minerais, ≥ 100 armes, 30 armures,
+  30 artefacts, 50 sorts), unicité des identifiants, aller-retour du codec de progression, et
+  **validation des ressources** (aucune texture, aucun modèle ni objet référencé inexistant ;
+  chaque bloc a un état et une loot table ; traductions FR et EN complètes et alignées).
+- **GameTests serveur (12 tests, `src/gametest`)**, dans un vrai serveur Minecraft : registres
+  complets, recettes, loot tables, succès et commande chargés ; montée de niveau et points ;
+  compétence qui modifie réellement la vie maximale ; prérequis ; lancement de sort (mana,
+  recharge, verrouillage par niveau, projectile créé, mana insuffisant) ; dégâts et effet d'école ;
+  artefact (vie et mana max) et détection d'ensemble d'armure ; persistance NBT ; émission de
+  redstone ; présence d'un effet pour chaque artefact et arme légendaire ; minerais de fragments
+  injectés dans les biomes de la Surface.
+- **Test client (`FdClientGameTest`)** : crée un monde, place une vitrine de blocs, équipe une
+  armure, ouvre les écrans du mod et enregistre des captures dans
+  `build/run/clientGameTest/screenshots/`.
+
+## Architecture du code
+
+```
+src/main/java/com/forgotten/dimensions/
+  ForgottenDimensions.java        point d'entrée (initialisation des modules)
+  registry/                       ModBlocks, ModItems, ModEntities, ModAttachments, ModItemGroups
+  registry/generated/             ContentTables.java (généré, ne pas modifier)
+  content/                        définitions (BlockDef, WeaponDef, ArmorSetDef, FdRarity…)
+  block/                          AncientTechBlock, MagicBlock
+  item/                           armes, arcs, arbalètes, artefacts, effets légendaires, armures
+  magic/                          sorts, exécuteur, mana, recharges, zones, invocations, ciblage
+  progression/                    niveaux, expérience, compétences, spécialisations
+  entity/                         MagicBoltEntity (projectile de sort)
+  event/                          ticks serveur, combat, monde, minage
+  network/                        paquets client → serveur, tous revalidés côté serveur
+  command/                        /fdimension
+  dimension/                      identifiants des 7 dimensions (génération : phase 4)
+  mixin/                          un seul mixin : modification centralisée des dégâts reçus
+  util/                           configuration, cache joueur, succès, effets
+src/client/java/…/client/         HUD, écrans, raccourcis, infobulles, rendu du projectile
+src/test/java/                    tests JUnit
+src/gametest/java/                GameTests serveur et client
+tools/gen/                        générateur de contenu (Python)
+```
+
+Optimisation : travail par joueur étalé (mana toutes les 10 ticks, artefacts et armures toutes
+les 20 ticks, biomes toutes les 40 ticks), cache d'inventaire par joueur (aucun parcours
+d'inventaire par coup ou par sort), zones magiques plafonnées à 64 par monde, particules
+plafonnées et réglables, invocations temporaires supprimées à l'expiration et au rechargement du
+monde, caches vidés à l'arrêt du serveur.
+
+## Générateur de contenu
+
+Le contenu « en tableau » (blocs, matériaux, armes, armures, artefacts) est décrit une seule fois
+dans `tools/gen/content.py`. Le script produit le code Java des tables, les modèles, états de
+blocs, définitions d'objets, recettes, loot tables, tags, succès, traductions et **toutes les
+textures** (pixel art procédural original, `tools/gen/textures.py`).
+
+```bash
+pip install pillow
+python3 tools/gen/generate.py
+```
+
+Le générateur ne touche qu'aux dossiers qu'il possède entièrement ; le code écrit à la main n'est
+jamais modifié. Les traductions de l'interface, des sorts et des compétences sont dans
+`tools/gen/lang_ui.py`.
+
+## Problèmes fréquents
+
+| Problème | Solution |
+|---|---|
+| `Unsupported class file major version` / Java incorrect | Installer le JDK 21 et le sélectionner (JAVA_HOME, ou *Project Structure* dans IntelliJ) |
+| Le jeu plante au démarrage : « requires fabric-api » | Ajouter Fabric API 0.141.6+1.21.11 dans `mods/` |
+| « Incompatible mod set » | Vérifier Minecraft **1.21.11** et Fabric Loader ≥ 0.20.1 |
+| Les commandes `/fdimension` sont refusées | Être opérateur (`/op <pseudo>`) |
+| Connexion refusée sur un serveur | Le client et le serveur doivent avoir le même mod et la même Fabric API |
+| Touches sans effet | Conflit avec un autre mod : changer les touches dans Options → Commandes |
+| Trop de particules | Baisser `particleMultiplier` dans la configuration puis `/fdimension reload` |
+| Première compilation très longue | Normal : Loom télécharge et prépare Minecraft (une seule fois) |
+| `runClientGameTest` échoue sans écran | Le lancer avec `xvfb-run` sous Linux sans affichage |
+
+## Avancement par phase
+
+| Phase | Contenu | État |
+|---|---|---|
+| 1 | Projet Fabric 1.21.11, Gradle, métadonnées | ✅ terminé, compile |
+| 2 | Registres : blocs, objets, armes, armures, artefacts, entité de sort | ✅ terminé et testé |
+| 3 | Progression, mana, compétences, magie, HUD et écrans associés | ✅ terminé et testé |
+| 4 | Sept dimensions, biomes, génération, portails | ⏳ à faire (identifiants et commande prêts) |
+| 5 | 60 créatures et leurs IA | ⏳ à faire |
+| 6 | 14 boss, barres de vie, arènes | ⏳ à faire |
+| 7 | 25 structures et donjons | ⏳ à faire |
+| 8 | Quêtes, PNJ, journal, livre des dimensions, bestiaire | ⏳ à faire |
+| 9 | Sons et musiques originaux | ⏳ à faire (les sorts utilisent pour l'instant des sons de Minecraft) |
+| 10 | Optimisation finale, tests multijoueur à plusieurs clients | ⏳ à faire |
+
+Ce qui manque explicitement aujourd'hui : génération naturelle des minerais dimensionnels (arrive
+avec la phase 4), dimensions, créatures, boss, structures, quêtes, PNJ, musiques
+et sons originaux, histoire scénarisée en chapitres (seuls les 7 fragments d'archives des
+terminaux existent).
+
+## Licence
+
+MIT. Toutes les textures sont générées par `tools/gen/textures.py` et sont originales.
