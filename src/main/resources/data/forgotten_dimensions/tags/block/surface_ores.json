@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:ancient_fragment_ore",
+    "forgotten_dimensions:celestial_fragment_ore",
+    "forgotten_dimensions:chaos_fragment_ore",
+    "forgotten_dimensions:corrupted_fragment_ore",
+    "forgotten_dimensions:deepslate_ancient_fragment_ore",
+    "forgotten_dimensions:deepslate_celestial_fragment_ore",
+    "forgotten_dimensions:deepslate_chaos_fragment_ore",
+    "forgotten_dimensions:deepslate_corrupted_fragment_ore",
+    "forgotten_dimensions:deepslate_depths_fragment_ore",
+    "forgotten_dimensions:deepslate_eternal_fragment_ore",
+    "forgotten_dimensions:deepslate_ocean_fragment_ore",
+    "forgotten_dimensions:deepslate_void_fragment_ore",
+    "forgotten_dimensions:depths_fragment_ore",
+    "forgotten_dimensions:eternal_fragment_ore",
+    "forgotten_dimensions:ocean_fragment_ore",
+    "forgotten_dimensions:void_fragment_ore"
+  ]
+}

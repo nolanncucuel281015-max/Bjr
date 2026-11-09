@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:windstone",
+    "E": "forgotten_dimensions:celestial_fragment",
+    "C": "minecraft:spyglass"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:eagle_eye_charm"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:heart_of_the_ancients",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.first_artifact.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.first_artifact.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#forgotten_dimensions:artifacts"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ],
+  "parent": "forgotten_dimensions:root"
+}

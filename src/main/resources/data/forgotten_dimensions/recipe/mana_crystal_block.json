@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": "forgotten_dimensions:celestial_crystal",
+    "A": "minecraft:amethyst_block"
+  },
+  "pattern": [
+    "CCC",
+    "CAC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:mana_crystal_block"
+  }
+}

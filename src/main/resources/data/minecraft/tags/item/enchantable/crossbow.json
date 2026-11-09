@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:astral_silver_crossbow",
+    "forgotten_dimensions:celestial_crystal_crossbow",
+    "forgotten_dimensions:corruptium_crossbow",
+    "forgotten_dimensions:deep_mithril_crossbow",
+    "forgotten_dimensions:frost_steel_crossbow",
+    "forgotten_dimensions:magmatite_crossbow",
+    "forgotten_dimensions:nebulite_crossbow",
+    "forgotten_dimensions:primordial_crossbow",
+    "forgotten_dimensions:stormcaller_crossbow",
+    "forgotten_dimensions:tidal_cobalt_crossbow",
+    "forgotten_dimensions:void_shard_crossbow"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "forgotten_dimensions:sky_guardian"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "forgotten_dimensions:sky_guardian"
+      }
+    ]
+  }
+}

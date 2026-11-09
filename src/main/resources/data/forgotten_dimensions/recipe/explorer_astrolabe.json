@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:astral_silver_ingot",
+    "E": "forgotten_dimensions:ancient_fragment",
+    "C": "minecraft:compass"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:explorer_astrolabe"
+  }
+}

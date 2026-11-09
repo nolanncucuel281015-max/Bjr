@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:frost_steel_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "forgotten_dimensions:frost_steel_ingot"
+  }
+}

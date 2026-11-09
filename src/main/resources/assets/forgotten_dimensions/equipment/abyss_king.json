@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "forgotten_dimensions:abyss_king"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "forgotten_dimensions:abyss_king"
+      }
+    ]
+  }
+}

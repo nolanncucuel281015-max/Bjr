@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "forgotten_dimensions:block/umbral_rock_slab"
+    },
+    "type=double": {
+      "model": "forgotten_dimensions:block/umbral_rock"
+    },
+    "type=top": {
+      "model": "forgotten_dimensions:block/umbral_rock_slab_top"
+    }
+  }
+}

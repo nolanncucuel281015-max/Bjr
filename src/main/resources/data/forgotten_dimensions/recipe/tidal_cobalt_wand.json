@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:tidal_cobalt_ingot",
+    "#": "minecraft:stick"
+  },
+  "pattern": [
+    " X",
+    "# "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:tidal_cobalt_wand"
+  }
+}

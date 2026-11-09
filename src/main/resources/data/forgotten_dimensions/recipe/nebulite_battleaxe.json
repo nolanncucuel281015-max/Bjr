@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:nebulite_ingot",
+    "#": "minecraft:stick"
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:nebulite_battleaxe"
+  }
+}

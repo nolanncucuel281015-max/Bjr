@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:void_shard",
+    "#": "minecraft:stick"
+  },
+  "pattern": [
+    " X ",
+    " X ",
+    "X#X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:void_shard_greatsword"
+  }
+}

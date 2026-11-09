@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "forgotten_dimensions:block/polished_blightstone_slab"
+    },
+    "type=double": {
+      "model": "forgotten_dimensions:block/polished_blightstone"
+    },
+    "type=top": {
+      "model": "forgotten_dimensions:block/polished_blightstone_slab_top"
+    }
+  }
+}

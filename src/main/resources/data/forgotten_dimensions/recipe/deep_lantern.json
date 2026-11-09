@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:deep_mithril_ingot",
+    "E": "forgotten_dimensions:depths_fragment",
+    "C": "minecraft:lantern"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:deep_lantern"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:primordial_alloy",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.primordial_alloy.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.primordial_alloy.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "forgotten_dimensions:primordial_alloy"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ],
+  "parent": "forgotten_dimensions:first_legendary"
+}

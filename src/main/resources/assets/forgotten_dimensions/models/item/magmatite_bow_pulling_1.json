@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/bow",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/magmatite_bow_pulling_1"
+  }
+}

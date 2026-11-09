@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "forgotten_dimensions:block/abyssal_stone_tiles",
+    "side": "forgotten_dimensions:block/abyssal_stone_tiles",
+    "top": "forgotten_dimensions:block/abyssal_stone_tiles"
+  }
+}

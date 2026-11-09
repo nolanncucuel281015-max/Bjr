@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:nebulite_ingot",
+    "E": "forgotten_dimensions:void_essence",
+    "C": "minecraft:recovery_compass"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:void_compass"
+  }
+}

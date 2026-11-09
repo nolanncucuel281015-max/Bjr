@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "P": "forgotten_dimensions:primordial_alloy",
+    "N": "minecraft:nether_star",
+    "W": "forgotten_dimensions:primordial_greatsword",
+    "C": "forgotten_dimensions:architect_core"
+  },
+  "pattern": [
+    "PNP",
+    "PWP",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:world_ender"
+  }
+}

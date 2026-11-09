@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:trail_ruins",
+    "minecraft:ancient_city",
+    "minecraft:desert_pyramid",
+    "minecraft:jungle_pyramid",
+    "minecraft:ocean_ruin_cold",
+    "minecraft:ocean_ruin_warm"
+  ]
+}

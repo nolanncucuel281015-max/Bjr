@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "forgotten_dimensions:umbral_rock_bricks",
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:umbral_rock_brick_stairs"
+  }
+}

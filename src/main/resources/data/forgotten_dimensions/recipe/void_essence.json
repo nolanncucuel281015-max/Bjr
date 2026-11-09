@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:nebulite_ingot",
+    "forgotten_dimensions:void_shard",
+    "forgotten_dimensions:cosmic_opal",
+    "forgotten_dimensions:void_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:void_essence"
+  }
+}

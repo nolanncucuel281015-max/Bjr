@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:frost_steel_ingot",
+    "forgotten_dimensions:everfrost_gem",
+    "forgotten_dimensions:rime_sapphire",
+    "forgotten_dimensions:eternal_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:eternal_essence"
+  }
+}

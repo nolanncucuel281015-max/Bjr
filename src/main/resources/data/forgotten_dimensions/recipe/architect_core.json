@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": "forgotten_dimensions:ancient_fragment",
+    "D": "minecraft:diamond"
+  },
+  "pattern": [
+    "FFF",
+    "FDF",
+    "FFF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:architect_core"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:celestial_essence",
+    "forgotten_dimensions:corrupted_essence",
+    "forgotten_dimensions:ocean_essence",
+    "forgotten_dimensions:chaos_essence",
+    "forgotten_dimensions:eternal_essence",
+    "forgotten_dimensions:depths_essence",
+    "forgotten_dimensions:void_essence",
+    "forgotten_dimensions:architect_core"
+  ],
+  "result": {
+    "count": 2,
+    "id": "forgotten_dimensions:primordial_alloy"
+  }
+}

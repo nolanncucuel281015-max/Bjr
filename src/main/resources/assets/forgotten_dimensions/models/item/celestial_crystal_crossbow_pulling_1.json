@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/celestial_crystal_crossbow_pulling_1"
+  }
+}

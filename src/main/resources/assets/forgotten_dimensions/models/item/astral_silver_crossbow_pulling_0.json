@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/astral_silver_crossbow_pulling_0"
+  }
+}

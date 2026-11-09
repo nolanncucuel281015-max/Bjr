@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "E": "forgotten_dimensions:chaos_essence",
+    "F": "forgotten_dimensions:chaos_fragment",
+    "W": "forgotten_dimensions:magmatite_battleaxe"
+  },
+  "pattern": [
+    "EFE",
+    "FWF",
+    "EFE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:volcanic_hammer"
+  }
+}

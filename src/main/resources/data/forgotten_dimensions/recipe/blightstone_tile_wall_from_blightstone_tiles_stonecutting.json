@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "forgotten_dimensions:blightstone_tiles",
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:blightstone_tile_wall"
+  }
+}

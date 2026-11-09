@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "forgotten_dimensions:polished_abyssal_stone",
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:polished_abyssal_stone_wall"
+  }
+}

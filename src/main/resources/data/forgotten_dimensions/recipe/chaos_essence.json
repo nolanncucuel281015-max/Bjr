@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:magmatite_ingot",
+    "forgotten_dimensions:ember_garnet",
+    "forgotten_dimensions:brimstone",
+    "forgotten_dimensions:chaos_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:chaos_essence"
+  }
+}

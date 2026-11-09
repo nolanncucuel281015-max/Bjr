@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "forgotten_dimensions:architect_stone",
+    "minecraft:redstone",
+    "forgotten_dimensions:ancient_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:architect_circuit"
+  }
+}

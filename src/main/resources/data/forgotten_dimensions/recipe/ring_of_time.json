@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:astral_silver_ingot",
+    "E": "forgotten_dimensions:celestial_essence",
+    "C": "minecraft:clock"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:ring_of_time"
+  }
+}

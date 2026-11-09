@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "forgotten_dimensions:block/frostrock_slab"
+    },
+    "type=double": {
+      "model": "forgotten_dimensions:block/frostrock"
+    },
+    "type=top": {
+      "model": "forgotten_dimensions:block/frostrock_slab_top"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "forgotten_dimensions:block/polished_blightstone",
+    "side": "forgotten_dimensions:block/polished_blightstone",
+    "top": "forgotten_dimensions:block/polished_blightstone"
+  }
+}

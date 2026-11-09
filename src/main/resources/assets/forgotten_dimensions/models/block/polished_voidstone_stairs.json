@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "forgotten_dimensions:block/polished_voidstone",
+    "side": "forgotten_dimensions:block/polished_voidstone",
+    "top": "forgotten_dimensions:block/polished_voidstone"
+  }
+}

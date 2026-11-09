@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:celestial_blade",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.first_legendary.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.first_legendary.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#forgotten_dimensions:weapons/legendary"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ],
+  "parent": "forgotten_dimensions:first_artifact"
+}

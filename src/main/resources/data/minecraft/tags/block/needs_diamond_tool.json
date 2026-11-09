@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:cosmic_opal_block",
+    "forgotten_dimensions:cosmic_opal_ore",
+    "forgotten_dimensions:deep_cosmic_opal_ore",
+    "forgotten_dimensions:deep_deep_mithril_ore",
+    "forgotten_dimensions:deep_frost_steel_ore",
+    "forgotten_dimensions:deep_magmatite_ore",
+    "forgotten_dimensions:deep_mithril_block",
+    "forgotten_dimensions:deep_mithril_ore",
+    "forgotten_dimensions:deep_nebulite_ore",
+    "forgotten_dimensions:deep_void_shard_ore",
+    "forgotten_dimensions:frost_steel_block",
+    "forgotten_dimensions:frost_steel_ore",
+    "forgotten_dimensions:magmatite_block",
+    "forgotten_dimensions:magmatite_ore",
+    "forgotten_dimensions:nebulite_block",
+    "forgotten_dimensions:nebulite_ore",
+    "forgotten_dimensions:raw_deep_mithril_block",
+    "forgotten_dimensions:raw_frost_steel_block",
+    "forgotten_dimensions:raw_magmatite_block",
+    "forgotten_dimensions:raw_nebulite_block",
+    "forgotten_dimensions:void_shard_block",
+    "forgotten_dimensions:void_shard_ore"
+  ]
+}

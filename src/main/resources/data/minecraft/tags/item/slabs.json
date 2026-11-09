@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:abyssal_stone_brick_slab",
+    "forgotten_dimensions:abyssal_stone_slab",
+    "forgotten_dimensions:abyssal_stone_tile_slab",
+    "forgotten_dimensions:blightstone_brick_slab",
+    "forgotten_dimensions:blightstone_slab",
+    "forgotten_dimensions:blightstone_tile_slab",
+    "forgotten_dimensions:cinderstone_brick_slab",
+    "forgotten_dimensions:cinderstone_slab",
+    "forgotten_dimensions:cinderstone_tile_slab",
+    "forgotten_dimensions:cloudstone_brick_slab",
+    "forgotten_dimensions:cloudstone_slab",
+    "forgotten_dimensions:cloudstone_tile_slab",
+    "forgotten_dimensions:frostrock_brick_slab",
+    "forgotten_dimensions:frostrock_slab",
+    "forgotten_dimensions:frostrock_tile_slab",
+    "forgotten_dimensions:polished_abyssal_stone_slab",
+    "forgotten_dimensions:polished_blightstone_slab",
+    "forgotten_dimensions:polished_cinderstone_slab",
+    "forgotten_dimensions:polished_cloudstone_slab",
+    "forgotten_dimensions:polished_frostrock_slab",
+    "forgotten_dimensions:polished_umbral_rock_slab",
+    "forgotten_dimensions:polished_voidstone_slab",
+    "forgotten_dimensions:umbral_rock_brick_slab",
+    "forgotten_dimensions:umbral_rock_slab",
+    "forgotten_dimensions:umbral_rock_tile_slab",
+    "forgotten_dimensions:voidstone_brick_slab",
+    "forgotten_dimensions:voidstone_slab",
+    "forgotten_dimensions:voidstone_tile_slab"
+  ]
+}

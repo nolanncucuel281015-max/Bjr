@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "F": "forgotten_dimensions:ancient_fragment",
+    "A": "forgotten_dimensions:arcane_stone",
+    "C": "forgotten_dimensions:celestial_crystal"
+  },
+  "pattern": [
+    "FAF",
+    "ACA",
+    "FAF"
+  ],
+  "result": {
+    "count": 2,
+    "id": "forgotten_dimensions:ley_line_block"
+  }
+}

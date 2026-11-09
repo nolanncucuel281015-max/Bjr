@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:cosmic_opal_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "forgotten_dimensions:cosmic_opal"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "forgotten_dimensions:frostrock_bricks",
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:frostrock_brick_wall"
+  }
+}

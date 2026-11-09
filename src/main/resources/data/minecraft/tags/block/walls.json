@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:abyssal_stone_brick_wall",
+    "forgotten_dimensions:abyssal_stone_tile_wall",
+    "forgotten_dimensions:abyssal_stone_wall",
+    "forgotten_dimensions:blightstone_brick_wall",
+    "forgotten_dimensions:blightstone_tile_wall",
+    "forgotten_dimensions:blightstone_wall",
+    "forgotten_dimensions:cinderstone_brick_wall",
+    "forgotten_dimensions:cinderstone_tile_wall",
+    "forgotten_dimensions:cinderstone_wall",
+    "forgotten_dimensions:cloudstone_brick_wall",
+    "forgotten_dimensions:cloudstone_tile_wall",
+    "forgotten_dimensions:cloudstone_wall",
+    "forgotten_dimensions:frostrock_brick_wall",
+    "forgotten_dimensions:frostrock_tile_wall",
+    "forgotten_dimensions:frostrock_wall",
+    "forgotten_dimensions:polished_abyssal_stone_wall",
+    "forgotten_dimensions:polished_blightstone_wall",
+    "forgotten_dimensions:polished_cinderstone_wall",
+    "forgotten_dimensions:polished_cloudstone_wall",
+    "forgotten_dimensions:polished_frostrock_wall",
+    "forgotten_dimensions:polished_umbral_rock_wall",
+    "forgotten_dimensions:polished_voidstone_wall",
+    "forgotten_dimensions:umbral_rock_brick_wall",
+    "forgotten_dimensions:umbral_rock_tile_wall",
+    "forgotten_dimensions:umbral_rock_wall",
+    "forgotten_dimensions:voidstone_brick_wall",
+    "forgotten_dimensions:voidstone_tile_wall",
+    "forgotten_dimensions:voidstone_wall"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "forgotten_dimensions:ancient_gear_block",
+    "minecraft:piston"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:mechanism_block"
+  }
+}

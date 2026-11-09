@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:ember_garnet",
+    "E": "forgotten_dimensions:chaos_essence",
+    "C": "minecraft:totem_of_undying"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:phoenix_feather"
+  }
+}

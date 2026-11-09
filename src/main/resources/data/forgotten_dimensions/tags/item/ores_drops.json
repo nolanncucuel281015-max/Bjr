@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:ancient_fragment",
+    "forgotten_dimensions:celestial_fragment",
+    "forgotten_dimensions:chaos_fragment",
+    "forgotten_dimensions:corrupted_fragment",
+    "forgotten_dimensions:depths_fragment",
+    "forgotten_dimensions:eternal_fragment",
+    "forgotten_dimensions:ocean_fragment",
+    "forgotten_dimensions:void_fragment"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:void_shard",
+    "#": "minecraft:stick",
+    "S": "minecraft:string",
+    "H": "minecraft:tripwire_hook"
+  },
+  "pattern": [
+    "#X#",
+    "SHS",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:void_shard_crossbow"
+  }
+}

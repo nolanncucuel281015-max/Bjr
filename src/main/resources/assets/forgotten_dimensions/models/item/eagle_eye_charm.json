@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/eagle_eye_charm"
+  }
+}

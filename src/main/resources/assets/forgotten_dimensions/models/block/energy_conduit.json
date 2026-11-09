@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "forgotten_dimensions:block/energy_conduit"
+  }
+}

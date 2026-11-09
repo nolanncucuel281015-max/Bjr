@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:tidal_cobalt_ingot",
+    "#": "minecraft:stick",
+    "A": "minecraft:amethyst_shard"
+  },
+  "pattern": [
+    "AXA",
+    " # ",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:tidal_cobalt_staff"
+  }
+}

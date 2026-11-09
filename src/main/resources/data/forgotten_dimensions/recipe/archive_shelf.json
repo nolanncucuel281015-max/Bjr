@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:bookshelf",
+    "forgotten_dimensions:architect_stone"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:archive_shelf"
+  }
+}

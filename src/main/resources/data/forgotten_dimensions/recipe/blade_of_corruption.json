@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "E": "forgotten_dimensions:corrupted_essence",
+    "F": "forgotten_dimensions:corrupted_fragment",
+    "W": "forgotten_dimensions:corruptium_sword"
+  },
+  "pattern": [
+    "EFE",
+    "FWF",
+    "EFE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:blade_of_corruption"
+  }
+}

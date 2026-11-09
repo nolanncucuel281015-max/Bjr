@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/deep_mithril_crossbow_standby"
+  }
+}

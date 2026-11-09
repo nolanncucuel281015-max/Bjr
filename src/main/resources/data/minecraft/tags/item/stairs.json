@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:abyssal_stone_brick_stairs",
+    "forgotten_dimensions:abyssal_stone_stairs",
+    "forgotten_dimensions:abyssal_stone_tile_stairs",
+    "forgotten_dimensions:blightstone_brick_stairs",
+    "forgotten_dimensions:blightstone_stairs",
+    "forgotten_dimensions:blightstone_tile_stairs",
+    "forgotten_dimensions:cinderstone_brick_stairs",
+    "forgotten_dimensions:cinderstone_stairs",
+    "forgotten_dimensions:cinderstone_tile_stairs",
+    "forgotten_dimensions:cloudstone_brick_stairs",
+    "forgotten_dimensions:cloudstone_stairs",
+    "forgotten_dimensions:cloudstone_tile_stairs",
+    "forgotten_dimensions:frostrock_brick_stairs",
+    "forgotten_dimensions:frostrock_stairs",
+    "forgotten_dimensions:frostrock_tile_stairs",
+    "forgotten_dimensions:polished_abyssal_stone_stairs",
+    "forgotten_dimensions:polished_blightstone_stairs",
+    "forgotten_dimensions:polished_cinderstone_stairs",
+    "forgotten_dimensions:polished_cloudstone_stairs",
+    "forgotten_dimensions:polished_frostrock_stairs",
+    "forgotten_dimensions:polished_umbral_rock_stairs",
+    "forgotten_dimensions:polished_voidstone_stairs",
+    "forgotten_dimensions:umbral_rock_brick_stairs",
+    "forgotten_dimensions:umbral_rock_stairs",
+    "forgotten_dimensions:umbral_rock_tile_stairs",
+    "forgotten_dimensions:voidstone_brick_stairs",
+    "forgotten_dimensions:voidstone_stairs",
+    "forgotten_dimensions:voidstone_tile_stairs"
+  ]
+}

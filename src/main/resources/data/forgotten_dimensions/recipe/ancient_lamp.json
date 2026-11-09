@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": "forgotten_dimensions:architect_stone",
+    "G": "minecraft:glowstone"
+  },
+  "pattern": [
+    " S ",
+    "SGS",
+    " S "
+  ],
+  "result": {
+    "count": 4,
+    "id": "forgotten_dimensions:ancient_lamp"
+  }
+}

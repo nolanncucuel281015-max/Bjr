@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": "forgotten_dimensions:everfrost_gem",
+    "A": "forgotten_dimensions:arcane_stone"
+  },
+  "pattern": [
+    "M",
+    "A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:ice_rune_stone"
+  }
+}

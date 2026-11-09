@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:blood_ruby",
+    "E": "forgotten_dimensions:corrupted_essence",
+    "C": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:blood_chalice"
+  }
+}

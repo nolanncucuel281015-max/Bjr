@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:celestial_crystal",
+    "#": "minecraft:stick",
+    "A": "minecraft:amethyst_shard"
+  },
+  "pattern": [
+    "AXA",
+    " # ",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:celestial_crystal_staff"
+  }
+}

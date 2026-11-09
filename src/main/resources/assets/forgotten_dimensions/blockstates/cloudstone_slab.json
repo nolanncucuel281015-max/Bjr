@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "forgotten_dimensions:block/cloudstone_slab"
+    },
+    "type=double": {
+      "model": "forgotten_dimensions:block/cloudstone"
+    },
+    "type=top": {
+      "model": "forgotten_dimensions:block/cloudstone_slab_top"
+    }
+  }
+}

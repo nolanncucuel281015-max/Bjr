@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": "forgotten_dimensions:raw_nebulite",
+  "result": {
+    "id": "forgotten_dimensions:nebulite_ingot"
+  }
+}

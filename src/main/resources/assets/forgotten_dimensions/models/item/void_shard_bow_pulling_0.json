@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/bow",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/void_shard_bow_pulling_0"
+  }
+}

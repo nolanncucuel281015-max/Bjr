@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:tidal_cobalt_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "forgotten_dimensions:tidal_cobalt_ingot"
+  }
+}

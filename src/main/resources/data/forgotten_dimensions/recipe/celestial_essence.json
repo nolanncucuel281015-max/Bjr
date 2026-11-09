@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:astral_silver_ingot",
+    "forgotten_dimensions:celestial_crystal",
+    "forgotten_dimensions:windstone",
+    "forgotten_dimensions:celestial_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:celestial_essence"
+  }
+}

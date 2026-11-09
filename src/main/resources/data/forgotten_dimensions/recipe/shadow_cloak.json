@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:shadow_quartz",
+    "E": "forgotten_dimensions:depths_essence",
+    "C": "minecraft:phantom_membrane"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:shadow_cloak"
+  }
+}

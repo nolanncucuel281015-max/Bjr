@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "forgotten_dimensions:abyssal_stone_tiles",
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:abyssal_stone_tile_wall"
+  }
+}

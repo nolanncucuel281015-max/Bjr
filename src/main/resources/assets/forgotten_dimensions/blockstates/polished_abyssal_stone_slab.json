@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "forgotten_dimensions:block/polished_abyssal_stone_slab"
+    },
+    "type=double": {
+      "model": "forgotten_dimensions:block/polished_abyssal_stone"
+    },
+    "type=top": {
+      "model": "forgotten_dimensions:block/polished_abyssal_stone_slab_top"
+    }
+  }
+}

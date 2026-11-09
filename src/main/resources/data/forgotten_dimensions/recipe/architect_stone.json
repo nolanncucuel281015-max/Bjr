@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "S": "minecraft:stone_bricks",
+    "F": "forgotten_dimensions:ancient_fragment"
+  },
+  "pattern": [
+    "SSS",
+    "SFS",
+    "SSS"
+  ],
+  "result": {
+    "count": 8,
+    "id": "forgotten_dimensions:architect_stone"
+  }
+}

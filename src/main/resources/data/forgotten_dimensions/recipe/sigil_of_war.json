@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:corruptium_ingot",
+    "E": "forgotten_dimensions:chaos_fragment",
+    "C": "minecraft:iron_sword"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:sigil_of_war"
+  }
+}

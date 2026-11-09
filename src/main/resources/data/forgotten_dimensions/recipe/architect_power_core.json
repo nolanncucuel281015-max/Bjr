@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "S": "forgotten_dimensions:architect_stone",
+    "F": "forgotten_dimensions:ancient_fragment",
+    "C": "minecraft:redstone_block"
+  },
+  "pattern": [
+    "SFS",
+    "FCF",
+    "SFS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:architect_power_core"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "forgotten_dimensions:rime_sapphire_block"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "forgotten_dimensions:blocks/rime_sapphire_block"
+}

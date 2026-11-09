@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "forgotten_dimensions:cloudstone",
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:chiseled_cloudstone"
+  }
+}

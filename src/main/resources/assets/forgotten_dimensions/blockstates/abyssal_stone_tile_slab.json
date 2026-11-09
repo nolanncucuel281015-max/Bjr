@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "forgotten_dimensions:block/abyssal_stone_tile_slab"
+    },
+    "type=double": {
+      "model": "forgotten_dimensions:block/abyssal_stone_tiles"
+    },
+    "type=top": {
+      "model": "forgotten_dimensions:block/abyssal_stone_tile_slab_top"
+    }
+  }
+}

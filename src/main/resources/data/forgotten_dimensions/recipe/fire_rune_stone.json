@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": "forgotten_dimensions:ember_garnet",
+    "A": "forgotten_dimensions:arcane_stone"
+  },
+  "pattern": [
+    "M",
+    "A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:fire_rune_stone"
+  }
+}

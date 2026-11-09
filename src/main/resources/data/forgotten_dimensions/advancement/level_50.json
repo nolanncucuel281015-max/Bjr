@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:experience_bottle",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.level_50.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.level_50.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ],
+  "parent": "forgotten_dimensions:level_25"
+}

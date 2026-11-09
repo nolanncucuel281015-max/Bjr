@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "forgotten_dimensions:block/deep_abyssal_pearl_ore"
+  }
+}

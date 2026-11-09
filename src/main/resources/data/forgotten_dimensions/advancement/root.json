@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:ancient_fragment",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.root.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/stone"
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#forgotten_dimensions:ores_drops"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ]
+}

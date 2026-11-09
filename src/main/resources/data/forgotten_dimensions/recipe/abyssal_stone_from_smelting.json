@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "forgotten_dimensions:deep_abyssal_stone",
+  "result": {
+    "id": "forgotten_dimensions:abyssal_stone"
+  }
+}

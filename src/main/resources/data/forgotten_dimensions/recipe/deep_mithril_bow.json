@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "X": "forgotten_dimensions:deep_mithril_ingot",
+    "#": "minecraft:stick",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    " #S",
+    "X S",
+    " #S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:deep_mithril_bow"
+  }
+}

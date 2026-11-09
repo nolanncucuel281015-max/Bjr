@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "forgotten_dimensions:architect_panel",
+    "minecraft:book",
+    "forgotten_dimensions:ancient_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:rune_terminal"
+  }
+}

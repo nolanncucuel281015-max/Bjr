@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:astral_silver_wand",
+    "forgotten_dimensions:celestial_crystal_wand",
+    "forgotten_dimensions:corruptium_wand",
+    "forgotten_dimensions:deep_mithril_wand",
+    "forgotten_dimensions:frost_steel_wand",
+    "forgotten_dimensions:magmatite_wand",
+    "forgotten_dimensions:nebulite_wand",
+    "forgotten_dimensions:primordial_wand",
+    "forgotten_dimensions:tidal_cobalt_wand",
+    "forgotten_dimensions:void_shard_wand"
+  ]
+}

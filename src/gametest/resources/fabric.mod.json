@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "forgotten_dimensions_gametest",
+  "version": "1.0.0",
+  "name": "Les Dimensions Oubliées — GameTests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": ["com.forgotten.dimensions.gametest.FdGameTests"]
+  },
+  "depends": {
+    "forgotten_dimensions": "*",
+    "fabric-gametest-api-v1": "*"
+  }
+}

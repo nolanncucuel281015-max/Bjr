@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:celestial_crystal",
+    "E": "forgotten_dimensions:celestial_essence",
+    "C": "minecraft:lightning_rod"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:storm_orb"
+  }
+}

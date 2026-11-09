@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:crown_of_seven_worlds",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.crown.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.crown.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "forgotten_dimensions:crown_of_seven_worlds"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ],
+  "parent": "forgotten_dimensions:primordial_alloy"
+}

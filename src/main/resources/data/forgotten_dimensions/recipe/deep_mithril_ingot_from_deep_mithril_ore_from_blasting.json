@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredient": "forgotten_dimensions:deep_mithril_ore",
+  "result": {
+    "id": "forgotten_dimensions:deep_mithril_ingot"
+  }
+}

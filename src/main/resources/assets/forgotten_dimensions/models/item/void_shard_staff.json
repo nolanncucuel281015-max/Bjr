@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/void_shard_staff"
+  }
+}

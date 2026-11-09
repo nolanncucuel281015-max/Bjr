@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/void_shard_crossbow_pulling_2"
+  }
+}

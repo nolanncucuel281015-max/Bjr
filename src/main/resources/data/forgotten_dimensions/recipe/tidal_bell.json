@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "forgotten_dimensions:tidal_cobalt_ingot",
+    "E": "forgotten_dimensions:ocean_essence",
+    "C": "minecraft:bell"
+  },
+  "pattern": [
+    "MEM",
+    "ECE",
+    "MEM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:tidal_bell"
+  }
+}

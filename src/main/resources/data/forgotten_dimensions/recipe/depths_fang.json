@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "E": "forgotten_dimensions:depths_essence",
+    "F": "forgotten_dimensions:depths_fragment",
+    "W": "forgotten_dimensions:deep_mithril_dagger"
+  },
+  "pattern": [
+    "EFE",
+    "FWF",
+    "EFE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:depths_fang"
+  }
+}

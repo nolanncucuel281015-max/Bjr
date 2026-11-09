@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "F": "forgotten_dimensions:ancient_fragment",
+    "O": "minecraft:obsidian",
+    "C": "forgotten_dimensions:architect_core"
+  },
+  "pattern": [
+    "FOF",
+    "OCO",
+    "FOF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:dimensional_stabilizer"
+  }
+}

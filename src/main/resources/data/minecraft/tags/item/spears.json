@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:abyssal_trident",
+    "forgotten_dimensions:astral_silver_spear",
+    "forgotten_dimensions:celestial_crystal_spear",
+    "forgotten_dimensions:corruptium_spear",
+    "forgotten_dimensions:deep_mithril_spear",
+    "forgotten_dimensions:frost_steel_spear",
+    "forgotten_dimensions:magmatite_spear",
+    "forgotten_dimensions:nebulite_spear",
+    "forgotten_dimensions:primordial_spear",
+    "forgotten_dimensions:tidal_cobalt_spear",
+    "forgotten_dimensions:void_shard_spear"
+  ]
+}

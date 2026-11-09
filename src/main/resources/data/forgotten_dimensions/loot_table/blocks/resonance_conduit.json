@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "forgotten_dimensions:resonance_conduit"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "forgotten_dimensions:blocks/resonance_conduit"
+}

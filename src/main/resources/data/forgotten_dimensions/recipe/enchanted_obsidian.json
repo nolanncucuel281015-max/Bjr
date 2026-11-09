@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "O": "minecraft:obsidian",
+    "L": "minecraft:lapis_lazuli"
+  },
+  "pattern": [
+    "OOO",
+    "OLO",
+    "OOO"
+  ],
+  "result": {
+    "count": 8,
+    "id": "forgotten_dimensions:enchanted_obsidian"
+  }
+}

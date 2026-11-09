@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "forgotten_dimensions:tidal_cobalt_ingot",
+    "forgotten_dimensions:abyssal_pearl",
+    "forgotten_dimensions:sea_jade",
+    "forgotten_dimensions:ocean_fragment"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:ocean_essence"
+  }
+}

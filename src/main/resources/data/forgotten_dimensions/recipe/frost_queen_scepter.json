@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "combat",
+  "key": {
+    "E": "forgotten_dimensions:eternal_essence",
+    "F": "forgotten_dimensions:eternal_fragment",
+    "W": "forgotten_dimensions:frost_steel_staff"
+  },
+  "pattern": [
+    "EFE",
+    "FWF",
+    "EFE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:frost_queen_scepter"
+  }
+}
