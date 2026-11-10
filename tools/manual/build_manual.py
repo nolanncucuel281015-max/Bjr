@@ -35,7 +35,7 @@ os.makedirs(os.path.join(IMG, "icons"), exist_ok=True)
 os.makedirs(os.path.join(IMG, "recipes"), exist_ok=True)
 os.makedirs(os.path.join(IMG, "gen"), exist_ok=True)
 
-FR = json.load(open(os.path.join(ASSETS, "lang", "fr_fr.json"), encoding="utf-8"))
+FR = {k: v.replace("%%", "%") for k, v in json.load(open(os.path.join(ASSETS, "lang", "fr_fr.json"), encoding="utf-8")).items()}
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 if not os.path.exists(FONT):
     FONT = None
@@ -407,10 +407,11 @@ sauvegardée avec chaque joueur.</p>'''))
 <li><b>Points de compétence</b> à dépenser (touche <kbd>K</kbd>).</li>
 <li><b>Barre d'expérience</b> vers le niveau suivant.</li>
 <li><b>Mana</b> actuel / maximum, régénéré en continu.</li>
-<li><b>Sort actif</b> et son temps de recharge (touche <kbd>R</kbd> pour le lancer, <kbd>G</kbd> pour changer).</li></ol>
+<li><b>Sort actif</b> et son temps de recharge, avec le rappel des commandes : <b>clic droit avec un bâton ou une
+baguette</b> pour le lancer, <kbd>G</kbd> pour changer.</li></ol>
 </div><div>
 <h2>Les touches</h2>
-{table(["Touche", "Action"], [["<kbd>R</kbd>", "Lancer le sort actif"], ["<kbd>G</kbd>", "Sort débloqué suivant"],
+{table(["Touche", "Action"], [["<b>Clic droit</b> (bâton ou baguette en main)", "Lancer le sort actif"], ["<kbd>G</kbd>", "Changer de sort (sort débloqué suivant)"],
                              ["<kbd>K</kbd>", "Arbre de compétences"], ["<kbd>B</kbd>", "Livre de magie"]])}
 <p class="small">Modifiables dans Options → Commandes → « Dimensions Oubliées ».</p>
 <h2>Gagner de l'expérience</h2>
@@ -560,9 +561,28 @@ préalable. Un opérateur peut rembourser tous les points avec <code>/fdimension
                          + table(["Sort", "Requis", "Mana", "Recharge", "Puissance", "Effet"], rows, "compact"))
     parts.append(sec("magie", "La magie", f'''
 <p class="lead">Cinq écoles de magie, dix sorts chacune. Choisissez le sort actif dans le <b>Livre de magie</b> (touche
-<kbd>B</kbd>) ou avec <kbd>G</kbd>, puis lancez-le avec <kbd>R</kbd>.</p>
+<kbd>B</kbd>) ou avec <kbd>G</kbd>, puis lancez-le d'un <b>clic droit avec un bâton magique ou une baguette</b> en main.
+Chaque sort a ses effets en 3D : cercles runiques, ondes de choc, explosions, piliers d'énergie, météores, pics de glace,
+rayons, dômes protecteurs, trou noir…</p>
 <div class="two"><div>{shot("spell_book", "Le livre de magie : sorts débloqués et verrouillés.")}</div>
-<div>{shot("manual_spell_fire_nova", "Nova de feu.")}{shot("manual_spell_frost_nova", "Nova de givre.")}</div></div>
+<div>{shot("manual_spell_meteor", "Météore : la roche enflammée tombe sur le cercle d'alerte.")}
+{shot("manual_spell_meteor_impact", "Impact du météore.")}</div></div>
+<h2>Bâtons et baguettes</h2>
+<p>Le clic droit lance le <b>sort actif</b> (celui choisi avec <kbd>G</kbd>), quelle que soit son école. L'arme le renforce :</p>
+{table(["Arme", "Bonus"], [["Bâton magique", "+15 % de puissance (+8 % par rareté), et +20 % de plus pour les sorts de son école"],
+                           ["Baguette", "+0 à +25 % de puissance selon la rareté, -25 % de coût en mana, -20 % de recharge, +20 % pour son école"],
+                           ["Sceptre de la Reine du Givre", "Bonus de bâton, +50 % pour les sorts de glace, ralentit fortement la cible visée"]])}
+<p class="small">Une touche « Lancer le sort actif sans bâton » existe dans Options → Commandes ; elle n'est pas assignée par défaut.</p>
+<h2>Galerie des effets</h2>
+<div class="gallery">{shot("manual_spell_fireball", "Boule de feu (projectile 3D).")}{shot("manual_spell_fire_nova", "Nova de feu.")}
+{shot("manual_spell_volcanic_eruption", "Explosion volcanique.")}{shot("manual_spell_frost_lance", "Lance de glace.")}
+{shot("manual_spell_glacial_spike", "Pic glaciaire.")}{shot("manual_spell_blizzard", "Blizzard.")}
+{shot("manual_spell_chain_lightning", "Chaîne électrique.")}{shot("manual_spell_lightning_strike", "Éclair.")}
+{shot("manual_spell_thunder_nova", "Explosion électrique.")}{shot("manual_spell_ball_lightning", "Boule de foudre.")}
+{shot("manual_spell_ice_armor", "Armure de glace (dôme).")}{shot("manual_spell_gaia_wrath", "Colère de Gaïa.")}
+{shot("manual_spell_natural_heal", "Soin naturel.")}{shot("manual_spell_summon_golem", "Gardien de pierre.")}
+{shot("manual_spell_dimensional_ray", "Rayon dimensionnel.")}{shot("manual_spell_singularity", "Singularité.")}
+{shot("manual_spell_gravity_well", "Puits gravitationnel.")}{shot("manual_spell_void_bolt", "Trait du néant.")}</div>
 <h2>Mana</h2>
 <p>100 points au départ, +5 par niveau, +20 par rang de <i>Réserve arcanique</i>, +25 % avec la spécialisation Mage, plus les
 artefacts (Prisme de mana +50, Couronne des Sept Mondes +100). La régénération augmente avec le niveau, le <i>Flux de mana</i>,
@@ -704,7 +724,8 @@ Chaque créature a un œuf d'apparition (onglet créatif « Créatures »).</p>
             ["manaRegenMultiplier", "1.0", "Régénération de mana"], ["spellDamageMultiplier", "1.0", "Puissance des sorts"],
             ["spellCooldownMultiplier", "1.0", "Recharge des sorts"], ["particleMultiplier", "1.0", "Densité des particules (0 = aucune)"],
             ["summonDurationSeconds", "30", "Durée des invocations"], ["spellFriendlyFire", "false", "Sorts sur les autres joueurs"],
-            ["rewardMultiplier", "1.0", "XP des créatures"], ["creatureSpawnMultiplier", "1.0", "Fréquence des créatures"]]
+            ["rewardMultiplier", "1.0", "XP des créatures"], ["creatureSpawnMultiplier", "1.0", "Fréquence des créatures"],
+            ["spellVisuals", "true", "Effets 3D des sorts (false = particules seules)"]]
     parts.append(sec("commandes", "Commandes, touches et configuration", f'''
 <p>Les commandes sont réservées aux opérateurs (<code>/op &lt;pseudo&gt;</code>).</p>
 {table(["Commande", "Effet"], [[f"<code>{c[0]}</code>", c[1]] for c in cmds])}
@@ -717,7 +738,8 @@ Chaque créature a un œuf d'apparition (onglet créatif « Créatures »).</p>
            ("Le portail ne fait rien.", "Utilisez une clé dimensionnelle en main (clic droit). À main vide, il ne sert qu'au retour depuis une dimension."),
            ("Je ne trouve pas de fragments.", "Ils sont plus rares que le fer : cherchez sous Y 16 dans les grottes. Le fragment ancien est le plus commun."),
            ("Comment aller dans le Néant ?", "Il faut les six cœurs des gardiens (prochaine version). Un opérateur peut utiliser /fdimension tp void."),
-           ("Mes sorts ne partent pas.", "Vérifiez le niveau requis, le mana et la recharge : le message s'affiche au-dessus de la barre d'objets."),
+           ("Comment lancer un sort ?", "Tenez un bâton magique ou une baguette et faites un clic droit : le sort actif part. Changez de sort avec G."),
+           ("Mes sorts ne partent pas.", "Tenez un bâton ou une baguette. Vérifiez aussi le niveau requis, le mana et la recharge : le message s'affiche au-dessus de la barre d'objets."),
            ("Trop de particules.", "Baissez particleMultiplier dans la configuration puis /fdimension reload."),
            ("Trop de monstres.", "Baissez creatureSpawnMultiplier, ou éclairez avec des torches (la lumière des blocs empêche leur apparition)."),
            ("Connexion refusée au serveur.", "Le client et le serveur doivent avoir exactement le même mod et la même Fabric API.")]

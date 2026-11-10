@@ -25,6 +25,10 @@ import net.minecraft.world.World;
 /** Projectile magique sans gravité, utilisé par les sorts de type BOLT et par les bâtons/baguettes. */
 public class MagicBoltEntity extends ThrownItemEntity {
     private static final int MAX_AGE = 100;
+    private static final net.minecraft.entity.data.TrackedData<Integer> SCHOOL = net.minecraft.entity.data.DataTracker.registerData(
+            MagicBoltEntity.class, net.minecraft.entity.data.TrackedDataHandlerRegistry.INTEGER);
+    private static final net.minecraft.entity.data.TrackedData<Float> SIZE = net.minecraft.entity.data.DataTracker.registerData(
+            MagicBoltEntity.class, net.minecraft.entity.data.TrackedDataHandlerRegistry.FLOAT);
     private String spellId = "fire_bolt";
     private float power = 5.0F;
     private float splash = 0.0F;
@@ -38,6 +42,28 @@ public class MagicBoltEntity extends ThrownItemEntity {
         this.spellId = spellId;
         this.power = power;
         this.splash = splash;
+        this.dataTracker.set(SCHOOL, Spells.get(spellId).school().ordinal());
+        this.dataTracker.set(SIZE, switch (spellId) {
+            case "fireball" -> 1.7F;
+            case "ball_lightning" -> 2.3F;
+            default -> splash > 0 ? 1.4F : 1.0F;
+        });
+    }
+
+    @Override
+    protected void initDataTracker(net.minecraft.entity.data.DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(SCHOOL, 0).add(SIZE, 1.0F);
+    }
+
+    /** École synchronisée (rendu 3D côté client). */
+    public SpellSchool school() {
+        SpellSchool[] all = SpellSchool.values();
+        return all[Math.max(0, Math.min(all.length - 1, dataTracker.get(SCHOOL)))];
+    }
+
+    public float size() {
+        return dataTracker.get(SIZE);
     }
 
     public static Item boltItem(SpellSchool school) {
@@ -59,9 +85,7 @@ public class MagicBoltEntity extends ThrownItemEntity {
         super.tick();
         World world = getEntityWorld();
         if (world.isClient()) {
-            Spell spell = Spells.get(spellId);
-            world.addParticleClient(SpellExecutor.particle(spell != null ? spell.school() : SpellSchool.FIRE),
-                    getX(), getY(), getZ(), 0, 0, 0);
+            world.addParticleClient(SpellExecutor.particle(school()), getX(), getY(), getZ(), 0, 0, 0);
         } else if (age > MAX_AGE) {
             discard();
         }
@@ -93,6 +117,8 @@ public class MagicBoltEntity extends ThrownItemEntity {
         if (getEntityWorld() instanceof ServerWorld world) {
             Spell spell = Spells.get(spellId);
             if (spell != null) {
+                com.forgotten.dimensions.magic.SpellVisuals.spawn(world, com.forgotten.dimensions.magic.SpellVisual.EXPLOSION,
+                        spell.school(), hit.getPos(), splash > 0 ? splash : 0.9F * size(), splash > 0 ? 16 : 10);
                 if (splash > 0 && getOwner() instanceof ServerPlayerEntity caster) {
                     SpellExecutor.areaDamage(caster, spell, hit.getPos(), splash, power * 0.6F);
                 } else {

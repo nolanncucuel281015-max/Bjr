@@ -35,7 +35,9 @@ public final class FdTooltips {
             if (item instanceof MagicWeaponItem m) {
                 extra.add(Text.translatable("tooltip.forgotten_dimensions.magic_weapon",
                         Text.translatable(m.school().translationKey()).formatted(m.school().formatting),
-                        Math.round(m.manaCost()), String.format("%.1f", m.boltPower())).formatted(Formatting.DARK_AQUA));
+                        Math.round((m.powerBonus() - 1F) * 100F), Math.round((m.affinityBonus() - 1F) * 100F)).formatted(Formatting.DARK_AQUA));
+                if (!m.isStaff()) extra.add(Text.translatable("tooltip.forgotten_dimensions.wand_bonus").formatted(Formatting.DARK_AQUA));
+                extra.add(Text.translatable("tooltip.forgotten_dimensions.cast_hint").formatted(Formatting.GRAY, Formatting.ITALIC));
             } else if (item instanceof FdBowItem b) {
                 extra.add(Text.translatable("tooltip.forgotten_dimensions.arrow_damage", String.format("%.1f", b.arrowDamage())).formatted(Formatting.DARK_AQUA));
             } else if (item instanceof FdCrossbowItem c) {

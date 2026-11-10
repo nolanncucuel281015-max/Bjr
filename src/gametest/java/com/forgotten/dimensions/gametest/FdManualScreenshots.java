@@ -169,26 +169,59 @@ public class FdManualScreenshots implements FabricClientGameTest {
                 sp.getServer().runCommand("kill @e[type=!player]");
             }
 
-            // ---------------------------------------------------------- magie
+            // ---------------------------------------------------------- magie : vitrine des effets 3D
             sp.getServer().runOnServer(server -> com.forgotten.dimensions.dimension.DimensionTravel.travelTo(
-                    server.getPlayerManager().getPlayerList().get(0), "eternal"));
-            ctx.waitTicks(100);
-            sp.getServer().runCommand("summon forgotten_dimensions:phantom_wolf ~ ~ ~");
-            sp.getServer().runOnServer(server -> {
-                var p = server.getPlayerManager().getPlayerList().get(0);
-                p.setAttached(com.forgotten.dimensions.registry.ModAttachments.MANA, new com.forgotten.dimensions.magic.ManaState(400F, 400F));
-                p.setPitch(20F);
-                com.forgotten.dimensions.magic.SpellExecutor.execute(p, com.forgotten.dimensions.magic.Spells.get("fire_nova"), 8F);
-            });
-            ctx.waitTicks(3);
-            shot(ctx, "spell_fire_nova", false);
-            ctx.waitTicks(60);
-            sp.getServer().runOnServer(server -> {
-                var p = server.getPlayerManager().getPlayerList().get(0);
-                com.forgotten.dimensions.magic.SpellExecutor.execute(p, com.forgotten.dimensions.magic.Spells.get("frost_nova"), 8F);
-            });
-            ctx.waitTicks(3);
-            shot(ctx, "spell_frost_nova", false);
+                    server.getPlayerManager().getPlayerList().get(0), "celestial"));
+            ctx.waitTicks(80);
+            sp.getServer().runCommand("fdimension level set @p 100");
+            cmd(sp, "fill ~-16 ~-1 ~-6 ~16 ~-1 ~30 forgotten_dimensions:polished_cloudstone");
+            cmd(sp, "fill ~-16 ~ ~-6 ~16 ~14 ~30 air");
+            cmd(sp, "tp @s ~ ~ ~ 0 8");
+            for (int i = 0; i < 3; i++) {
+                cmd(sp, "summon zombie ~" + (i * 4 - 4) + " ~ ~11 {NoAI:1b,PersistenceRequired:1b,Silent:1b,Rotation:[180f,0f],"
+                        + "attributes:[{id:\"minecraft:max_health\",base:2000d}],Health:2000f}");
+            }
+            ctx.runOnClient(c -> c.options.setPerspective(Perspective.THIRD_PERSON_BACK));
+            ctx.waitTicks(30);
+            String[][] showcase = {
+                    {"fireball", "4"}, {"fire_nova", "5"}, {"volcanic_eruption", "8"}, {"meteor", "18"}, {"meteor_impact", "0"},
+                    {"frost_lance", "3"}, {"glacial_spike", "7"}, {"blizzard", "25"}, {"chain_lightning", "3"},
+                    {"lightning_strike", "4"}, {"thunder_nova", "6"}, {"ice_armor", "12"}, {"gaia_wrath", "7"},
+                    {"dimensional_ray", "3"}, {"gravity_well", "20"}, {"summon_golem", "10"},
+                    {"natural_heal", "10"}, {"ball_lightning", "6"}, {"void_bolt", "4"}, {"ice_shard", "4"},
+                    // en dernier : son effondrement différé déborderait sur le cliché suivant
+                    {"singularity", "30"}};
+            for (String[] entry : showcase) {
+                String id = entry[0];
+                int wait = Integer.parseInt(entry[1]);
+                if (id.equals("meteor_impact")) {
+                    ctx.waitTicks(16);
+                    shot(ctx, "spell_meteor_impact", true);
+                    continue;
+                }
+                sp.getServer().runCommand("kill @e[type=forgotten_dimensions:spell_effect]");
+                sp.getServer().runCommand("kill @e[type=forgotten_dimensions:magic_bolt]");
+                sp.getServer().runCommand("kill @e[type=iron_golem]");
+                // La visée est refixée avant chaque sort : sous écran virtuel, la souris fait dériver la caméra.
+                cmd(sp, "tp @s ~ ~ ~ 0 6");
+                ctx.waitTicks(2);
+                sp.getServer().runOnServer(server -> {
+                    var p = server.getPlayerManager().getPlayerList().get(0);
+                    // Visée serveur déterministe (le client peut renvoyer une rotation dérivée).
+                    // On vise le zombie de droite : rayons et chaînes restent visibles à côté du personnage.
+                    p.setYaw(-20F);
+                    p.setHeadYaw(-20F);
+                    p.setPitch(3F);
+                    p.setAttached(com.forgotten.dimensions.registry.ModAttachments.MANA,
+                            new com.forgotten.dimensions.magic.ManaState(900F, 900F));
+                    var spell = com.forgotten.dimensions.magic.Spells.get(id);
+                    com.forgotten.dimensions.magic.SpellExecutor.execute(p, spell, Math.max(4F, spell.power()));
+                });
+                ctx.waitTicks(Math.max(1, wait));
+                shot(ctx, "spell_" + id, true);
+                if (id.equals("gravity_well")) ctx.waitTicks(110); // laisse le puits se refermer hors champ des clichés suivants
+            }
+            sp.getServer().runCommand("kill @e[type=!player]");
             ctx.runOnClient(c -> c.options.setPerspective(Perspective.FIRST_PERSON));
         }
     }

@@ -6,7 +6,6 @@ import com.forgotten.dimensions.client.tooltip.FdTooltips;
 import com.forgotten.dimensions.registry.ModEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
-import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 public final class ForgottenDimensionsClient implements ClientModInitializer {
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -22,7 +21,9 @@ public final class ForgottenDimensionsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        EntityRendererFactories.register(ModEntities.MAGIC_BOLT, FlyingItemEntityRenderer::new);
+        com.forgotten.dimensions.client.render.spell.SpellFxDraw.registerLayer();
+        EntityRendererFactories.register(ModEntities.MAGIC_BOLT, com.forgotten.dimensions.client.render.spell.MagicBoltRenderer::new);
+        EntityRendererFactories.register(ModEntities.SPELL_EFFECT, com.forgotten.dimensions.client.render.spell.SpellEffectRenderer::new);
         com.forgotten.dimensions.registry.ModCreatures.all().forEach((id, type) -> {
             var def = com.forgotten.dimensions.registry.ModCreatures.definitions().get(id);
             com.forgotten.dimensions.client.render.CreatureModels.layer(def.archetype());

@@ -35,7 +35,7 @@ public final class RpgHud {
         ManaState mana = ClientData.mana();
         int x = 4, y = 4;
 
-        ctx.fill(x - 2, y - 2, x + W + 2, y + 44, 0x88000000);
+        ctx.fill(x - 2, y - 2, x + W + 2, y + 54, 0x88000000);
         ctx.drawTextWithShadow(tr, Text.translatable("hud.forgotten_dimensions.level", p.level()), x, y, 0xFFFFD84A);
         if (p.skillPoints() > 0) {
             Text pts = Text.translatable("hud.forgotten_dimensions.points", p.skillPoints());
@@ -61,6 +61,10 @@ public final class RpgHud {
                 String s = String.format("%.1fs", cd / 20.0);
                 ctx.drawTextWithShadow(tr, s, x + W - tr.getWidth(s), y + 30, 0xFFFF6060);
             }
+            boolean holdingStaff = client.player.getMainHandStack().getItem() instanceof com.forgotten.dimensions.item.MagicWeaponItem
+                    || client.player.getOffHandStack().getItem() instanceof com.forgotten.dimensions.item.MagicWeaponItem;
+            Text hint = Text.translatable(holdingStaff ? "hud.forgotten_dimensions.hint_cast" : "hud.forgotten_dimensions.hint_staff");
+            ctx.drawTextWithShadow(tr, hint, x, y + 42, holdingStaff ? 0xFFB8E0FF : 0xFF909090);
         }
     }
 

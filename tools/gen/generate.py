@@ -36,6 +36,7 @@ OWNED_DIRS = [
     os.path.join(ASSETS, "textures", "block"), os.path.join(ASSETS, "textures", "item"),
     os.path.join(ASSETS, "textures", "entity", "equipment"), os.path.join(ASSETS, "equipment"),
     os.path.join(ASSETS, "textures", "entity", "creature"), os.path.join(ASSETS, "textures", "entity", "armor_detail"),
+    os.path.join(ASSETS, "textures", "entity", "spell"),
     os.path.join(DATA, "recipe"), os.path.join(DATA, "loot_table", "blocks"), os.path.join(DATA, "tags"),
     os.path.join(DATA, "loot_table", "entities"), os.path.join(ASSETS, "fd_entity_models"),
     os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"), os.path.join(DATA, "worldgen"),
@@ -723,6 +724,11 @@ for school, rgb in (("fire", (0xFF, 0x70, 0x20)), ("ice", (0xA0, 0xE8, 0xFF)), (
 # ===========================================================================
 X.pack_icon().save(os.path.join(ASSETS, "icon.png"))
 
+# Textures des effets 3D des sorts
+import spellfx as SFX  # noqa: E402
+for _n in SFX.write(os.path.join(ASSETS, "textures", "entity", "spell")):
+    TEXTURES_DONE.add("entity/spell/" + _n)
+
 # Tags divers utilisés par le code
 for d in C.DIMENSIONS:
     tag_item(f"{NS}:ores_drops", rid(f"{d['id']}_fragment"))
@@ -777,8 +783,18 @@ for tag in ITEM_TAGS:
 for key, (en, fr) in L.UI.items():
     LANG_EN[key] = en
     LANG_FR[key] = fr
+import re as _re  # noqa: E402
+
+_PCT = _re.compile(r"%%|%(?:\d+\$)?s|%")
+
+
+def mc_escape(text):
+    """Minecraft refuse tout « % » isolé dans une traduction (il affiche alors la clé brute) : on le double."""
+    return _PCT.sub(lambda m: m.group(0) if m.group(0) != "%" else "%%", text)
+
+
 for code, table in (("en_us", LANG_EN), ("fr_fr", LANG_FR)):
-    wjson(os.path.join(ASSETS, "lang", code + ".json"), dict(sorted(table.items())))
+    wjson(os.path.join(ASSETS, "lang", code + ".json"), {k: mc_escape(v) for k, v in sorted(table.items())})
 
 for name, r in RECIPES.items():
     wjson(os.path.join(DATA, "recipe", name + ".json"), r)

@@ -162,8 +162,8 @@ tant qu'il n'existe aucun boss à invoquer.
 
 | Touche | Action |
 |---|---|
-| `R` | Lancer le sort actif |
-| `G` | Passer au sort débloqué suivant |
+| **Clic droit** avec un bâton ou une baguette | Lancer le sort actif |
+| `G` | Changer de sort (sort débloqué suivant) |
 | `K` | Arbre de compétences |
 | `B` | Livre de magie |
 
@@ -341,6 +341,19 @@ Ils s'obtiennent aujourd'hui par fabrication ; les boss en lâcheront à partir 
 
 ### Magie (50 sorts, 5 écoles)
 
+**Lancer un sort** : choisissez-le avec `G` (ou dans le livre de magie, `B`), puis faites un **clic droit
+avec un bâton magique ou une baguette**. Le bâton augmente la puissance (+20 % de plus pour les sorts
+de son école), la baguette réduit le coût en mana (-25 %) et la recharge (-20 %). Une touche « Lancer
+sans bâton » existe dans les options, non assignée par défaut.
+
+**Effets 3D** : chaque sort a un rendu en 3D lumineux et translucide (`SpellEffectEntity`,
+`SpellEffectRenderer`) : cercle runique sous le lanceur à chaque incantation, ondes de choc, sphères
+d'explosion à éclats, piliers d'énergie à hélice, météores enflammés avec traînée et cercle d'alerte,
+pics de glace ou d'épines qui sortent du sol, zones runiques avec muraille d'énergie, rayons à double
+hélice, dômes protecteurs, trou noir à disque d'accrétion, spirales de soin, vortex de téléportation,
+cercles d'invocation. Les projectiles sont aussi en 3D (boule de feu, cristal de glace, orbe électrique,
+épine, sphère du néant) avec traînée. Option `spellVisuals` pour les désactiver.
+
 Feu, Glace, Foudre, Nature, Néant : 10 sorts chacune (projectiles, rayons, novas, zones
 persistantes, météores différés, chaînes d'éclairs, téléportation, invocations de loups et de
 golem, soins, renforcements…). Chaque sort a un coût en mana, une recharge, une puissance, un
@@ -387,6 +400,7 @@ Fichier `config/forgotten_dimensions.json` (créé au premier lancement, recharg
 | `spellFriendlyFire` | false | Les sorts offensifs touchent-ils les autres joueurs |
 | `rewardMultiplier` | 1.0 | Expérience des créatures tuées |
 | `creatureSpawnMultiplier` | 1.0 | Fréquence d'apparition naturelle des créatures (0 = aucune) |
+| `spellVisuals` | true | Effets 3D des sorts (false = particules seules) |
 
 Le réglage de fréquence des structures sera ajouté avec la phase 7 (aucune option factice n'est
 exposée).

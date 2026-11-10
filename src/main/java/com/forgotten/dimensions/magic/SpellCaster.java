@@ -49,7 +49,16 @@ public final class SpellCaster {
                 SkillTree.MAGE.id().equals(p.specialization()), FdConfig.get().spellDamageMultiplier);
     }
 
+    /** Bonus d'arme appliqués à un lancement (bâton, baguette) ; NONE sans arme. */
+    public record CastModifiers(float power, float mana, float cooldown) {
+        public static final CastModifiers NONE = new CastModifiers(1F, 1F, 1F);
+    }
+
     public static Result tryCast(ServerPlayerEntity player, String spellId) {
+        return tryCast(player, spellId, CastModifiers.NONE);
+    }
+
+    public static Result tryCast(ServerPlayerEntity player, String spellId, CastModifiers mods) {
         Spell spell = Spells.get(spellId);
         if (spell == null) return Result.UNKNOWN;
         PlayerProgress progress = ProgressionManager.get(player);
@@ -59,14 +68,14 @@ public final class SpellCaster {
         long now = player.getEntityWorld().getTime();
         SpellCooldowns cds = player.getAttachedOrElse(ModAttachments.SPELL_COOLDOWNS, SpellCooldowns.EMPTY);
         if (cds.remaining(spell.id(), now) > 0) return feedback(player, Result.COOLDOWN, spell);
-        float cost = spell.mana() * manaCostMultiplier(player, progress);
+        float cost = spell.mana() * manaCostMultiplier(player, progress) * mods.mana();
         if (ManaManager.get(player).current() < cost) return feedback(player, Result.NO_MANA, spell);
 
-        float power = spell.power() * powerMultiplier(player, progress, spell.school());
+        float power = spell.power() * powerMultiplier(player, progress, spell.school()) * mods.power();
         if (!SpellExecutor.execute(player, spell, power)) return feedback(player, Result.FAILED, spell);
 
         ManaManager.consume(player, cost);
-        int cd = Math.max(5, Math.round(spell.cooldown() * cooldownMultiplier(player, progress)));
+        int cd = Math.max(5, Math.round(spell.cooldown() * cooldownMultiplier(player, progress) * mods.cooldown()));
         player.setAttached(ModAttachments.SPELL_COOLDOWNS, cds.with(spell.id(), now + cd, now));
         ProgressionManager.set(player, ProgressionManager.get(player).withSchoolCast(spell.school().id()));
         ProgressionManager.addXp(player, 1 + Math.round(spell.mana() / 20F), XpSource.MAGIC);

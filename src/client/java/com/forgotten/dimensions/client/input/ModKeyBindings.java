@@ -21,7 +21,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Raccourcis : R lancer le sort, G sort suivant, K compétences, B grimoire (modifiables dans les options). */
+/** Raccourcis : G sort suivant, K compétences, B grimoire ; lancer = clic droit avec un bâton ou une baguette. */
 public final class ModKeyBindings {
     public static final KeyBinding.Category CATEGORY = KeyBinding.Category.create(ForgottenDimensions.id("main"));
     public static KeyBinding castSpell;
@@ -32,7 +32,8 @@ public final class ModKeyBindings {
     private ModKeyBindings() {}
 
     public static void register() {
-        castSpell = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.cast_spell", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, CATEGORY));
+        // Lancer : clic droit avec un bâton ou une baguette. Cette touche (sans arme) est optionnelle et non assignée.
+        castSpell = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.cast_spell", InputUtil.Type.KEYSYM, InputUtil.UNKNOWN_KEY.getCode(), CATEGORY));
         nextSpell = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.next_spell", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, CATEGORY));
         openSkills = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.open_skills", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY));
         openSpellBook = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.open_spell_book", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_B, CATEGORY));

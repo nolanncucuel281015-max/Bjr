@@ -310,4 +310,55 @@ public class FdGameTests {
         ctx.assertTrue(w2.getTarget() == pig, "la meute n'a pas été alertée");
         ctx.complete();
     }
+
+    // ------------------------------------------------------------------ Sorts : bâton et effets 3D
+
+    @GameTest
+    public void staffRightClickCastsSelectedSpell(TestContext ctx) {
+        FakePlayer p = player(ctx, "fd_staff");
+        ProgressionManager.setLevel(p, 20);
+        ProgressionManager.set(p, ProgressionManager.get(p).withSelectedSpell("frost_lance"));
+        p.setAttached(ModAttachments.MANA, new ManaState(200F, 200F));
+        ItemStack staff = new ItemStack(ModItems.get("frost_steel_staff"));
+        p.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, staff);
+        staff.getItem().use(ctx.getWorld(), p, net.minecraft.util.Hand.MAIN_HAND);
+        long now = ctx.getWorld().getTime();
+        var cds = p.getAttached(ModAttachments.SPELL_COOLDOWNS);
+        ctx.assertTrue(cds != null && cds.remaining("frost_lance", now) > 0, "le bâton n'a pas lancé le sort actif (frost_lance)");
+        ctx.assertEquals(200F - 18F, ManaManager.get(p).current(), "mana du sort actif consommé");
+        // Changer de sort (G) : le clic droit suivant lance le nouveau sort.
+        ProgressionManager.set(p, ProgressionManager.get(p).withSelectedSpell("fire_bolt"));
+        p.getItemCooldownManager().remove(p.getItemCooldownManager().getGroup(staff));
+        staff.getItem().use(ctx.getWorld(), p, net.minecraft.util.Hand.MAIN_HAND);
+        cds = p.getAttached(ModAttachments.SPELL_COOLDOWNS);
+        ctx.assertTrue(cds.remaining("fire_bolt", now) > 0, "après changement de sort, le bâton doit lancer fire_bolt");
+        // Baguette : -25 % de mana.
+        ItemStack wand = new ItemStack(ModItems.get("frost_steel_wand"));
+        p.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, wand);
+        ProgressionManager.set(p, ProgressionManager.get(p).withSelectedSpell("ice_shard"));
+        float before = ManaManager.get(p).current();
+        wand.getItem().use(ctx.getWorld(), p, net.minecraft.util.Hand.MAIN_HAND);
+        ctx.assertEquals(before - 7.5F, ManaManager.get(p).current(), "baguette : 75 % du coût");
+        ctx.getWorld().getEntitiesByType(ModEntities.MAGIC_BOLT, new Box(p.getBlockPos()).expand(8), e -> true).forEach(net.minecraft.entity.Entity::discard);
+        ctx.complete();
+    }
+
+    @GameTest(maxTicks = 120)
+    public void spellsSpawnTheir3DEffects(TestContext ctx) {
+        FakePlayer p = player(ctx, "fd_fx");
+        com.forgotten.dimensions.magic.SpellExecutor.execute(p, Spells.get("fire_nova"), 5F);
+        com.forgotten.dimensions.magic.SpellExecutor.execute(p, Spells.get("ice_armor"), 0F);
+        var fx = ctx.getWorld().getEntitiesByType(ModEntities.SPELL_EFFECT, new Box(p.getBlockPos()).expand(6), e -> true);
+        java.util.Set<com.forgotten.dimensions.magic.SpellVisual> kinds = new java.util.HashSet<>();
+        fx.forEach(e -> kinds.add(e.kind()));
+        ctx.assertTrue(kinds.contains(com.forgotten.dimensions.magic.SpellVisual.CAST_CIRCLE), "cercle d'incantation");
+        ctx.assertTrue(kinds.contains(com.forgotten.dimensions.magic.SpellVisual.NOVA), "onde de choc de la nova");
+        ctx.assertTrue(kinds.contains(com.forgotten.dimensions.magic.SpellVisual.BARRIER), "dôme de l'armure de glace");
+        ctx.assertTrue(!ModEntities.SPELL_EFFECT.isSaveable(), "les effets visuels ne sont jamais sauvegardés");
+        ctx.waitAndRun(70, () -> {
+            int left = ctx.getWorld().getEntitiesByType(ModEntities.SPELL_EFFECT, new Box(p.getBlockPos()).expand(6), e -> true).size();
+            ctx.assertEquals(0, left, "les effets disparaissent seuls après leur durée");
+            ctx.complete();
+        });
+    }
 }

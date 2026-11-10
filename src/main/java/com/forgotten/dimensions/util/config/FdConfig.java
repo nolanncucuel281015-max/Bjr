@@ -32,6 +32,8 @@ public final class FdConfig {
         public double spellCooldownMultiplier = 1.0;
         /** Multiplicateur des particules générées par le serveur (0 = aucune). */
         public double particleMultiplier = 1.0;
+        /** Effets 3D des sorts (cercles runiques, explosions, rayons...). false = particules seules. */
+        public boolean spellVisuals = true;
         /** Durée de base des invocations, en secondes. */
         public int summonDurationSeconds = 30;
         /** Les sorts offensifs touchent-ils les autres joueurs ? */

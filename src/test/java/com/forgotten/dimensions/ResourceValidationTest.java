@@ -62,6 +62,14 @@ class ResourceValidationTest {
             }
         }
         assertEquals(fr.keySet(), en.keySet(), "les fichiers FR et EN doivent avoir les mêmes clés");
+        // Minecraft rejette tout « % » isolé (TranslationException) : seuls %s, %1$s et %% sont admis.
+        java.util.regex.Pattern lone = java.util.regex.Pattern.compile("%(?!%|s|\\d+\\$s)");
+        for (var lang : List.of(fr, en)) {
+            for (var e : lang.entrySet()) {
+                String v = e.getValue().getAsString().replace("%%", "");
+                assertFalse(lone.matcher(v).find(), "« % » isolé dans " + e.getKey() + " : " + v);
+            }
+        }
     }
 
     @Test

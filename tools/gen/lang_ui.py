@@ -38,7 +38,7 @@ UI = {
     f"spec.{NS}.summoner.desc": ("Specialization: summons last 50% longer, +1 wolf.", "Spécialisation : invocations 50 % plus longues, +1 loup."),
     # Touches
     f"key.category.{NS}.main": ("Forgotten Dimensions", "Dimensions Oubliées"),
-    f"key.{NS}.cast_spell": ("Cast selected spell", "Lancer le sort actif"),
+    f"key.{NS}.cast_spell": ("Cast selected spell without a staff (optional)", "Lancer le sort actif sans bâton (optionnel)"),
     f"key.{NS}.next_spell": ("Next spell", "Sort suivant"),
     f"key.{NS}.open_skills": ("Skill tree", "Arbre de compétences"),
     f"key.{NS}.open_spell_book": ("Spell book", "Livre de magie"),
@@ -55,7 +55,11 @@ UI = {
     f"screen.{NS}.mastery": ("%s mastery: %s/10 (%s casts)", "Maîtrise %s : %s/10 (%s sorts lancés)"),
     f"screen.{NS}.spell_stats": ("Mana: %s — Cooldown: %ss — Power: %s", "Mana : %s — Recharge : %s s — Puissance : %s"),
     # Infobulles
-    f"tooltip.{NS}.magic_weapon": ("School: %s — Mana: %s — Power: %s", "École : %s — Mana : %s — Puissance : %s"),
+    f"tooltip.{NS}.magic_weapon": ("School: %s — +%s%% spell power, +%s%% more for this school", "École : %s — +%s %% de puissance des sorts, +%s %% de plus pour cette école"),
+    f"tooltip.{NS}.wand_bonus": ("Wand: -25% mana cost, -20% cooldown", "Baguette : -25 % de coût en mana, -20 % de recharge"),
+    f"tooltip.{NS}.cast_hint": ("Right-click: cast the active spell (G to change)", "Clic droit : lance le sort actif (G pour changer)"),
+    f"hud.{NS}.hint_cast": ("Right-click: cast · G: change", "Clic droit : lancer · G : changer"),
+    f"hud.{NS}.hint_staff": ("Hold a staff to cast · G: change", "Prenez un bâton pour lancer · G : changer"),
     f"tooltip.{NS}.arrow_damage": ("Base projectile damage: %s", "Dégâts de base du projectile : %s"),
     f"tooltip.{NS}.set_bonus": ("Full set: %s", "Ensemble complet : %s"),
     f"armor_bonus.{NS}.slow_falling": ("slow falling while falling", "chute lente pendant les chutes"),
