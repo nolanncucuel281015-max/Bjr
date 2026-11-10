@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 import net.fabricmc.fabric.api.client.gametest.v1.screenshot.TestScreenshotOptions;
 import net.minecraft.client.option.Perspective;
+import net.minecraft.util.math.Vec3d;
 
 /** Captures d'écran du manuel (docs/manuel) prises dans le vrai jeu : objets 3D, portail, dimensions, créatures. */
 public class FdManualScreenshots implements FabricClientGameTest {
@@ -221,6 +222,87 @@ public class FdManualScreenshots implements FabricClientGameTest {
                 shot(ctx, "spell_" + id, true);
                 if (id.equals("gravity_well")) ctx.waitTicks(110); // laisse le puits se refermer hors champ des clichés suivants
             }
+            sp.getServer().runCommand("kill @e[type=!player]");
+            ctx.runOnClient(c -> c.options.setPerspective(Perspective.FIRST_PERSON));
+
+            // ---------------------------------------------------------- invocations : modèles 3D
+            ctx.waitTicks(90); // fin de l'effondrement de la singularité
+            sp.getServer().runCommand("kill @e[type=!player]");
+            cmd(sp, "tp @s ~ ~ ~ 0 -4");
+            ctx.waitTicks(5);
+            Vec3d origin = sp.getServer().computeOnServer(server -> server.getPlayerManager().getPlayerList().get(0).getEntityPos());
+            com.forgotten.dimensions.magic.SummonType[] row = {
+                    com.forgotten.dimensions.magic.SummonType.SPIRIT_WOLF, com.forgotten.dimensions.magic.SummonType.FIRE_ELEMENTAL,
+                    com.forgotten.dimensions.magic.SummonType.STONE_GUARDIAN, com.forgotten.dimensions.magic.SummonType.FROST_SENTINEL,
+                    com.forgotten.dimensions.magic.SummonType.VOID_WRAITH, com.forgotten.dimensions.magic.SummonType.STORM_SPIRIT,
+                    com.forgotten.dimensions.magic.SummonType.PHOENIX};
+            double[][] spots = {{-6.5, 0, 8}, {-4, 1.2, 8}, {-1.5, 0, 8.5}, {1.5, 0, 8.5}, {4, 1.0, 8}, {6.5, 1.2, 8}, {0, 4.2, 12}};
+            sp.getServer().runOnServer(server -> {
+                var p = server.getPlayerManager().getPlayerList().get(0);
+                var world = p.getEntityWorld();
+                for (int i = 0; i < row.length; i++) {
+                    var e = com.forgotten.dimensions.entity.summon.SummonEntities.get(row[i]).create(world, net.minecraft.entity.SpawnReason.COMMAND);
+                    double[] at = spots[i];
+                    e.refreshPositionAndAngles(origin.x + at[0], origin.y + at[1], origin.z + at[2], 180F, 0F);
+                    e.setHeadYaw(180F);
+                    e.setBodyYaw(180F);
+                    e.bind(p, 5F, 100);
+                    e.setAiDisabled(true);
+                    world.spawnEntity(e);
+                }
+            });
+            ctx.waitTicks(30);
+            shot(ctx, "summon_lineup", true);
+            // Gros plans : chaque créature seule, de trois quarts, face à la caméra.
+            for (com.forgotten.dimensions.magic.SummonType t : row) {
+                // Retrait sans « kill » : pas de nuage de mort devant la créature suivante.
+                sp.getServer().runOnServer(server -> server.getPlayerManager().getPlayerList().get(0).getEntityWorld()
+                        .getEntitiesByClass(com.forgotten.dimensions.entity.summon.SummonedCreatureEntity.class,
+                                new net.minecraft.util.math.Box(origin, origin).expand(40), e -> true)
+                        .forEach(net.minecraft.entity.Entity::discard));
+                double dist = switch (t) {
+                    case STONE_GUARDIAN, FROST_SENTINEL -> 4.5;
+                    case PHOENIX -> 5.0;
+                    case SPIRIT_WOLF -> 2.5;
+                    case STORM_SPIRIT -> 2.7;
+                    default -> 3.1;
+                };
+                double fy = t.flying ? (t == com.forgotten.dimensions.magic.SummonType.PHOENIX ? 1.6 : 0.6) : 0;
+                float pitch = t == com.forgotten.dimensions.magic.SummonType.SPIRIT_WOLF ? 14F : t.flying ? 2F : 0F;
+                cmd(sp, String.format(java.util.Locale.ROOT, "tp @s %.2f %.2f %.2f 0 %.1f", origin.x, origin.y, origin.z, pitch));
+                sp.getServer().runOnServer(server -> {
+                    var p = server.getPlayerManager().getPlayerList().get(0);
+                    var world = p.getEntityWorld();
+                    var e = com.forgotten.dimensions.entity.summon.SummonEntities.get(t).create(world, net.minecraft.entity.SpawnReason.COMMAND);
+                    e.refreshPositionAndAngles(origin.x, origin.y + fy, origin.z + dist, 150F, 0F);
+                    e.setHeadYaw(150F);
+                    e.setBodyYaw(150F);
+                    e.bind(p, 5F, 100);
+                    e.setAiDisabled(true);
+                    world.spawnEntity(e);
+                });
+                ctx.waitTicks(30);
+                shot(ctx, "summon_" + t.id, true);
+            }
+            // Incantation d'une invocation (cercle runique, colonne d'énergie) et HUD en mode invocation.
+            sp.getServer().runCommand("kill @e[type=!player]");
+            cmd(sp, String.format(java.util.Locale.ROOT, "tp @s %.2f %.2f %.2f 0 10", origin.x, origin.y, origin.z));
+            sp.getServer().runCommand("item replace entity @p weapon.mainhand with forgotten_dimensions:frost_steel_staff");
+            ctx.runOnClient(c -> c.options.setPerspective(Perspective.THIRD_PERSON_BACK));
+            ctx.waitTicks(10);
+            sp.getServer().runOnServer(server -> {
+                var p = server.getPlayerManager().getPlayerList().get(0);
+                p.setYaw(0F);
+                p.setPitch(10F);
+                p.setAttached(com.forgotten.dimensions.registry.ModAttachments.MANA, new com.forgotten.dimensions.magic.ManaState(900F, 900F));
+                com.forgotten.dimensions.progression.ProgressionManager.set(p,
+                        com.forgotten.dimensions.progression.ProgressionManager.get(p).withSelectedSpell("summon_frost_sentinel"));
+                com.forgotten.dimensions.magic.SpellExecutor.execute(p, com.forgotten.dimensions.magic.Spells.get("summon_frost_sentinel"), 9F);
+            });
+            ctx.waitTicks(7);
+            shot(ctx, "summon_cast", false);
+            ctx.waitTicks(40);
+            shot(ctx, "summon_cast_after", false);
             sp.getServer().runCommand("kill @e[type=!player]");
             ctx.runOnClient(c -> c.options.setPerspective(Perspective.FIRST_PERSON));
         }

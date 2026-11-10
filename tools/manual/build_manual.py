@@ -339,7 +339,7 @@ def build():
 <div class="cover-kicker">Mod RPG pour Minecraft Java 1.21.11 · Fabric</div>
 <div class="cover-title">Les Dimensions<br>Oubliées</div>
 <div class="cover-sub">Manuel du joueur</div>
-<div class="cover-meta">Sept dimensions · 60 créatures · 50 sorts · 100 armes · 30 armures · 30 artefacts</div></div></section>''')
+<div class="cover-meta">Sept dimensions · 60 créatures · 55 sorts · 100 armes · 30 armures · 30 artefacts</div></div></section>''')
 
     toc = [("histoire", "L'histoire des Anciens Architectes"), ("installation", "Installation"), ("premiers-pas", "Premiers pas"),
            ("voyage", "Voyager dans les dimensions"), ("dimensions", "Les sept dimensions"), ("progression", "Progression RPG"),
@@ -408,10 +408,12 @@ sauvegardée avec chaque joueur.</p>'''))
 <li><b>Barre d'expérience</b> vers le niveau suivant.</li>
 <li><b>Mana</b> actuel / maximum, régénéré en continu.</li>
 <li><b>Sort actif</b> et son temps de recharge, avec le rappel des commandes : <b>clic droit avec un bâton ou une
-baguette</b> pour le lancer, <kbd>G</kbd> pour changer.</li></ol>
+baguette</b> pour le lancer, <kbd>G</kbd> pour changer, et le <b>grimoire actif</b> (« ⚔ Attaque » ou « ✦ Invocation »,
+<kbd>V</kbd> pour basculer).</li></ol>
 </div><div>
 <h2>Les touches</h2>
-{table(["Touche", "Action"], [["<b>Clic droit</b> (bâton ou baguette en main)", "Lancer le sort actif"], ["<kbd>G</kbd>", "Changer de sort (sort débloqué suivant)"],
+{table(["Touche", "Action"], [["<b>Clic droit</b> (bâton ou baguette en main)", "Lancer le sort actif"], ["<kbd>G</kbd>", "Changer de sort (sort suivant du grimoire actif)"],
+                             ["<kbd>V</kbd>", "Basculer sorts d'attaque / sorts d'invocation"],
                              ["<kbd>K</kbd>", "Arbre de compétences"], ["<kbd>B</kbd>", "Livre de magie"]])}
 <p class="small">Modifiables dans Options → Commandes → « Dimensions Oubliées ».</p>
 <h2>Gagner de l'expérience</h2>
@@ -560,7 +562,7 @@ préalable. Un opérateur peut rembourser tous les points avec <code>/fdimension
         spell_tables += (f'<h3 style="color:{SCHOOL_COLOR[school]}">{SCHOOL_FR[school]}</h3>'
                          + table(["Sort", "Requis", "Mana", "Recharge", "Puissance", "Effet"], rows, "compact"))
     parts.append(sec("magie", "La magie", f'''
-<p class="lead">Cinq écoles de magie, dix sorts chacune. Choisissez le sort actif dans le <b>Livre de magie</b> (touche
+<p class="lead">Cinq écoles de magie : 48 sorts d'attaque et de soutien, et 7 sorts d'invocation. Choisissez le sort actif dans le <b>Livre de magie</b> (touche
 <kbd>B</kbd>) ou avec <kbd>G</kbd>, puis lancez-le d'un <b>clic droit avec un bâton magique ou une baguette</b> en main.
 Chaque sort a ses effets en 3D : cercles runiques, ondes de choc, explosions, piliers d'énergie, météores, pics de glace,
 rayons, dômes protecteurs, trou noir…</p>
@@ -583,6 +585,28 @@ rayons, dômes protecteurs, trou noir…</p>
 {shot("manual_spell_natural_heal", "Soin naturel.")}{shot("manual_spell_summon_golem", "Gardien de pierre.")}
 {shot("manual_spell_dimensional_ray", "Rayon dimensionnel.")}{shot("manual_spell_singularity", "Singularité.")}
 {shot("manual_spell_gravity_well", "Puits gravitationnel.")}{shot("manual_spell_void_bolt", "Trait du néant.")}</div>
+<h2>Les invocations</h2>
+<p>Les sorts d'invocation forment un <b>second grimoire</b>. Appuyez sur <kbd>V</kbd> pour passer des sorts d'attaque aux
+sorts d'invocation (et inversement) : le panneau affiche « ✦ Invocation », <kbd>G</kbd> fait alors défiler vos invocations et
+le clic droit au bâton les lance. Le jeu retient le dernier sort de chaque grimoire.</p>
+{shot("manual_summon_lineup", "Les sept créatures d'invocation.", "shot wide")}
+<p>Chaque créature a son <b>modèle 3D animé</b>, des parties qui brillent (veines de magma, cristaux, runes, yeux) et une aura
+magique. Elle suit son maître, attaque les monstres proches, ceux qui le frappent et ceux qu'il frappe, puis disparaît à la fin
+de sa durée. Huit invocations au plus en même temps ; elles ne sont pas sauvegardées si vous quittez la partie.</p>
+{table(["Sort", "Niveau", "Créature", "Combat"], [
+    ["Invocation des loups (Nature)", "8 + compétence", "Loups spectraux (2 à 4)", "Morsures rapides qui affaiblissent"],
+    ["Élémentaire de feu (Feu)", "12", "Élémentaire de magma volant, éclats de roche en orbite", "Traits de feu à distance"],
+    ["Sentinelle de givre (Glace)", "16", "Colosse de glace hérissé de cristaux", "Coups qui ralentissent et gèlent"],
+    ["Esprit de l'orage (Foudre)", "20", "Orbe de foudre entourée d'anneaux", "Arc électrique qui touche 3 ennemis"],
+    ["Gardien de pierre (Nature)", "30 + compétence", "Colosse de pierre moussue", "Coups qui projettent en l'air"],
+    ["Spectre du vide (Néant)", "35", "Spectre encapuchonné flottant", "Draine la vie et soigne son maître"],
+    ["Phénix (Feu)", "50", "Phénix flamboyant à traînée de feu", "Boules de feu explosives"]], "compact")}
+<div class="gallery">{shot("manual_summon_spirit_wolf", "Loup spectral.")}{shot("manual_summon_fire_elemental", "Élémentaire de feu.")}
+{shot("manual_summon_frost_sentinel", "Sentinelle de givre.")}{shot("manual_summon_storm_spirit", "Esprit de l'orage.")}
+{shot("manual_summon_stone_guardian", "Gardien de pierre.")}{shot("manual_summon_void_wraith", "Spectre du vide.")}
+{shot("manual_summon_phoenix", "Phénix.")}{shot("manual_summon_cast", "Incantation : cercle runique et colonne d'énergie, panneau en mode Invocation.")}</div>
+<p class="small">La vie et les dégâts augmentent avec votre niveau. Les compétences de l'arbre Invocateur (durée, vie, loups
+supplémentaires, soins à chaque victime) s'appliquent à toutes les invocations, et leurs victimes vous rapportent l'expérience.</p>
 <h2>Mana</h2>
 <p>100 points au départ, +5 par niveau, +20 par rang de <i>Réserve arcanique</i>, +25 % avec la spécialisation Mage, plus les
 artefacts (Prisme de mana +50, Couronne des Sept Mondes +100). La régénération augmente avec le niveau, le <i>Flux de mana</i>,

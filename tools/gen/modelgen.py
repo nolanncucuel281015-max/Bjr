@@ -179,6 +179,65 @@ ARCHETYPES = {
 }
 
 
+# ------------------------------------------------------------------ invocations (sorts d'invocation)
+# Conventions supplémentaires : shard* = éclats en orbite large autour du pivot (voir FdCreatureModel).
+ARCHETYPES["summon_elemental"] = [
+    P("body", (0, 0, 0), [B((-5, -2, -3), (10, 10, 6)), B((-3.5, 8, -2.5), (7, 5, 5))]),
+    P("head", (0, -2, 0), [B((-3.5, -7, -3.5), (7, 7, 7)), B((-4, -10, -1), (2, 4, 2)), B((2, -10, -1), (2, 4, 2)),
+                           B((-1, -12, -1), (2, 5, 2))]),
+    P("arm_r", (-6, 0, 0), [B((-4, -2, -2.5), (4, 6, 5)), B((-3.5, 4, -2), (3, 8, 4)), B((-4, 11, -2.5), (4, 4, 5))]),
+    P("arm_l", (6, 0, 0), [B((0, -2, -2.5), (4, 6, 5)), B((0.5, 4, -2), (3, 8, 4)), B((0, 11, -2.5), (4, 4, 5))]),
+    P("tail", (0, 13, 0), [B((-2.5, 0, -2.5), (5, 4, 5)), B((-1.5, 4, -1.5), (3, 4, 3)), B((-0.5, 8, -0.5), (1, 3, 1))]),
+] + [P(f"shard{i}", (0, 4, 0), [B((-1.5, -1.5, -1.5), (3, 3, 3))]) for i in range(5)]
+ARCHETYPES["summon_phoenix"] = [
+    P("body", (0, 14, 0), [B((-4, -3, -7), (8, 7, 14)), B((-3, -4, -5), (6, 1, 9))]),
+    P("head", (0, 12, -7), [B((-3, -6, -5), (6, 6, 6)), B((-1, -3, -8), (2, 2, 3)), B((-0.5, -11, -3), (1, 6, 6)),
+                            B((-2, -9, -1), (1, 4, 3)), B((1, -9, -1), (1, 4, 3))]),
+    P("wing_r", (-4, 12, -2), [B((-18, 0, -5), (18, 1, 11)), B((-27, 0, -3), (9, 1, 9))]),
+    P("wing_l", (4, 12, -2), [B((0, 0, -5), (18, 1, 11)), B((18, 0, -3), (9, 1, 9))]),
+    P("leg_r", (-2, 17, 1), [B((-0.5, 0, -0.5), (1, 6, 1)), B((-1.5, 6, -2), (3, 1, 3))]),
+    P("leg_l", (2, 17, 1), [B((-0.5, 0, -0.5), (1, 6, 1)), B((-1.5, 6, -2), (3, 1, 3))]),
+] + _segments("tail", 14, 7, [(6, 1, 8), (5, 1, 9), (7, 1, 9)])
+ARCHETYPES["summon_sentinel"] = [
+    P("head", (0, -7, -2), [B((-4, -12, -5), (8, 10, 8)), B((-5, -17, -2), (2, 6, 2)), B((3, -17, -2), (2, 6, 2))]),
+    P("body", (0, -7, 0), [B((-9, -2, -6), (18, 12, 11)), B((-4.5, 10, -3), (9, 5, 6)), B((-6, -8, 2), (3, 7, 3)),
+                           B((2, -10, 1), (3, 9, 3)), B((-1, -7, 3), (2, 5, 2))]),
+    P("arm_r", (0, -7, 0), [B((-13, -2.5, -3), (4, 22, 6)), B((-14.5, 19, -4), (7, 8, 8)), B((-14, -7, -2), (3, 5, 3))]),
+    P("arm_l", (0, -7, 0), [B((9, -2.5, -3), (4, 22, 6)), B((7.5, 19, -4), (7, 8, 8)), B((11, -7, -2), (3, 5, 3))]),
+    P("leg_r", (-4, 11, 0), [B((-3.5, -3, -3), (6, 16, 5))]),
+    P("leg_l", (5, 11, 0), [B((-3.5, -3, -3), (6, 16, 5))]),
+]
+ARCHETYPES["summon_storm"] = [
+    P("head", (0, 9, 0), [B((-4, -4, -4), (8, 8, 8)), B((-2, -7, -2), (4, 3, 4))]),
+    P("tail", (0, 13, 0), [B((-2.5, 0, -2.5), (5, 4, 5)), B((-1.5, 4, -1.5), (3, 4, 3)), B((-0.5, 8, -0.5), (1, 4, 1))]),
+] + [P(f"shard{i}", (0, 9, 0), [B((-1, -2.5, -1), (2, 5, 2))]) for i in range(6)]
+ARCHETYPES["summon_wolf"] = [
+    P("body", (0, 0, 0), [B((-3, 9, -6), (6, 6, 12)), B((-4, 8, -7), (8, 8, 5))]),
+    P("head", (0, 11, -7), [B((-3, -3, -4), (6, 6, 4)), B((-1.5, 0, -7), (3, 3, 3)),
+                            B((-3, -6, -2), (2, 3, 1)), B((1, -6, -2), (2, 3, 1))]),
+    P("leg_fr", (-1.5, 15, -4), [B((-1, 0, -1), (2, 9, 2))]),
+    P("leg_fl", (1.5, 15, -4), [B((-1, 0, -1), (2, 9, 2))]),
+    P("leg_br", (-1.5, 15, 4), [B((-1, 0, -1), (2, 9, 2))]),
+    P("leg_bl", (1.5, 15, 4), [B((-1, 0, -1), (2, 9, 2))]),
+] + _segments("tail", 10, 6, [(3, 3, 5), (2, 2, 6)])
+ARCHETYPES["summon_guardian"] = [
+    P("head", (0, -7, -2), [B((-4, -12, -5), (8, 10, 8)), B((-5, -13, -6), (10, 3, 3)), B((-1, -5, -7), (2, 4, 2))]),
+    P("body", (0, -7, 0), [B((-9, -2, -6), (18, 12, 11)), B((-4.5, 10, -3), (9, 5, 6)), B((-13, -6, -4), (7, 5, 8)),
+                           B((6, -6, -4), (7, 5, 8)), B((-5, -5, 3), (10, 4, 4))]),
+    P("arm_r", (0, -7, 0), [B((-13, -2.5, -3), (4, 24, 6)), B((-14, 20, -4), (6, 7, 8))]),
+    P("arm_l", (0, -7, 0), [B((9, -2.5, -3), (4, 24, 6)), B((8, 20, -4), (6, 7, 8))]),
+    P("leg_r", (-4, 11, 0), [B((-3.5, -3, -3), (6, 16, 5))]),
+    P("leg_l", (5, 11, 0), [B((-3.5, -3, -3), (6, 16, 5))]),
+]
+ARCHETYPES["summon_wraith"] = [
+    P("head", (0, 0, 0), [B((-4.5, -9, -4.5), (9, 9, 9)), B((-3, -7, -5), (6, 6, 1)), B((-2, -12, -1), (4, 3, 5))]),
+    P("body", (0, 0, 0), [B((-5, 0, -3), (10, 8, 6)), B((-6, 8, -4), (12, 6, 8))]),
+    P("arm_r", (-6, 1, 0), [B((-3, -1, -2), (3, 14, 3)), B((-3.5, 13, -2.5), (4, 4, 4))]),
+    P("arm_l", (6, 1, 0), [B((0, -1, -2), (3, 14, 3)), B((-0.5, 13, -2.5), (4, 4, 4))]),
+] + [P(f"tentacle{i}", (round(4.5 * math.cos(i * PI / 3), 1), 14, round(3 * math.sin(i * PI / 3), 1)),
+       [B((-1, 0, -1), (2, 8, 2))]) for i in range(6)]
+
+
 # Pièces en relief des armures portées, positionnées par rapport à l'os du modèle humanoïde
 # (tête, corps, bras, jambes) ; rendues par ArmorDetailsFeatureRenderer au-dessus de l'armure vanilla.
 ARCHETYPES["armor_details"] = [
@@ -260,6 +319,8 @@ def _pattern_color(pattern, x, y, base, second, noise, r):
         col = X.shade(second, 1.3)
     elif pattern == "crystals" and ((x + y) % 5 == 0 or n > 0.8):
         col = X.shade(second, 1.2)
+    elif pattern == "magma" and (abs(math.sin(x * 0.9 + y * 0.6 + n * 5)) < 0.28 or n > 0.72):
+        col = X.shade(second, 1.0 + 0.25 * n)
     elif pattern == "stars" and r.random() < 0.06:
         col = (255, 255, 255, 255)
     return col
@@ -317,3 +378,29 @@ def spawn_egg(base, second, key):
                 cv.set(x, y, col)
     cv.outline(X.shade(base, 0.3))
     return cv
+
+
+def glow_mask(cv, creature):
+    """Masque lumineux d'une invocation : ne garde que les pixels proches de la couleur secondaire
+    (veines, cristaux, runes, plumes dorées) ou des yeux ; le reste est transparent."""
+    _base, second, eye = creature["colors"]
+
+    def unit(c):
+        n = math.sqrt(sum(v * v for v in c)) or 1.0
+        return [v / n for v in c]
+
+    targets = [unit(second), unit(eye)]
+    out = X.Canvas(cv.w, cv.h)
+    for y in range(cv.h):
+        for x in range(cv.w):
+            px = cv.get(x, y)
+            if len(px) > 3 and px[3] == 0:
+                continue
+            rgb = px[:3]
+            lum = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
+            if lum < 70:
+                continue
+            u = unit(rgb)
+            if max(sum(a * b for a, b in zip(u, t)) for t in targets) > 0.993:
+                out.set(x, y, (min(255, int(rgb[0] * 1.15)), min(255, int(rgb[1] * 1.15)), min(255, int(rgb[2] * 1.15)), 255))
+    return out

@@ -67,8 +67,15 @@ class ContentTablesTest {
 
     @Test
     void fiftySpellsTenPerSchool() {
-        assertEquals(50, Spells.all().size());
-        for (SpellSchool s : SpellSchool.values()) assertEquals(10, Spells.ofSchool(s).size(), s.name());
+        assertEquals(55, Spells.all().size());
+        // 48 sorts d'attaque et de soutien + 7 invocations (grimoire de la touche V).
+        assertEquals(7, Spells.ofMode(true).size());
+        assertEquals(48, Spells.ofMode(false).size());
+        for (SpellSchool s : SpellSchool.values()) {
+            assertTrue(Spells.ofSchool(s).size() >= 10, s.name());
+            assertTrue(Spells.ofSchool(s).stream().anyMatch(sp -> sp.isSummon()), "invocation " + s.name());
+        }
+        for (Spell sp : Spells.ofMode(true)) assertNotNull(com.forgotten.dimensions.magic.SummonType.bySpell(sp.id()), sp.id());
         for (Spell s : Spells.all().values()) {
             assertTrue(s.mana() > 0 && s.cooldown() > 0 && s.level() >= 1 && s.level() <= 100, s.id());
         }

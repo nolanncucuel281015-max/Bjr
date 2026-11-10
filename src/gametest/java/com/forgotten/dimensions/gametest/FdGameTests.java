@@ -361,4 +361,46 @@ public class FdGameTests {
             ctx.complete();
         });
     }
+
+    @GameTest(maxTicks = 60)
+    public void summonSpellsCallAlliedCreatures(TestContext ctx) {
+        FakePlayer p = player(ctx, "fd_summoner");
+        ProgressionManager.setLevel(p, 100);
+        ctx.assertTrue(Spells.get("summon_fire_elemental").isSummon() && !Spells.get("fireball").isSummon(), "grimoires attaque / invocation");
+        ctx.assertTrue(SpellExecutor.execute(p, Spells.get("summon_fire_elemental"), 6F), "invocation de l'élémentaire");
+        ctx.assertTrue(SpellExecutor.execute(p, Spells.get("summon_wolves"), 4F), "invocation des loups");
+        var type = com.forgotten.dimensions.entity.summon.SummonEntities.get(com.forgotten.dimensions.magic.SummonType.FIRE_ELEMENTAL);
+        var found = ctx.getWorld().getEntitiesByType(type, new Box(p.getBlockPos()).expand(8), e -> true);
+        ctx.assertEquals(1, found.size(), "un élémentaire de feu");
+        var elemental = found.get(0);
+        ctx.assertEquals(p.getUuid(), elemental.ownerId(), "lié à son maître");
+        ctx.assertTrue(com.forgotten.dimensions.magic.SummonManager.isSummon(elemental), "suivi par le gestionnaire d'invocations");
+        var wolves = ctx.getWorld().getEntitiesByType(com.forgotten.dimensions.entity.summon.SummonEntities.get(com.forgotten.dimensions.magic.SummonType.SPIRIT_WOLF),
+                new Box(p.getBlockPos()).expand(8), e -> true);
+        ctx.assertTrue(wolves.size() >= 2, "au moins deux loups spectraux");
+        float hp = elemental.getHealth();
+        elemental.damage(ctx.getWorld(), ctx.getWorld().getDamageSources().playerAttack(p), 10F);
+        ctx.assertEquals(hp, elemental.getHealth(), "le maître ne blesse pas son invocation");
+        ctx.assertTrue(!type.isSaveable(), "invocations non sauvegardées");
+        found.forEach(net.minecraft.entity.Entity::discard);
+        wolves.forEach(net.minecraft.entity.Entity::discard);
+        ctx.complete();
+    }
+
+    @GameTest(maxTicks = 200)
+    public void summonsAttackNearbyMonsters(TestContext ctx) {
+        FakePlayer p = player(ctx, "fd_summoner2");
+        ProgressionManager.setLevel(p, 100);
+        ZombieEntity zombie = ctx.spawnEntity(EntityType.HUSK, new BlockPos(3, 1, 3)); // ne brûle pas au soleil
+        zombie.setAiDisabled(true);
+        float max = zombie.getHealth();
+        SpellExecutor.execute(p, Spells.get("summon_storm_spirit"), 4F);
+        ctx.waitAndRun(80, () -> {
+            ctx.assertTrue(zombie.getHealth() < max || !zombie.isAlive(), "l'esprit de l'orage foudroie le zombie proche");
+            ctx.getWorld().getEntitiesByClass(com.forgotten.dimensions.entity.summon.SummonedCreatureEntity.class,
+                    new Box(p.getBlockPos()).expand(16), e -> true).forEach(net.minecraft.entity.Entity::discard);
+            zombie.discard();
+            ctx.complete();
+        });
+    }
 }

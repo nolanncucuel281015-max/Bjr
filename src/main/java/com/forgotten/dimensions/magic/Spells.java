@@ -9,7 +9,7 @@ import java.util.Map;
 import static com.forgotten.dimensions.magic.SpellKind.*;
 import static com.forgotten.dimensions.magic.SpellSchool.*;
 
-/** Les 50 sorts (10 par école). */
+/** Les 55 sorts : 48 sorts d'attaque et de soutien et 7 sorts d'invocation (kind SUMMON). */
 public final class Spells {
     private static final Map<String, Spell> SPELLS = new LinkedHashMap<>();
 
@@ -25,6 +25,8 @@ public final class Spells {
         add("meteor", FIRE, DELAYED_AREA, 40, 60, 400, 22, 5, 30);
         add("inferno", FIRE, ZONE_SELF, 50, 70, 600, 5, 6, 160);
         add("sun_strike", FIRE, DELAYED_AREA, 70, 100, 900, 40, 7, 40);
+        add("summon_fire_elemental", FIRE, SUMMON, 12, 40, 900, 5, 0, 0);
+        add("summon_phoenix", FIRE, SUMMON, 50, 90, 1800, 10, 0, 0);
         // GLACE
         add("ice_shard", ICE, BOLT, 1, 10, 15, 5, 0, 0);
         add("frost_ward", ICE, BUFF_SELF, 6, 20, 600, 0, 0, 600);
@@ -36,6 +38,7 @@ public final class Spells {
         add("glacial_spike", ICE, AREA, 30, 45, 200, 15, 3, 0);
         add("blizzard", ICE, ZONE_TARGET, 45, 70, 600, 5, 7, 160);
         add("absolute_zero", ICE, NOVA, 65, 100, 900, 25, 9, 0);
+        add("summon_frost_sentinel", ICE, SUMMON, 16, 45, 1000, 9, 0, 0);
         // FOUDRE
         add("spark", LIGHTNING, BOLT, 1, 8, 12, 4, 0, 0);
         add("lightning_strike", LIGHTNING, AREA, 5, 20, 60, 10, 1.5F, 0);
@@ -47,16 +50,17 @@ public final class Spells {
         add("storm", LIGHTNING, ZONE_TARGET, 30, 60, 500, 8, 6, 160);
         add("thunderclap", LIGHTNING, NOVA, 40, 50, 300, 14, 6, 0);
         add("tempest", LIGHTNING, ZONE_SELF, 60, 90, 900, 12, 9, 200);
+        add("summon_storm_spirit", LIGHTNING, SUMMON, 20, 45, 1000, 6, 0, 0);
         // NATURE
         add("natural_heal", NATURE, HEAL, 1, 15, 100, 6, 0, 0);
         add("entangling_roots", NATURE, ROOT, 1, 15, 120, 2, 0, 60);
         add("thorn_bolt", NATURE, BOLT, 3, 10, 15, 5, 0, 0);
-        add("summon_wolves", NATURE, SUMMON_WOLVES, 8, 40, 900, 0, 0, 0, "call_of_the_pack");
+        add("summon_wolves", NATURE, SUMMON, 8, 40, 900, 4, 0, 0, "call_of_the_pack");
         add("poison_cloud", NATURE, ZONE_TARGET, 10, 30, 240, 2, 3.5F, 120);
         add("regrowth", NATURE, HEAL, 15, 35, 300, 10, 8, 0);
         add("barkskin", NATURE, BUFF_SELF, 20, 30, 600, 0, 0, 400);
         add("leaf_storm", NATURE, ZONE_SELF, 25, 50, 400, 4, 5, 120);
-        add("summon_golem", NATURE, SUMMON_GOLEM, 30, 80, 1800, 0, 0, 0, "stone_guardian");
+        add("summon_golem", NATURE, SUMMON, 30, 80, 1800, 12, 0, 0, "stone_guardian");
         add("gaia_wrath", NATURE, NOVA, 55, 90, 700, 20, 8, 0);
         // NÉANT
         add("blink", VOID, BLINK, 1, 15, 60, 0, 12, 0);
@@ -69,6 +73,7 @@ public final class Spells {
         add("void_explosion", VOID, AREA, 35, 60, 400, 20, 5, 0);
         add("entropy", VOID, RAY, 45, 50, 200, 10, 0, 100);
         add("singularity", VOID, DELAYED_AREA, 75, 120, 1200, 45, 8, 60);
+        add("summon_void_wraith", VOID, SUMMON, 35, 60, 1200, 8, 0, 0);
     }
 
     private Spells() {}
@@ -89,6 +94,13 @@ public final class Spells {
 
     public static Map<String, Spell> all() {
         return Collections.unmodifiableMap(SPELLS);
+    }
+
+    /** Sorts d'un grimoire : invocations ({@code summon = true}) ou attaque et soutien. */
+    public static List<Spell> ofMode(boolean summon) {
+        List<Spell> list = new ArrayList<>();
+        for (Spell s : SPELLS.values()) if (s.isSummon() == summon) list.add(s);
+        return list;
     }
 
     public static List<Spell> ofSchool(SpellSchool school) {

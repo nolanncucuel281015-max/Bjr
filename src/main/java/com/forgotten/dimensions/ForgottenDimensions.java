@@ -31,6 +31,7 @@ public final class ForgottenDimensions implements ModInitializer {
         ModBlocks.register();
         ModItems.register();
         ModEntities.register();
+        com.forgotten.dimensions.entity.summon.SummonEntities.register();
         com.forgotten.dimensions.registry.ModCreatures.register();
         ModAttachments.register();
         ModItemGroups.register();

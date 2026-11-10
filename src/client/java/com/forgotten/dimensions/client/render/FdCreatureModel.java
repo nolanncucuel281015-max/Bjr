@@ -24,6 +24,7 @@ public class FdCreatureModel extends EntityModel<FdCreatureRenderState> {
     private final List<ModelPart> orbs = new ArrayList<>();
     private final List<ModelPart> fins = new ArrayList<>();
     private final List<ModelPart> claws = new ArrayList<>();
+    private final List<ModelPart> shards = new ArrayList<>();
 
     public FdCreatureModel(ModelPart root) {
         super(root);
@@ -46,6 +47,7 @@ public class FdCreatureModel extends EntityModel<FdCreatureRenderState> {
         for (int i = 0; i < 8; i++) {
             if (part.hasChild("tentacle" + i)) tentacles.add(part.getChild("tentacle" + i));
             if (part.hasChild("orb" + i)) orbs.add(part.getChild("orb" + i));
+            if (part.hasChild("shard" + i)) shards.add(part.getChild("shard" + i));
         }
         // Chaînes (segments, queue) : chaque segment est l'enfant du précédent.
         ModelPart seg = part.hasChild("seg0") ? part.getChild("seg0") : part.hasChild("tail0") ? part.getChild("tail0") : null;
@@ -98,9 +100,19 @@ public class FdCreatureModel extends EntityModel<FdCreatureRenderState> {
             orb.originZ += MathHelper.sin(a) * 6.0F;
             orb.originY += MathHelper.sin(age * 0.12F + i) * 1.5F;
         }
+        // Éclats en orbite large (invocations) : tournent autour du corps en pivotant sur eux-mêmes.
+        for (int i = 0; i < shards.size(); i++) {
+            float a = age * 0.11F + i * MathHelper.TAU / shards.size();
+            ModelPart shard = shards.get(i);
+            shard.originX += MathHelper.cos(a) * 11.0F;
+            shard.originZ += MathHelper.sin(a) * 11.0F;
+            shard.originY += MathHelper.sin(age * 0.17F + i * 1.3F) * 3.0F;
+            shard.yaw += age * 0.2F + i;
+            shard.pitch += age * 0.13F;
+        }
         for (int i = 0; i < fins.size(); i++) fins.get(i).yaw += MathHelper.sin(age * 0.3F + i) * 0.2F;
         for (int i = 0; i < claws.size(); i++) claws.get(i).pitch += MathHelper.sin(age * 0.2F + i * MathHelper.PI) * 0.15F;
-        if (s.flying || (!orbs.isEmpty() || !tentacles.isEmpty())) {
+        if (s.flying || (!orbs.isEmpty() || !tentacles.isEmpty() || !shards.isEmpty())) {
             root.originY += MathHelper.sin(age * 0.1F) * 1.2F;
         }
     }

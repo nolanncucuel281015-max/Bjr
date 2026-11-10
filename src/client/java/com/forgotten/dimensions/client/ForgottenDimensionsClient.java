@@ -30,6 +30,11 @@ public final class ForgottenDimensionsClient implements ClientModInitializer {
             EntityRendererFactories.register(type, ctx -> new com.forgotten.dimensions.client.render.FdCreatureRenderer(ctx, def));
         });
         // Pièces d'armure en relief sur tous les rendus humanoïdes (joueurs, supports d'armure, zombies...).
+        // Invocations : modèles 3D summon_* et rendu lumineux.
+        com.forgotten.dimensions.entity.summon.SummonEntities.all().forEach((t, type) -> {
+            com.forgotten.dimensions.client.render.CreatureModels.layer(com.forgotten.dimensions.client.render.summon.SummonRenderer.archetype(t));
+            EntityRendererFactories.register(type, ctx -> new com.forgotten.dimensions.client.render.summon.SummonRenderer(ctx, t));
+        });
         var detailsLayer = com.forgotten.dimensions.client.render.CreatureModels.layer("armor_details");
         net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register(
                 (type, renderer, helper, ctx) -> registerArmorDetails(renderer, helper, ctx, detailsLayer));

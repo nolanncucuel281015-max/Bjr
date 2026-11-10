@@ -163,7 +163,8 @@ tant qu'il n'existe aucun boss à invoquer.
 | Touche | Action |
 |---|---|
 | **Clic droit** avec un bâton ou une baguette | Lancer le sort actif |
-| `G` | Changer de sort (sort débloqué suivant) |
+| `G` | Changer de sort (sort débloqué suivant du grimoire actif) |
+| `V` | Basculer entre sorts d'attaque et sorts d'invocation |
 | `K` | Arbre de compétences |
 | `B` | Livre de magie |
 
@@ -339,7 +340,11 @@ Célérité II, 10 s), **Œil Dimensionnel** (localise la ruine ancienne la plus
 (empêche une mort, recharge 10 min), Calice de Sang (vol de vie), Orbe de Tempête (foudre ciblée)…
 Ils s'obtiennent aujourd'hui par fabrication ; les boss en lâcheront à partir de la phase 6.
 
-### Magie (50 sorts, 5 écoles)
+### Magie (55 sorts, 5 écoles, dont 7 invocations)
+
+**Deux grimoires** : les sorts d'attaque et de soutien (48) et les **sorts d'invocation** (7). La touche
+`V` passe de l'un à l'autre (le jeu retient le dernier sort choisi dans chacun) ; `G` fait défiler les
+sorts du grimoire actif. Le panneau RPG indique le grimoire actif (« ⚔ Attaque » ou « ✦ Invocation »).
 
 **Lancer un sort** : choisissez-le avec `G` (ou dans le livre de magie, `B`), puis faites un **clic droit
 avec un bâton magique ou une baguette**. Le bâton augmente la puissance (+20 % de plus pour les sorts
@@ -354,9 +359,29 @@ hélice, dômes protecteurs, trou noir à disque d'accrétion, spirales de soin,
 cercles d'invocation. Les projectiles sont aussi en 3D (boule de feu, cristal de glace, orbe électrique,
 épine, sphère du néant) avec traînée. Option `spellVisuals` pour les désactiver.
 
-Feu, Glace, Foudre, Nature, Néant : 10 sorts chacune (projectiles, rayons, novas, zones
-persistantes, météores différés, chaînes d'éclairs, téléportation, invocations de loups et de
-golem, soins, renforcements…). Chaque sort a un coût en mana, une recharge, une puissance, un
+**Invocations** (créatures alliées en 3D, `SummonedCreatureEntity`, `SummonRenderer`) : chacune a son
+propre modèle 3D animé (formes `summon_*` de `tools/gen/modelgen.py`), une passe lumineuse qui fait
+briller veines de magma, cristaux, runes et yeux, et une aura animée (cercle runique, anneaux, flammes,
+éclats en orbite). Elles suivent leur maître, attaquent les monstres proches, ceux qui le frappent et
+ceux qu'il frappe, et disparaissent à la fin de leur durée (8 au maximum par joueur, non sauvegardées).
+
+| Sort | École | Niveau | Créature | Combat |
+|---|---|---|---|---|
+| Invocation des loups | Nature | 8 (+ compétence) | Loups spectraux (2 à 4) | Morsures rapides, affaiblissent |
+| Élémentaire de feu | Feu | 12 | Élémentaire de magma volant | Traits de feu à distance |
+| Sentinelle de givre | Glace | 16 | Colosse de glace | Coups qui ralentissent et gèlent |
+| Esprit de l'orage | Foudre | 20 | Orbe de foudre volante | Arc électrique sur 3 ennemis |
+| Gardien de pierre | Nature | 30 (+ compétence) | Colosse de pierre moussue | Coups qui projettent en l'air |
+| Spectre du vide | Néant | 35 | Spectre flottant | Draine la vie (soigne lui et son maître) |
+| Phénix | Feu | 50 | Phénix flamboyant | Boules de feu explosives |
+
+Vie et dégâts augmentent avec le niveau du lanceur ; les compétences de l'arbre Invocateur (durée,
+vie, nombre de loups, soins à chaque victime) s'appliquent à toutes les invocations. Les victimes des
+invocations rapportent l'expérience à leur maître.
+
+Feu, Glace, Foudre, Nature, Néant : au moins 10 sorts chacune (projectiles, rayons, novas, zones
+persistantes, météores différés, chaînes d'éclairs, téléportation, invocations, soins,
+renforcements…). Chaque sort a un coût en mana, une recharge, une puissance, un
 niveau requis, des particules et des sons.
 
 - **Mana** : 100 au départ, +5 par niveau, augmenté par les compétences et artefacts ; régénération
@@ -415,7 +440,7 @@ xvfb-run ./gradlew runClientGameTest   # test client avec captures d'écran (né
 
 - **JUnit (22 tests, `src/test`)** : courbe d'expérience, formules de mana et de puissance,
   recharges, expérience de combat, quantités exigées (≥ 50 minerais, ≥ 100 armes, 30 armures,
-  30 artefacts, 50 sorts), unicité des identifiants, aller-retour du codec de progression, et
+  30 artefacts, 55 sorts dont 7 invocations), unicité des identifiants, aller-retour du codec de progression, et
   **validation des ressources** (aucune texture, aucun modèle ni objet référencé inexistant ;
   chaque bloc a un état et une loot table ; traductions FR et EN complètes et alignées ; 7
   dimensions et 35 biomes dont toutes les références de génération existent ; 60 créatures avec

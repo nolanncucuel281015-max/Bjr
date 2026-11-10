@@ -1,6 +1,8 @@
 package com.forgotten.dimensions.magic;
 
 import com.forgotten.dimensions.entity.MagicBoltEntity;
+import com.forgotten.dimensions.entity.summon.SummonEntities;
+import com.forgotten.dimensions.entity.summon.SummonedCreatureEntity;
 import com.forgotten.dimensions.progression.PlayerProgress;
 import com.forgotten.dimensions.progression.ProgressionManager;
 import com.forgotten.dimensions.progression.SkillTree;
@@ -10,12 +12,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -290,13 +288,8 @@ public final class SpellExecutor {
                 SpellVisuals.spawn(world, SpellVisual.NOVA, school, caster.getEntityPos().add(0, 0.1, 0), spell.radius(), 20);
                 sound(world, caster.getEntityPos(), SoundEvents.ENTITY_ENDERMAN_SCREAM, 0.6F, 1.5F);
             }
-            case SUMMON_WOLVES -> {
-                SpellVisuals.spawn(world, SpellVisual.SUMMON, school, caster.getEntityPos(), 3.0F, 30);
-                return summonWolves(caster);
-            }
-            case SUMMON_GOLEM -> {
-                SpellVisuals.spawn(world, SpellVisual.SUMMON, school, caster.getEntityPos().add(caster.getRotationVec(1.0F).multiply(2.0)), 2.5F, 34);
-                return summonGolem(caster);
+            case SUMMON -> {
+                return summon(caster, spell, power);
             }
         }
         return true;
@@ -404,52 +397,52 @@ public final class SpellExecutor {
         return (int) d;
     }
 
-    private static boolean summonWolves(ServerPlayerEntity caster) {
+    /** Nombre maximal d'invocations actives par joueur. */
+    public static final int MAX_SUMMONS = 8;
+
+    /**
+     * Invoque la ou les créatures du sort : portail runique au sol, colonne d'énergie, puis la
+     * créature surgit. Vie et dégâts suivent le niveau du lanceur et la puissance du sort.
+     */
+    private static boolean summon(ServerPlayerEntity caster, Spell spell, float power) {
+        SummonType type = SummonType.bySpell(spell.id());
+        if (type == null) return false;
         ServerWorld world = caster.getEntityWorld();
         PlayerProgress p = ProgressionManager.get(caster);
-        int count = 2 + Skills.rank(p, Skills.PACK_LEADER) + (SkillTree.SUMMONER.id().equals(p.specialization()) ? 1 : 0);
-        if (SummonManager.countOwnedBy(caster.getUuid()) >= 8) return false;
+        int active = SummonManager.countOwnedBy(caster.getUuid());
+        if (active >= MAX_SUMMONS) {
+            caster.sendMessage(net.minecraft.text.Text.translatable("message.forgotten_dimensions.summon.limit", MAX_SUMMONS)
+                    .formatted(net.minecraft.util.Formatting.RED), true);
+            return false;
+        }
+        boolean summoner = SkillTree.SUMMONER.id().equals(p.specialization());
+        int count = type == SummonType.SPIRIT_WOLF ? 2 + Skills.rank(p, Skills.PACK_LEADER) + (summoner ? 1 : 0) : 1;
+        count = Math.min(count, MAX_SUMMONS - active);
         long expires = world.getTime() + summonDuration(caster, p);
+        double hp = type.hp * (1.0 + p.level() / 60.0) + Skills.value(p, Skills.SPIRIT_BOND);
+        Vec3d look = caster.getRotationVec(1.0F);
+        Vec3d forward = new Vec3d(look.x, 0, look.z).normalize();
+        boolean spawned = false;
         for (int i = 0; i < count; i++) {
-            WolfEntity wolf = EntityType.WOLF.create(world, SpawnReason.MOB_SUMMONED);
-            if (wolf == null) continue;
-            double a = Math.PI * 2 * i / count;
-            wolf.refreshPositionAndAngles(caster.getX() + Math.cos(a) * 1.5, caster.getY(), caster.getZ() + Math.sin(a) * 1.5, caster.getYaw(), 0);
-            wolf.setTamedBy(caster);
-            buffSummon(wolf, p);
-            world.spawnEntity(wolf);
-            SummonManager.track(wolf, caster.getUuid(), expires);
-            SpellFx.particles(world, ParticleTypes.HAPPY_VILLAGER, wolf.getX(), wolf.getY() + 0.5, wolf.getZ(), 10, 0.3, 0.3, 0.3, 0);
+            SummonedCreatureEntity e = SummonEntities.get(type).create(world, SpawnReason.MOB_SUMMONED);
+            if (e == null) continue;
+            double side = count == 1 ? 0 : (i - (count - 1) / 2.0) * 1.6;
+            Vec3d pos = caster.getEntityPos().add(forward.multiply(type == SummonType.STONE_GUARDIAN || type == SummonType.FROST_SENTINEL ? 3.0 : 2.2))
+                    .add(-forward.z * side, type.flying ? 1.2 : 0, forward.x * side);
+            e.refreshPositionAndAngles(pos.x, pos.y, pos.z, caster.getYaw(), 0);
+            e.bind(caster, power, hp);
+            world.spawnEntity(e);
+            SummonManager.track(e, caster.getUuid(), expires);
+            Vec3d ground = new Vec3d(pos.x, caster.getY() + 0.05, pos.z);
+            SpellVisuals.spawn(world, SpellVisual.SUMMON, spell.school(), ground, 1.2F + type.width, 40);
+            SpellVisuals.spawn(world, SpellVisual.PILLAR, spell.school(), ground, 0.5F + type.width * 0.5F, 18);
+            SpellVisuals.spawn(world, SpellVisual.NOVA, spell.school(), ground.add(0, 0.1, 0), 1.5F + type.width, 16);
+            SpellFx.particles(world, particle(spell.school()), pos.x, pos.y + type.height / 2, pos.z, 30, type.width / 2, type.height / 2, type.width / 2, 0.05);
+            spawned = true;
         }
         sound(world, caster.getEntityPos(), SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, 1.0F, 1.0F);
-        return true;
-    }
-
-    private static boolean summonGolem(ServerPlayerEntity caster) {
-        ServerWorld world = caster.getEntityWorld();
-        PlayerProgress p = ProgressionManager.get(caster);
-        if (SummonManager.countOwnedBy(caster.getUuid()) >= 8) return false;
-        IronGolemEntity golem = EntityType.IRON_GOLEM.create(world, SpawnReason.MOB_SUMMONED);
-        if (golem == null) return false;
-        Vec3d front = caster.getEntityPos().add(caster.getRotationVec(1.0F).multiply(2.0));
-        golem.refreshPositionAndAngles(front.x, caster.getY(), front.z, caster.getYaw(), 0);
-        golem.setPlayerCreated(true);
-        buffSummon(golem, p);
-        world.spawnEntity(golem);
-        SummonManager.track(golem, caster.getUuid(), world.getTime() + summonDuration(caster, p));
-        SpellFx.particles(world, ParticleTypes.CLOUD, golem.getX(), golem.getY() + 1, golem.getZ(), 30, 0.6, 1.0, 0.6, 0.02);
-        sound(world, front, SoundEvents.ENTITY_IRON_GOLEM_REPAIR, 1.0F, 0.8F);
-        return true;
-    }
-
-    private static void buffSummon(LivingEntity e, PlayerProgress p) {
-        int rank = Skills.rank(p, Skills.SPIRIT_BOND);
-        if (rank <= 0) return;
-        EntityAttributeInstance hp = e.getAttributeInstance(EntityAttributes.MAX_HEALTH);
-        if (hp != null) {
-            hp.setBaseValue(hp.getBaseValue() + Skills.value(p, Skills.SPIRIT_BOND));
-            e.setHealth(e.getMaxHealth());
-        }
+        sound(world, caster.getEntityPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 0.8F, 1.2F);
+        return spawned;
     }
 
     // ------------------------------------------------------------------ apparence

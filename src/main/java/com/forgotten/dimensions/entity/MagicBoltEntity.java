@@ -97,8 +97,12 @@ public class MagicBoltEntity extends ThrownItemEntity {
         if (!(getEntityWorld() instanceof ServerWorld) || !(hit.getEntity() instanceof LivingEntity target)) return;
         Spell spell = Spells.get(spellId);
         if (spell == null) return;
+        ServerPlayerEntity master = summonMaster();
         if (getOwner() instanceof ServerPlayerEntity caster) {
             if (SpellTargeting.isEnemy(caster, target)) SpellExecutor.hit(caster, spell, target, power);
+        } else if (master != null) {
+            // Projectile d'une invocation : frappe au nom de son maître (expérience, effets d'école).
+            if (SpellTargeting.isEnemy(master, target)) SpellExecutor.hit(master, spell, target, power);
         } else {
             ServerWorld world = (ServerWorld) getEntityWorld();
             target.damage(world, world.getDamageSources().indirectMagic(this, getOwner()), power);
@@ -108,7 +112,18 @@ public class MagicBoltEntity extends ThrownItemEntity {
 
     @Override
     protected boolean canHit(Entity entity) {
-        return super.canHit(entity) && entity != getOwner();
+        if (!super.canHit(entity) || entity == getOwner()) return false;
+        // Les tirs d'une invocation traversent son maître et ses autres invocations.
+        if (getOwner() instanceof com.forgotten.dimensions.entity.summon.SummonedCreatureEntity s && s.ownerId() != null) {
+            if (entity.getUuid().equals(s.ownerId())) return false;
+            if (entity instanceof com.forgotten.dimensions.entity.summon.SummonedCreatureEntity o && s.ownerId().equals(o.ownerId())) return false;
+        }
+        return true;
+    }
+
+    /** Maître de l'invocation qui a tiré ce projectile, ou null. */
+    private ServerPlayerEntity summonMaster() {
+        return getOwner() instanceof com.forgotten.dimensions.entity.summon.SummonedCreatureEntity s ? s.master() : null;
     }
 
     @Override
@@ -119,8 +134,9 @@ public class MagicBoltEntity extends ThrownItemEntity {
             if (spell != null) {
                 com.forgotten.dimensions.magic.SpellVisuals.spawn(world, com.forgotten.dimensions.magic.SpellVisual.EXPLOSION,
                         spell.school(), hit.getPos(), splash > 0 ? splash : 0.9F * size(), splash > 0 ? 16 : 10);
-                if (splash > 0 && getOwner() instanceof ServerPlayerEntity caster) {
-                    SpellExecutor.areaDamage(caster, spell, hit.getPos(), splash, power * 0.6F);
+                ServerPlayerEntity splashCaster = getOwner() instanceof ServerPlayerEntity c ? c : summonMaster();
+                if (splash > 0 && splashCaster != null) {
+                    SpellExecutor.areaDamage(splashCaster, spell, hit.getPos(), splash, power * 0.6F);
                 } else {
                     SpellFx.particles(world, SpellExecutor.particle(spell.school()), getX(), getY(), getZ(), 8, 0.2, 0.2, 0.2, 0.05);
                 }

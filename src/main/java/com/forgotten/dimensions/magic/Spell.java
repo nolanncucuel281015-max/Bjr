@@ -17,6 +17,11 @@ public record Spell(String id, SpellSchool school, SpellKind kind, int level, fl
         return "spell.forgotten_dimensions." + id;
     }
 
+    /** Sort du grimoire d'invocation (touche V). */
+    public boolean isSummon() {
+        return kind == SpellKind.SUMMON;
+    }
+
     public String descriptionKey() {
         return "spell.forgotten_dimensions." + id + ".desc";
     }

@@ -36,7 +36,7 @@ OWNED_DIRS = [
     os.path.join(ASSETS, "textures", "block"), os.path.join(ASSETS, "textures", "item"),
     os.path.join(ASSETS, "textures", "entity", "equipment"), os.path.join(ASSETS, "equipment"),
     os.path.join(ASSETS, "textures", "entity", "creature"), os.path.join(ASSETS, "textures", "entity", "armor_detail"),
-    os.path.join(ASSETS, "textures", "entity", "spell"),
+    os.path.join(ASSETS, "textures", "entity", "spell"), os.path.join(ASSETS, "textures", "entity", "summon"),
     os.path.join(DATA, "recipe"), os.path.join(DATA, "loot_table", "blocks"), os.path.join(DATA, "tags"),
     os.path.join(DATA, "loot_table", "entities"), os.path.join(ASSETS, "fd_entity_models"),
     os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"), os.path.join(DATA, "worldgen"),
@@ -710,6 +710,16 @@ for cr in CR.CREATURES:
     ENTITY_TAGS.setdefault(f"{NS}:creatures", set()).add(rid(cid))
     if cat == "MINIBOSS":
         ENTITY_TAGS.setdefault(f"{NS}:minibosses", set()).add(rid(cid))
+
+# Créatures invoquées par les sorts d'invocation (modèle 3D + texture + nom)
+import summons as SU  # noqa: E402
+for su in SU.SUMMONS:
+    model, tw, th = ARCH_LAYOUTS[su["arch"]]
+    cv = MG.paint(model, tw, th, su)
+    save_tex(os.path.join("entity", "summon"), su["id"], cv)
+    save_tex(os.path.join("entity", "summon"), su["id"] + "_glow", MG.glow_mask(cv, su))
+    LANG_EN[f"entity.{NS}.{su['id']}"] = su["en"]
+    LANG_FR[f"entity.{NS}.{su['id']}"] = su["fr"]
 
 BIOMES = D.run(sys.modules[__name__])
 
