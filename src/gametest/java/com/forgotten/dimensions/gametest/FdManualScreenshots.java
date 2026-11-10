@@ -41,7 +41,10 @@ public class FdManualScreenshots implements FabricClientGameTest {
             sp.getServer().runCommand("time set noon");
             sp.getServer().runCommand("gamemode creative @a");
             sp.getServer().runCommand("fdimension level set @p 35");
-            ctx.runOnClient(c -> c.options.getViewDistance().setValue(8));
+            ctx.runOnClient(c -> {
+                c.options.getViewDistance().setValue(8);
+                c.options.getGamma().setValue(1.0);
+            });
 
             // ---------------------------------------------------------- vitrine des objets 3D
             cmd(sp, "tp @s ~400 ~ ~ 0 8");
@@ -134,44 +137,47 @@ public class FdManualScreenshots implements FabricClientGameTest {
             shot(ctx, "portal_3_return_gate", false);
 
             // ---------------------------------------------------------- panoramas et créatures de chaque dimension
+            java.util.Map<String, String> stones = java.util.Map.of("celestial", "cloudstone", "corrupted", "blightstone",
+                    "ocean", "abyssal_stone", "chaos", "cinderstone", "eternal", "frostrock", "depths", "umbral_rock", "void", "voidstone");
             for (String dim : com.forgotten.dimensions.dimension.FdDimensions.IDS) {
-                sp.getServer().runOnServer(server -> {
-                    var p = server.getPlayerManager().getPlayerList().get(0);
-                    com.forgotten.dimensions.dimension.DimensionTravel.travelTo(p, dim);
-                });
+                sp.getServer().runOnServer(server -> com.forgotten.dimensions.dimension.DimensionTravel.travelTo(
+                        server.getPlayerManager().getPlayerList().get(0), dim));
                 ctx.waitTicks(100);
                 boolean open = !dim.equals("chaos") && !dim.equals("depths");
+                // Le portail de retour est à l'est de l'arrivée : on regarde vers l'ouest (yaw 90).
                 sp.getServer().runOnServer(server -> {
                     var p = server.getPlayerManager().getPlayerList().get(0);
                     p.getAbilities().flying = true;
                     p.sendAbilitiesUpdate();
-                    if (open) p.requestTeleport(p.getX(), p.getY() + 22, p.getZ());
-                    p.setYaw(200F);
-                    p.setHeadYaw(200F);
-                    p.setPitch(open ? 22F : 5F);
+                    if (open) p.requestTeleport(p.getX() + 4, p.getY() + 24, p.getZ());
+                    p.setYaw(90F);
+                    p.setHeadYaw(90F);
+                    p.setPitch(open ? 24F : 8F);
                 });
                 ctx.waitTicks(120);
                 shot(ctx, "dim_" + dim + "_panorama", true);
-                // Créatures de la dimension, immobiles, devant le joueur.
+                // Petite scène dégagée devant le joueur, puis les créatures de la dimension, immobiles, face à lui.
                 sp.getServer().runOnServer(server -> {
                     var p = server.getPlayerManager().getPlayerList().get(0);
-                    if (open) p.requestTeleport(p.getX(), p.getY() - 22, p.getZ());
-                    p.setYaw(0F);
-                    p.setHeadYaw(0F);
-                    p.setPitch(10F);
+                    if (open) p.requestTeleport(p.getX() - 4, p.getY() - 24, p.getZ());
+                    p.setYaw(90F);
+                    p.setHeadYaw(90F);
+                    p.setPitch(12F);
                 });
                 ctx.waitTicks(10);
                 sp.getServer().runCommand("kill @e[type=!player]");
+                cmd(sp, "fill ~-24 ~-1 ~-11 ~-2 ~-1 ~11 forgotten_dimensions:polished_" + stones.get(dim));
+                cmd(sp, "fill ~-24 ~ ~-11 ~-2 ~8 ~11 air");
                 java.util.List<String> list = new java.util.ArrayList<>();
                 com.forgotten.dimensions.registry.ModCreatures.definitions().forEach((id, d) -> {
                     if (d.dimension().equals(dim)) list.add(id);
                 });
                 for (int i = 0; i < list.size(); i++) {
                     int row = i / 5, col = i % 5;
-                    cmd(sp, "summon forgotten_dimensions:" + list.get(i) + " ~" + ((col - 2) * 3.4) + " ~" + (row * 1.2)
-                            + " ~" + (7 + row * 5.5) + " {NoAI:1b,PersistenceRequired:1b,Rotation:[180f,0f]}");
+                    cmd(sp, "summon forgotten_dimensions:" + list.get(i) + " ~" + (-(7 + row * 6)) + " ~" + (row * 0.6)
+                            + " ~" + ((col - 2) * 3.6) + " {NoAI:1b,PersistenceRequired:1b,Rotation:[-90f,0f]}");
                 }
-                ctx.waitTicks(30);
+                ctx.waitTicks(40);
                 shot(ctx, "dim_" + dim + "_creatures", true);
                 sp.getServer().runCommand("kill @e[type=!player]");
             }

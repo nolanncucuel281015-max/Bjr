@@ -30,6 +30,10 @@ armures par centaines, et prépare les sept dimensions oubliées.
 Captures prises automatiquement par le test client (`FdClientGameTest`) dans un vrai Minecraft
 1.21.11 (rendu logiciel, sans carte graphique).
 
+> 📖 **Manuel du joueur illustré** : [`docs/manuel/Manuel - Les Dimensions Oubliees.pdf`](docs/manuel/)
+> (aussi en HTML : `docs/manuel/manuel.html`). Il est généré à partir des données du mod par
+> `python3 tools/manual/build_manual.py` puis `node tools/manual/export_pdf.cjs`.
+
 ---
 
 ## Sommaire
@@ -307,6 +311,17 @@ Armes légendaires (recette : 4 essences + 4 fragments autour de l'arme de base 
 (flèches sans gravité), Sceptre de la Reine du Givre (javelots de glace qui figent), Grande Épée de
 l'Empereur des Cieux (foudre), Croc des Profondeurs (poison, cécité, attaque dans le dos), Arbalète
 d'Appel-Tempête (carreaux foudroyants), et **Fin des Mondes** (mythique, bonus contre les boss).
+
+### Modèles 3D
+
+Les **100 armes** ont des modèles 3D (lames, gardes, manches et pommeaux en relief, haches doubles,
+lances, bâtons surmontés d'une orbe, arcs courbés avec corde et flèche pendant la tension,
+arbalètes et leurs états de chargement), en main, dans l'inventaire, au sol et dans les cadres.
+Les **armures** ont des icônes en volume et, une fois portées, de vraies pièces en relief :
+crête (ensembles épiques et plus), visière et rebord de casque, plastron bombé, épaulières,
+ceinture, genouillères et bottes renforcées. Ces pièces suivent les mouvements du joueur et
+s'affichent aussi sur les supports d'armure et les humanoïdes (`tools/gen/items3d.py`,
+`ArmorDetailsFeatureRenderer`).
 
 ### Armures (30 ensembles, 120 pièces)
 
