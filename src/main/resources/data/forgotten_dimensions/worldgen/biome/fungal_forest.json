@@ -48,9 +48,29 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "forgotten_dimensions:living_mushroom",
+        "weight": 14,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "forgotten_dimensions:tunnel_mole",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "forgotten_dimensions:deep_worm",
+        "weight": 12,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

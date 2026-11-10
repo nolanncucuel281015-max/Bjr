@@ -50,7 +50,13 @@ public final class DimensionTravel {
             player.setAttached(ModAttachments.RETURN_POINT,
                     new ReturnPoint(player.getEntityWorld().getRegistryKey().getValue().toString(), player.getBlockPos()));
         }
-        BlockPos arrival = findArrival(target, player.getBlockX(), player.getBlockZ(), dimId);
+        int x = player.getBlockX(), z = player.getBlockZ();
+        if (dimId.equals("void")) {
+            // Le Néant a la structure de l'End : on arrive sur l'île centrale, pas dans le vide qui l'entoure.
+            x = Math.max(-64, Math.min(64, x));
+            z = Math.max(-64, Math.min(64, z));
+        }
+        BlockPos arrival = findArrival(target, x, z, dimId);
         departFx(player);
         player.teleport(target, arrival.getX() + 0.5, arrival.getY(), arrival.getZ() + 0.5, Set.of(), player.getYaw(), player.getPitch(), true);
         ensureReturnGate(target, arrival);

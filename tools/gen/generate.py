@@ -35,7 +35,9 @@ OWNED_DIRS = [
     os.path.join(ASSETS, "blockstates"), os.path.join(ASSETS, "models"), os.path.join(ASSETS, "items"),
     os.path.join(ASSETS, "textures", "block"), os.path.join(ASSETS, "textures", "item"),
     os.path.join(ASSETS, "textures", "entity", "equipment"), os.path.join(ASSETS, "equipment"),
+    os.path.join(ASSETS, "textures", "entity", "creature"),
     os.path.join(DATA, "recipe"), os.path.join(DATA, "loot_table", "blocks"), os.path.join(DATA, "tags"),
+    os.path.join(DATA, "loot_table", "entities"), os.path.join(ASSETS, "fd_entity_models"),
     os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"), os.path.join(DATA, "worldgen"),
     os.path.join(DATA, "dimension"), os.path.join(DATA, "dimension_type"),
 ]
@@ -46,6 +48,7 @@ ITEMS = []       # objets simples : id, rarity, fireproof
 RECIPES = {}
 TEXTURES_DONE = set()
 ITEM_TAGS = {}   # tag -> set(ids)
+ENTITY_TAGS = {}
 BLOCK_TAGS = {}
 
 
@@ -632,6 +635,68 @@ for a in C.ARTIFACTS:
 # 7. Phase 4 : dimensions, biomes, surfaces, bois, portail et clés
 # ===========================================================================
 import dimensions as D  # noqa: E402
+# ===========================================================================
+# 8. Phase 5 : créatures (modèles, textures, butin, œufs, apparitions)
+# ===========================================================================
+import creatures as CR  # noqa: E402
+import modelgen as MG  # noqa: E402
+
+CREATURE_SPAWNS = {}
+CREATURE_ROWS = []
+ARCH_LAYOUTS = {}
+for arch in MG.ARCHETYPES:
+    model, tw, th = MG.layout(arch)
+    ARCH_LAYOUTS[arch] = (model, tw, th)
+    wjson(os.path.join(ASSETS, "fd_entity_models", arch + ".json"), model)
+for cr in CR.CREATURES:
+    cid = cr["id"]
+    k = CR.DIM_SCALE[cr["dim"]]
+    cat = cr["cat"]
+    hp = round(cr["hp"] * k)
+    dmg = round(cr["dmg"] * (k ** 0.8), 1)
+    model, tw, th = ARCH_LAYOUTS[cr["arch"]]
+    save_tex(os.path.join("entity", "creature"), cid, MG.paint(model, tw, th, cr))
+    bw, bh = CR.BASE_SIZE[cr["arch"]]
+    width, height = round(bw * cr["scale"], 2), round(bh * cr["scale"], 2)
+    xp = {"PASSIVE": 2, "NEUTRAL": 5, "HOSTILE": 5 + hp // 10, "ELITE": 30 + hp // 10, "MINIBOSS": 120}[cat]
+    if cat in ("HOSTILE", "ELITE", "MINIBOSS"):
+        group = "monster"
+    elif cr["move"] == "SWIMMING":
+        group = "water_creature"
+    else:
+        group = "creature"
+    CREATURE_ROWS.append(dict(cr, hp_final=hp, dmg_final=dmg, width=width, height=height, xp=xp, group=group))
+    for biome_id in cr["biomes"]:
+        CREATURE_SPAWNS.setdefault(biome_id, {}).setdefault(group, []).append(
+            {"type": rid(cid), "weight": cr["weight"], "minCount": cr["group"][0], "maxCount": cr["group"][1]})
+    # Butin
+    entries = []
+    for item, lo, hi, chance in cr["drops"]:
+        fn = [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": lo, "max": hi}, "add": False},
+              {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting",
+               "count": {"type": "minecraft:uniform", "min": 0.0, "max": 1.0}}]
+        pool = {"bonus_rolls": 0.0, "rolls": 1.0, "entries": [{"type": "minecraft:item", "name": ing(item), "functions": fn}]}
+        if chance < 1.0:
+            pool["conditions"] = [{"condition": "minecraft:random_chance_with_enchanted_bonus", "enchantment": "minecraft:looting",
+                                   "unenchanted_chance": chance, "enchanted_chance": {"type": "minecraft:linear",
+                                                                                     "base": min(1.0, chance + 0.05), "per_level_above_first": 0.05}}]
+        entries.append(pool)
+    wjson(os.path.join(DATA, "loot_table", "entities", cid + ".json"),
+          {"type": "minecraft:entity", "pools": entries, "random_sequence": rid("entities/" + cid)})
+    LANG_EN[f"entity.{NS}.{cid}"] = cr["en"]
+    LANG_FR[f"entity.{NS}.{cid}"] = cr["fr"]
+    egg = cid + "_spawn_egg"
+    save_tex("item", egg, MG.spawn_egg(cr["colors"][0], cr["colors"][1], cid))
+    item_model(egg, "minecraft:item/generated")
+    LANG_EN[f"item.{NS}.{egg}"] = cr["en"] + " Spawn Egg"
+    LANG_FR[f"item.{NS}.{egg}"] = "Œuf d'apparition — " + cr["fr"]
+    tag_item(f"{NS}:spawn_eggs", rid(egg))
+    tag_entity = f"{NS}:creatures/{cr['dim']}"
+    ENTITY_TAGS.setdefault(tag_entity, set()).add(rid(cid))
+    ENTITY_TAGS.setdefault(f"{NS}:creatures", set()).add(rid(cid))
+    if cat == "MINIBOSS":
+        ENTITY_TAGS.setdefault(f"{NS}:minibosses", set()).add(rid(cid))
+
 BIOMES = D.run(sys.modules[__name__])
 
 # Projectile magique (texture utilisée par le rendu des sorts)
@@ -714,6 +779,7 @@ def write_tags(tags, kind):
 
 
 write_tags(ITEM_TAGS, "item")
+write_tags(ENTITY_TAGS, "entity_type")
 write_tags(BLOCK_TAGS, "block")
 
 
@@ -781,6 +847,19 @@ lines.append("")
 lines.append("    /** Minerais générés naturellement dans la Surface (placed_feature du même nom). */")
 lines.append("    public static List<String> overworldOres() {")
 lines.append("        return List.of(" + ", ".join(jstr(o) for o in SURFACE_GEN) + ");")
+lines.append("    }")
+lines.append("")
+lines.append("    public static List<CreatureDef> creatures() {")
+lines.append("        return List.of(")
+lines.append(",\n".join(
+    f"            new CreatureDef({jstr(r['id'])}, {jstr(r['dim'])}, CreatureCategory.{r['cat']}, {jstr(r['arch'])}, "
+    f"CreatureMovement.{r['move']}, {r['hp_final']}, {jf(r['dmg_final'])}, {jf(r['speed'])}, {jf(r['armor'])}, {jf(r['scale'])}, "
+    f"{jf(r['width'])}, {jf(r['height'])}, {r['xp']}, List.of({', '.join(jstr(a) for a in r['abilities'])}), "
+    f"List.of({', '.join(jstr(b) for b in r['behaviors'])}), {jstr(r['sounds'])}, {jstr(r['minion'])}, {str(r['fire']).lower()}, "
+    f"{jstr(r['group'])}, {r['colors'][0][0] << 16 | r['colors'][0][1] << 8 | r['colors'][0][2]}, "
+    f"{r['colors'][1][0] << 16 | r['colors'][1][1] << 8 | r['colors'][1][2]})"
+    for r in CREATURE_ROWS))
+lines.append("        );")
 lines.append("    }")
 lines.append("")
 lines.append("    public static List<ArtifactDef> artifacts() {")

@@ -47,7 +47,32 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "forgotten_dimensions:celestial_eagle",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "forgotten_dimensions:light_spirit",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "forgotten_dimensions:wind_sprite",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "forgotten_dimensions:cloud_ram",
+        "weight": 12,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

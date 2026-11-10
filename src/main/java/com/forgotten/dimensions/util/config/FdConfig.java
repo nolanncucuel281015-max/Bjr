@@ -36,6 +36,8 @@ public final class FdConfig {
         public int summonDurationSeconds = 30;
         /** Les sorts offensifs touchent-ils les autres joueurs ? */
         public boolean spellFriendlyFire = false;
+        /** Fréquence d'apparition naturelle des créatures du mod (0 = aucune, 1 = normal). */
+        public double creatureSpawnMultiplier = 1.0;
         /** Multiplicateur des récompenses (expérience des créatures tuées). */
         public double rewardMultiplier = 1.0;
     }

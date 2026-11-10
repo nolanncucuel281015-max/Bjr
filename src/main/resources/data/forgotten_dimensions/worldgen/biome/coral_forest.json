@@ -54,7 +54,26 @@
     "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
-    "water_creature": []
+    "water_creature": [
+      {
+        "type": "forgotten_dimensions:glow_jellyfish",
+        "weight": 14,
+        "minCount": 2,
+        "maxCount": 5
+      },
+      {
+        "type": "forgotten_dimensions:ancient_turtle",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "forgotten_dimensions:reef_crab",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ]
   },
   "temperature": 0.9
 }

@@ -484,8 +484,9 @@ def run(G):
             bj = {"attributes": attrs, "carvers": cfg["carvers"], "downfall": 0.5 if b["precip"] else 0.0,
                   "effects": {"water_color": b["water"], "grass_color": b["grass"], "foliage_color": b["grass"]},
                   "features": feats, "has_precipitation": b["precip"], "spawn_costs": {},
-                  "spawners": {k: [] for k in ("ambient", "axolotls", "creature", "misc", "monster", "underground_water_creature",
-                                               "water_ambient", "water_creature")},
+                  "spawners": {k: list(getattr(G, "CREATURE_SPAWNS", {}).get(b["id"], {}).get(k, []))
+                               for k in ("ambient", "axolotls", "creature", "misc", "monster", "underground_water_creature",
+                                         "water_ambient", "water_creature")},
                   "temperature": b["temperature"]}
             wjson(os.path.join(DATA, "worldgen", "biome", b["id"] + ".json"), bj)
             G.LANG_EN[f"biome.{NS}.{b['id']}"] = b["en"]

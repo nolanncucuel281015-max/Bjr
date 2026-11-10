@@ -15,6 +15,7 @@ import java.util.List;
  * du mod et prend des captures (build/run/clientGameTest/screenshots). Échoue si un écran plante.
  */
 public class FdClientGameTest implements FabricClientGameTest {
+    private static final java.util.concurrent.atomic.AtomicInteger SPAWNED = new java.util.concurrent.atomic.AtomicInteger();
     private static final List<String> SHOWCASE = List.of(
             "cloudstone", "cloudstone_bricks", "chiseled_cloudstone", "celestial_crystal_ore", "astral_silver_ore", "celestial_lamp",
             "blightstone", "blightstone_bricks", "chiseled_blightstone", "blood_ruby_ore", "corruptium_ore", "blood_lamp",
@@ -72,8 +73,31 @@ public class FdClientGameTest implements FabricClientGameTest {
             context.takeScreenshot(TestScreenshotOptions.of("fd_05_inventory"));
             context.setScreen(() -> null);
 
+            // Phase 5 : galerie des 60 créatures (immobiles, face à la caméra), 10 par capture.
+            sp.getServer().runCommand("execute as @p at @s run tp @s ~200 ~ ~ 0 12");
+            context.waitTicks(80);
+            java.util.List<String> creatures = new java.util.ArrayList<>(com.forgotten.dimensions.registry.ModCreatures.all().keySet());
+            for (int batch = 0; batch * 10 < creatures.size(); batch++) {
+                sp.getServer().runCommand("kill @e[type=!player]");
+                for (int i = 0; i < 10 && batch * 10 + i < creatures.size(); i++) {
+                    int row = i / 5, col = i % 5;
+                    double x = (col - 2) * 3.6, z = 9 + row * 6, y = row * 1.5;
+                    sp.getServer().runCommand("execute as @p at @s run summon forgotten_dimensions:" + creatures.get(batch * 10 + i)
+                            + " ~" + x + " ~" + y + " ~" + z + " {NoAI:1b,PersistenceRequired:1b,Rotation:[180f,0f]}");
+                }
+                context.waitTicks(30);
+                context.takeScreenshot(TestScreenshotOptions.of("fd_creatures_" + batch));
+            }
+            sp.getServer().runCommand("kill @e[type=!player]");
+
             // Phase 4 : voyage réel dans chacune des sept dimensions.
             context.runOnClient(client -> client.options.getViewDistance().setValue(6));
+            // Le monde de test coupe l'apparition des créatures ; on la réactive pour vérifier les apparitions naturelles.
+            sp.getServer().runOnServer(server -> {
+                server.getOverworld().getGameRules().setValue(net.minecraft.world.rule.GameRules.DO_MOB_SPAWNING, true, server);
+                server.setDifficulty(net.minecraft.world.Difficulty.NORMAL, true);
+            });
+            sp.getServer().runCommand("gamemode creative @a");
             for (String dim : com.forgotten.dimensions.dimension.FdDimensions.IDS) {
                 sp.getServer().runOnServer(server -> {
                     var player = server.getPlayerManager().getPlayerList().get(0);
@@ -105,7 +129,17 @@ public class FdClientGameTest implements FabricClientGameTest {
                 // Rendu logiciel (sans carte graphique) : attente fixe plutôt que « tous les chunks rendus ».
                 context.waitTicks(120);
                 context.takeScreenshot(TestScreenshotOptions.of("fd_dim_" + dim));
+                sp.getServer().runOnServer(server -> {
+                    var player = server.getPlayerManager().getPlayerList().get(0);
+                    var found = player.getEntityWorld().getEntitiesByClass(net.minecraft.entity.mob.MobEntity.class,
+                            player.getBoundingBox().expand(96), e -> e instanceof com.forgotten.dimensions.entity.creature.FdCreature);
+                    java.util.Map<String, Integer> counts = new java.util.TreeMap<>();
+                    found.forEach(e -> counts.merge(((com.forgotten.dimensions.entity.creature.FdCreature) e).definition().id(), 1, Integer::sum));
+                    com.forgotten.dimensions.ForgottenDimensions.LOGGER.info("[client-test] {} : créatures apparues naturellement {}", dim, counts);
+                    SPAWNED.addAndGet(found.size());
+                });
             }
+            if (SPAWNED.get() == 0) throw new AssertionError("aucune créature n'est apparue naturellement dans les dimensions");
             sp.getServer().runOnServer(server -> {
                 var player = server.getPlayerManager().getPlayerList().get(0);
                 com.forgotten.dimensions.dimension.DimensionTravel.returnHome(player);

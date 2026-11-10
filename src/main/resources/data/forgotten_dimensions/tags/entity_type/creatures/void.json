@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:astral_dragon",
+    "forgotten_dimensions:cosmic_specter",
+    "forgotten_dimensions:dimensional_guardian",
+    "forgotten_dimensions:living_fragment",
+    "forgotten_dimensions:nebula_ray",
+    "forgotten_dimensions:rift_horror",
+    "forgotten_dimensions:star_jelly",
+    "forgotten_dimensions:void_entity",
+    "forgotten_dimensions:void_walker"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:blight_crawler",
+    "forgotten_dimensions:blight_knight",
+    "forgotten_dimensions:corrupted_boar",
+    "forgotten_dimensions:corrupted_zombie",
+    "forgotten_dimensions:infected_golem",
+    "forgotten_dimensions:mutant_wolf",
+    "forgotten_dimensions:plant_entity",
+    "forgotten_dimensions:rot_wraith",
+    "forgotten_dimensions:scarlet_spider"
+  ]
+}

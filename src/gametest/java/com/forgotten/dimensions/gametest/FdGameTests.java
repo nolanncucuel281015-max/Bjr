@@ -62,7 +62,7 @@ public class FdGameTests {
         long items = Registries.ITEM.getIds().stream().filter(id -> id.getNamespace().equals(NS)).count();
         ctx.assertEquals((long) ContentTables.blocks().size(), blocks, "nombre de blocs");
         long expectedItems = ContentTables.blocks().size() + ContentTables.items().size() + ContentTables.weapons().size()
-                + ContentTables.armorSets().size() * 4L + ContentTables.artifacts().size();
+                + ContentTables.armorSets().size() * 4L + ContentTables.artifacts().size() + ContentTables.creatures().size();
         ctx.assertEquals(expectedItems, items, "nombre d'objets");
         ctx.assertTrue(Registries.ENTITY_TYPE.getId(ModEntities.MAGIC_BOLT).getNamespace().equals(NS), "entité magic_bolt");
         ctx.complete();
@@ -249,6 +249,65 @@ public class FdGameTests {
         ctx.assertTrue(com.forgotten.dimensions.dimension.FdDimensions.dimensionOfKey(ModItems.get("celestial_crystal")) == null, "objet ordinaire");
         MinecraftServer server = ctx.getWorld().getServer();
         ctx.assertTrue(server.getRecipeManager().get(RegistryKey.of(RegistryKeys.RECIPE, ForgottenDimensions.id("void_key"))).isPresent(), "recette clé du Néant");
+        ctx.complete();
+    }
+
+    // ------------------------------------------------------------------ Phase 5 : créatures
+
+    @GameTest
+    public void allCreaturesSpawnWithTheirStats(TestContext ctx) {
+        for (var e : com.forgotten.dimensions.registry.ModCreatures.all().entrySet()) {
+            var def = com.forgotten.dimensions.registry.ModCreatures.definitions().get(e.getKey());
+            net.minecraft.entity.mob.MobEntity mob = ctx.spawnEntity(e.getValue(), new Vec3d(3.5, 2, 3.5));
+            ctx.assertTrue(mob.isAlive(), "créature morte au spawn : " + def.id());
+            ctx.assertEquals((float) def.maxHealth(), mob.getMaxHealth(), def.id() + " : vie max");
+            ctx.assertTrue(mob instanceof com.forgotten.dimensions.entity.creature.FdCreature, def.id() + " : classe");
+            ctx.assertTrue(mob.getEntityWorld().getServer().getReloadableRegistries().getLootTable(
+                    RegistryKey.of(RegistryKeys.LOOT_TABLE, ForgottenDimensions.id("entities/" + def.id()))) != LootTable.EMPTY,
+                    def.id() + " : loot table");
+            mob.discard();
+        }
+        ctx.complete();
+    }
+
+    @GameTest(maxTicks = 200)
+    public void hostileCreatureHuntsWithRangedAbility(TestContext ctx) {
+        var demon = ctx.spawnEntity(com.forgotten.dimensions.registry.ModCreatures.get("magma_demon"), new Vec3d(1.5, 2, 1.5));
+        var pig = ctx.spawnEntity(EntityType.PIG, new Vec3d(6.5, 2, 6.5));
+        pig.setInvulnerable(false);
+        demon.setTarget(pig);
+        float hp = pig.getHealth();
+        // Réussit dès que la cible est blessée ; échoue par expiration (200 ticks) sinon.
+        ctx.runAtEveryTick(() -> {
+            demon.setTarget(pig);
+            if (pig.getHealth() < hp || !pig.isAlive()) ctx.complete();
+        });
+    }
+
+    @GameTest(maxTicks = 100)
+    public void miniBossSummonsMinions(TestContext ctx) {
+        var knight = ctx.spawnEntity(com.forgotten.dimensions.registry.ModCreatures.get("blight_knight"), new Vec3d(2.5, 2, 2.5));
+        var pig = ctx.spawnEntity(EntityType.PIG, new Vec3d(5.5, 2, 5.5));
+        knight.setTarget(pig);
+        ctx.waitAndRun(10, () -> {
+            int minions = ctx.getWorld().getEntitiesByType(com.forgotten.dimensions.registry.ModCreatures.get("corrupted_zombie"),
+                    knight.getBoundingBox().expand(8), e -> true).size();
+            ctx.assertTrue(minions >= 2, "invocations : " + minions);
+            ctx.complete();
+        });
+    }
+
+    @GameTest
+    public void meleeHitEffectsAndReinforcements(TestContext ctx) {
+        var zombie = ctx.spawnEntity(com.forgotten.dimensions.registry.ModCreatures.get("corrupted_zombie"), new Vec3d(1.5, 2, 1.5));
+        var pig = ctx.spawnEntity(EntityType.PIG, new Vec3d(5.5, 2, 5.5));
+        com.forgotten.dimensions.entity.creature.CreatureAbilities.onHit(zombie,
+                ((com.forgotten.dimensions.entity.creature.FdCreature) zombie).definition(), pig);
+        ctx.assertTrue(pig.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.WITHER), "flétrissement au contact");
+        var w1 = ctx.spawnEntity(com.forgotten.dimensions.registry.ModCreatures.get("mutant_wolf"), new Vec3d(2.5, 2, 4.5));
+        var w2 = ctx.spawnEntity(com.forgotten.dimensions.registry.ModCreatures.get("mutant_wolf"), new Vec3d(3.5, 2, 4.5));
+        w1.damage(ctx.getWorld(), ctx.getWorld().getDamageSources().mobAttack(pig), 1.0F);
+        ctx.assertTrue(w2.getTarget() == pig, "la meute n'a pas été alertée");
         ctx.complete();
     }
 }

@@ -142,6 +142,7 @@ class ResourceValidationTest {
                                 || Files.exists(wg.resolve("configured_feature/" + id + ".json"))
                                 || Files.exists(wg.resolve("noise_settings/" + id + ".json"))
                                 || Files.exists(DATA.resolve("dimension_type/" + id + ".json"))
+                                || Files.exists(DATA.resolve("loot_table/entities/" + id + ".json"))
                                 || id.endsWith("_floor") || id.endsWith("_roof");
                         if (!ok) errors.add(p.getFileName() + " -> " + id);
                     }

@@ -78,6 +78,7 @@ public class MagicBoltEntity extends ThrownItemEntity {
         } else {
             ServerWorld world = (ServerWorld) getEntityWorld();
             target.damage(world, world.getDamageSources().indirectMagic(this, getOwner()), power);
+            SpellExecutor.schoolEffect(spell.school(), target, power);
         }
     }
 

@@ -46,7 +46,26 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "forgotten_dimensions:blind_guardian",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "forgotten_dimensions:shadow_predator",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "forgotten_dimensions:umbral_stalker",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

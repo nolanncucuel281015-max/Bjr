@@ -110,6 +110,15 @@ UI = {
     f"command.{NS}.reload.error": ("Invalid configuration file, defaults used (see log)", "Fichier de configuration invalide, valeurs par défaut utilisées (voir le journal)"),
 }
 UI.update({
+    f"itemGroup.{NS}.creatures": ("Forgotten Dimensions — Creatures", "Dimensions Oubliées — Créatures"),
+    f"creature_category.{NS}.passive": ("Passive", "Passive"),
+    f"creature_category.{NS}.neutral": ("Neutral", "Neutre"),
+    f"creature_category.{NS}.hostile": ("Hostile", "Hostile"),
+    f"creature_category.{NS}.elite": ("Elite", "Élite"),
+    f"creature_category.{NS}.miniboss": ("Mini-boss", "Mini-boss"),
+    f"tag.item.{NS}.spawn_eggs": ("Forgotten Spawn Eggs", "Œufs d'apparition oubliés"),
+})
+UI.update({
     f"chapter.{NS}.3": ("Chapter III — The Dimensions", "Chapitre III — Les dimensions"),
     f"chapter.{NS}.7": ("Chapter VII — The World Devourer", "Chapitre VII — Le Dévoreur de Mondes"),
     f"message.{NS}.fall_rescue": ("The ancient gate pulls you back from the abyss.", "Le portail ancien vous arrache à l'abîme."),

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "forgotten_dimensions:item/rift_horror_spawn_egg"
+  }
+}

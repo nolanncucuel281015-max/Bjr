@@ -51,7 +51,20 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "forgotten_dimensions:ancient_bear",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "forgotten_dimensions:snow_hare",
+        "weight": 12,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

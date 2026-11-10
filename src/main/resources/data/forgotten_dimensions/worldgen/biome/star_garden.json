@@ -47,9 +47,23 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "forgotten_dimensions:light_spirit",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "forgotten_dimensions:sky_serpent",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

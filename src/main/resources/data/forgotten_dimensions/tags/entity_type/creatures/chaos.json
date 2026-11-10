@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:ash_imp",
+    "forgotten_dimensions:cinder_hound",
+    "forgotten_dimensions:ember_knight",
+    "forgotten_dimensions:fire_salamander",
+    "forgotten_dimensions:inferno_colossus",
+    "forgotten_dimensions:lava_dragon",
+    "forgotten_dimensions:lava_slug",
+    "forgotten_dimensions:magma_demon",
+    "forgotten_dimensions:volcanic_golem"
+  ]
+}

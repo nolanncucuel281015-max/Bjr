@@ -28,11 +28,14 @@ public final class ModItemGroups {
             });
             ModItems.all().forEach((id, item) -> {
                 if (!ModItems.weapons().containsKey(id) && !ModItems.artifacts().containsKey(id)
-                        && ModItems.armorSetOf(item) == null && !id.endsWith("_spell_bolt")) e.add(item);
+                        && ModItems.armorSetOf(item) == null && !id.endsWith("_spell_bolt") && !id.endsWith("_spawn_egg")) e.add(item);
             });
         });
         group("weapons", () -> ModItems.get("celestial_blade"), e -> ModItems.weapons().keySet().forEach(id -> e.add(ModItems.get(id))));
         group("armor", () -> ModItems.get("frost_queen_chestplate"), e -> ModItems.armorPieces().keySet().forEach(e::add));
+        group("creatures", () -> ModItems.get("sky_drake_spawn_egg"), e -> ModItems.all().forEach((id, item) -> {
+            if (id.endsWith("_spawn_egg")) e.add(item);
+        }));
         group("artifacts", () -> ModItems.get("crown_of_seven_worlds"), e -> ModItems.artifacts().keySet().forEach(id -> e.add(ModItems.get(id))));
     }
 

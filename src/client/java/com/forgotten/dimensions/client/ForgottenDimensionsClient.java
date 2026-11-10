@@ -12,6 +12,11 @@ public final class ForgottenDimensionsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererFactories.register(ModEntities.MAGIC_BOLT, FlyingItemEntityRenderer::new);
+        com.forgotten.dimensions.registry.ModCreatures.all().forEach((id, type) -> {
+            var def = com.forgotten.dimensions.registry.ModCreatures.definitions().get(id);
+            com.forgotten.dimensions.client.render.CreatureModels.layer(def.archetype());
+            EntityRendererFactories.register(type, ctx -> new com.forgotten.dimensions.client.render.FdCreatureRenderer(ctx, def));
+        });
         ModKeyBindings.register();
         RpgHud.register();
         FdTooltips.register();

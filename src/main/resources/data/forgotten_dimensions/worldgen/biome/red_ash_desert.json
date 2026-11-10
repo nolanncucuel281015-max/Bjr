@@ -48,9 +48,23 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "forgotten_dimensions:corrupted_boar",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "forgotten_dimensions:blight_crawler",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

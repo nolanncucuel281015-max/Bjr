@@ -48,9 +48,41 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "forgotten_dimensions:corrupted_boar",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "forgotten_dimensions:corrupted_zombie",
+        "weight": 20,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "forgotten_dimensions:mutant_wolf",
+        "weight": 14,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "forgotten_dimensions:blight_crawler",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "forgotten_dimensions:blight_knight",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

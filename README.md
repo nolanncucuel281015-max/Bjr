@@ -4,9 +4,9 @@ Mod RPG pour **Minecraft Java 1.21.11** (Fabric). Il ajoute la civilisation disp
 Architectes, ses fragments, sa technologie, la magie, une progression RPG complète, des armes et
 armures par centaines, et prépare les sept dimensions oubliées.
 
-> **État du projet : phases 1 à 4 terminées sur 10.** Les sept dimensions sont explorables. Les
-> créatures, les boss, les structures, les quêtes, les PNJ et les musiques originales ne sont
-> **pas encore** présents. La section
+> **État du projet : phases 1 à 5 terminées sur 10.** Les sept dimensions sont explorables et
+> peuplées de 60 créatures. Les 14 boss, les structures, les quêtes, les PNJ et les musiques
+> originales ne sont **pas encore** présents. La section
 > [Avancement](#avancement-par-phase) détaille ce qui est fait et ce qui reste à faire.
 
 ![Vitrine de blocs et HUD](docs/screenshots/world_hud.png)
@@ -22,8 +22,10 @@ armures par centaines, et prépare les sept dimensions oubliées.
 | ![](docs/screenshots/dim_celestial.png) | ![](docs/screenshots/dim_corrupted.png) | ![](docs/screenshots/dim_ocean.png) |
 | **Terres du Chaos** | **Monde Éternel** | **Les Profondeurs** |
 | ![](docs/screenshots/dim_chaos.png) | ![](docs/screenshots/dim_eternal.png) | ![](docs/screenshots/dim_depths.png) |
-| **Le Néant** | | |
-| ![](docs/screenshots/dim_void.png) | | |
+| **Le Néant** | **Créatures (1)** | **Créatures (2)** |
+| ![](docs/screenshots/dim_void.png) | ![](docs/screenshots/creatures_0.png) | ![](docs/screenshots/creatures_2.png) |
+| **Créatures (3)** | **Créatures (4)** | **Créatures (5)** |
+| ![](docs/screenshots/creatures_3.png) | ![](docs/screenshots/creatures_4.png) | ![](docs/screenshots/creatures_5.png) |
 
 Captures prises automatiquement par le test client (`FdClientGameTest`) dans un vrai Minecraft
 1.21.11 (rendu logiciel, sans carte graphique).
@@ -199,6 +201,49 @@ Céleste ou le Néant ramène au point de départ au lieu de tuer. L'arrivée af
 (« Chapitre III — Les dimensions », « Chapitre VII » pour le Néant). Un succès est débloqué par
 dimension visitée.
 
+## Les 60 créatures
+
+| Dimension | Créatures |
+|---|---|
+| **Royaume Céleste** | Aigle céleste (neutre), Gardien des nuages (hostile), Serpent aérien (hostile), Esprit lumineux (passive), Dragon des cieux (**élite**), Sylphe du vent (passive), Bélier des nuages (passive), Héraut de la tempête (***mini-boss***) |
+| **Dimension Corrompue** | Zombie corrompu (hostile), Loup mutant (hostile), Araignée écarlate (hostile), Golem infecté (**élite**), Entité végétale (hostile), Rampant corrompu (hostile), Sanglier corrompu (neutre), Spectre putride (hostile), Chevalier corrompu (***mini-boss***) |
+| **Océan Oublié** | Léviathan (**élite**), Requin spectral (hostile), Méduse lumineuse (passive), Gardien abyssal (hostile), Tortue ancienne (passive), Crabe du récif (passive), Baudroie des abysses (hostile), Architecte noyé (hostile) |
+| **Terres du Chaos** | Salamandre de feu (hostile), Démon de magma (hostile), Golem volcanique (**élite**), Dragon de lave (**élite**), Chevalier des braises (hostile), Diablotin de cendre (hostile), Molosse de cendre (hostile), Limace de lave (passive), Colosse infernal (***mini-boss***) |
+| **Monde Éternel** | Loup fantôme (hostile), Géant de glace (**élite**), Esprit hivernal (hostile), Ours ancien (neutre), Chevalier du gel (hostile), Lièvre des neiges (passive), Feu follet de givre (passive), Wyrm glaciaire (***mini-boss***) |
+| **Les Profondeurs** | Araignée colossale (**élite**), Ver des profondeurs (hostile), Gardien aveugle (hostile), Champignon vivant (neutre), Ombre prédatrice (hostile), Chauve-souris lugubre (hostile), Scarabée de cristal (passive), Taupe des galeries (passive), Traqueur ombral (***mini-boss***) |
+| **Le Néant** | Spectre cosmique (hostile), Dragon astral (**élite**), Entité du vide (hostile), Gardien dimensionnel (**élite**), Fragment vivant (hostile), Méduse stellaire (passive), Marcheur du néant (hostile), Raie nébuleuse (passive), Horreur de la faille (***mini-boss***) |
+
+**Modèles et animations.** Les modèles 3D sont originaux. Ils reposent sur 19 formes (bipède,
+bipède cornu, plante, golem, quadrupède, loup, ours, araignée, crabe, oiseau, dragon, serpent, ver,
+poisson, requin, méduse, esprit, cristal, tortue), décrites dans `tools/gen/modelgen.py`. Chaque
+créature a sa texture et sa taille. Les animations sont générées par le code : la tête suit le
+regard, les jambes et les bras se balancent, les bras se lèvent à l'attaque, les ailes battent,
+les queues et les segments ondulent, les tentacules flottent, les orbes tournent.
+
+**IA et comportements** (configurés créature par créature) : patrouille autour du point
+d'apparition, protection d'une zone (attaque les intrus dans un rayon de 16 blocs), poursuite et
+attaque, fuite (créatures craintives, fuite à faible vie), défense quand on les attaque (neutres),
+**appel de renforts** et chasse en meute, nage et vol réels.
+
+**Capacités** (25) : projectiles des 5 écoles de magie, bond, charge, invocation de sbires
+(élites et mini-boss), auras (ralentissement, poison, flétrissement, fatigue), soin, téléportation,
+foudre, souffle glacé, nova de feu, racines, effets au contact (poison, flétrissement, feu, gel,
+cécité), traque invisible, explosion à la mort.
+
+**Catégories** : passives, neutres, hostiles, **élites** (plus grandes, plus résistantes,
+invocations) et **mini-boss** (barre de vie à l'écran, sbires, butin d'artefacts). Chaque créature
+a ses statistiques (vie, dégâts, vitesse, armure, résistance au recul), qui augmentent de dimension
+en dimension, son expérience, son butin (matériaux, essences, fragments, artefacts rares) et un
+**œuf d'apparition** (onglet créatif « Créatures »).
+
+**Apparition naturelle** dans les biomes de leur dimension. Les hostiles ne craignent pas la
+lumière du ciel, seulement celle des blocs (torches, lampes). La densité est limitée par espèce
+(5 dans 32 blocs, 1 élite dans 48 blocs, 1 mini-boss dans 96 blocs). L'option
+`creatureSpawnMultiplier` règle la fréquence d'apparition.
+
+Les sons sont pour l'instant ceux de Minecraft, choisis par type de créature ; des sons originaux
+viendront en phase 9.
+
 ## Contenu du mod
 
 Tout le contenu ci-dessous est enregistré dans le jeu, a une texture, un modèle, une traduction
@@ -326,9 +371,10 @@ Fichier `config/forgotten_dimensions.json` (créé au premier lancement, recharg
 | `summonDurationSeconds` | 30 | Durée de base des invocations |
 | `spellFriendlyFire` | false | Les sorts offensifs touchent-ils les autres joueurs |
 | `rewardMultiplier` | 1.0 | Expérience des créatures tuées |
+| `creatureSpawnMultiplier` | 1.0 | Fréquence d'apparition naturelle des créatures (0 = aucune) |
 
-Les réglages de fréquence des structures et du nombre de créatures seront ajoutés avec les phases
-correspondantes (aucune option factice n'est exposée).
+Le réglage de fréquence des structures sera ajouté avec la phase 7 (aucune option factice n'est
+exposée).
 
 ## Tests
 
@@ -338,24 +384,30 @@ correspondantes (aucune option factice n'est exposée).
 xvfb-run ./gradlew runClientGameTest   # test client avec captures d'écran (nécessite un affichage)
 ```
 
-- **JUnit (19 tests, `src/test`)** : courbe d'expérience, formules de mana et de puissance,
+- **JUnit (22 tests, `src/test`)** : courbe d'expérience, formules de mana et de puissance,
   recharges, expérience de combat, quantités exigées (≥ 50 minerais, ≥ 100 armes, 30 armures,
   30 artefacts, 50 sorts), unicité des identifiants, aller-retour du codec de progression, et
   **validation des ressources** (aucune texture, aucun modèle ni objet référencé inexistant ;
   chaque bloc a un état et une loot table ; traductions FR et EN complètes et alignées ; 7
-  dimensions et 35 biomes dont toutes les références de génération existent).
-- **GameTests serveur (14 tests, `src/gametest`)**, dans un vrai serveur Minecraft : registres
+  dimensions et 35 biomes dont toutes les références de génération existent ; 60 créatures avec
+  toutes les catégories, capacités et sbires valides, modèle, texture à la bonne taille, butin,
+  œuf et au moins un biome d'apparition).
+- **GameTests serveur (18 tests, `src/gametest`)**, dans un vrai serveur Minecraft : registres
   complets, recettes, loot tables, succès et commande chargés ; montée de niveau et points ;
   compétence qui modifie réellement la vie maximale ; prérequis ; lancement de sort (mana,
   recharge, verrouillage par niveau, projectile créé, mana insuffisant) ; dégâts et effet d'école ;
   artefact (vie et mana max) et détection d'ensemble d'armure ; persistance NBT ; émission de
   redstone ; présence d'un effet pour chaque artefact et arme légendaire ; minerais de fragments
   injectés dans les biomes de la Surface ; types de dimension, réglages de terrain et 35 biomes
-  chargés ; chaque clé ouvre sa dimension.
+  chargés ; chaque clé ouvre sa dimension ; les 60 créatures apparaissent avec leurs
+  statistiques et leur butin ; un démon de magma traque et blesse sa cible à distance ; un mini-boss
+  invoque ses sbires ; effets au contact ; la meute répond à l'attaque d'un de ses membres.
 - **Test client (`FdClientGameTest`)** : crée un vrai monde, place une vitrine de blocs, équipe
   une armure, ouvre les écrans du mod, puis **voyage dans les sept dimensions** : il vérifie
   l'arrivée (bon monde, sol solide), que le terrain est fait des blocs du mod, prend une capture
-  dans chacune et revient à la Surface. Captures dans `build/run/clientGameTest/screenshots/`.
+  dans chacune et revient à la Surface. Il affiche aussi la galerie des 60 créatures (6 captures) et
+  vérifie qu'elles apparaissent naturellement dans les dimensions, en difficulté Normal.
+  Captures dans `build/run/clientGameTest/screenshots/`.
   (Le serveur GameTest seul ne crée pas les dimensions des packs de données : c'est pourquoi la
   génération réelle est testée côté client.)
 
@@ -373,13 +425,15 @@ src/main/java/com/forgotten/dimensions/
   magic/                          sorts, exécuteur, mana, recharges, zones, invocations, ciblage
   progression/                    niveaux, expérience, compétences, spécialisations
   entity/                         MagicBoltEntity (projectile de sort)
+  entity/creature/                créatures : IA commune, capacités, sons, retour à la zone
   event/                          ticks serveur, combat, monde, minage
   network/                        paquets client → serveur, tous revalidés côté serveur
   command/                        /fdimension
   dimension/                      identifiants des 7 dimensions, voyage, arrivée sûre, retour
   mixin/                          un seul mixin : modification centralisée des dégâts reçus
   util/                           configuration, cache joueur, succès, effets
-src/client/java/…/client/         HUD, écrans, raccourcis, infobulles, rendu du projectile
+src/client/java/…/client/         HUD, écrans, raccourcis, infobulles, rendu du projectile et des
+                                  créatures (modèles JSON, animation générique)
 src/test/java/                    tests JUnit
 src/gametest/java/                GameTests serveur et client
 tools/gen/                        générateur de contenu (Python)
@@ -429,18 +483,18 @@ jamais modifié. Les traductions de l'interface, des sorts et des compétences s
 | 2 | Registres : blocs, objets, armes, armures, artefacts, entité de sort | ✅ terminé et testé |
 | 3 | Progression, mana, compétences, magie, HUD et écrans associés | ✅ terminé et testé |
 | 4 | Sept dimensions, 35 biomes, génération, portails | ✅ terminé et testé (y compris en jeu) |
-| 5 | 60 créatures et leurs IA | ⏳ à faire |
+| 5 | 60 créatures, modèles, animations, IA, capacités, apparitions | ✅ terminé et testé (y compris en jeu) |
 | 6 | 14 boss, barres de vie, arènes | ⏳ à faire |
 | 7 | 25 structures et donjons | ⏳ à faire |
 | 8 | Quêtes, PNJ, journal, livre des dimensions, bestiaire | ⏳ à faire |
 | 9 | Sons et musiques originaux | ⏳ à faire (sorts et dimensions utilisent pour l'instant des sons et musiques de Minecraft) |
 | 10 | Optimisation finale, tests multijoueur à plusieurs clients | ⏳ à faire |
 
-Ce qui manque explicitement aujourd'hui : créatures dans les dimensions (elles sont vides
-d'êtres vivants jusqu'à la phase 5), boss (les cœurs de gardiens ne s'obtiennent donc qu'en
-créatif), structures et donjons (les biomes « Ruines » et « Citadelle » n'ont pour l'instant que
-des blocs épars), quêtes, PNJ, musiques et sons originaux (les dimensions jouent des musiques de
-Minecraft), histoire scénarisée complète (7 archives des terminaux et titres de chapitres).
+Ce qui manque explicitement aujourd'hui : les 14 boss (les cœurs de gardiens ne s'obtiennent donc
+qu'en créatif ; les mini-boss actuels n'en font pas partie), structures et donjons (les biomes
+« Ruines » et « Citadelle » n'ont pour l'instant que des blocs épars), quêtes, PNJ, bestiaire,
+musiques et sons originaux, histoire scénarisée complète (7 archives des terminaux et titres de
+chapitres).
 
 ## Licence
 
