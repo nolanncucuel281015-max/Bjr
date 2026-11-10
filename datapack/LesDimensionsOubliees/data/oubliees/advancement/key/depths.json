@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "minecraft:echo_shard",
+          "predicates": {
+            "minecraft:custom_data": {
+              "oubliees": {
+                "key": "depths"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "oubliees:travel/key_depths"
+  }
+}

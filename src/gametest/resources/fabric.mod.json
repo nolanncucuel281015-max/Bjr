@@ -10,7 +10,8 @@
     ],
     "fabric-client-gametest": [
       "com.forgotten.dimensions.gametest.FdClientGameTest",
-      "com.forgotten.dimensions.gametest.FdManualScreenshots"
+      "com.forgotten.dimensions.gametest.FdManualScreenshots",
+      "com.forgotten.dimensions.gametest.FdDatapackScreenshots"
     ]
   },
   "depends": {

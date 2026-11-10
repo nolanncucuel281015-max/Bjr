@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  M",
+    " S ",
+    "S  "
+  ],
+  "key": {
+    "M": "minecraft:copper_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "minecraft:carrot_on_a_stick",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Bâton de foudre",
+        "color": "#ffe24a",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:item_model": "minecraft:lightning_rod",
+      "minecraft:lore": [
+        {
+          "text": "École : Foudre",
+          "color": "#ffe24a",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Étincelle — niv. 1",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Éclair — niv. 5",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Chaîne d'éclairs — niv. 15",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Tempête — niv. 30",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Clic droit : lancer le sort",
+          "color": "aqua",
+          "italic": false
+        },
+        {
+          "text": "Accroupi + clic droit : sort suivant",
+          "color": "aqua",
+          "italic": false
+        }
+      ],
+      "minecraft:custom_data": {
+        "oubliees": {
+          "staff": "lightning"
+        }
+      },
+      "minecraft:enchantment_glint_override": true,
+      "minecraft:rarity": "rare",
+      "minecraft:unbreakable": {}
+    }
+  }
+}

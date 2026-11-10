@@ -1,0 +1,76 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#000000",
+    "minecraft:visual/fog_color": "#180c28",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:end_rod"
+        },
+        "probability": 0.003
+      }
+    ]
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#6040c0",
+    "grass_color": "#a070e0",
+    "foliage_color": "#a070e0"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "oubliees:void_geode"
+    ],
+    [],
+    [],
+    [
+      "oubliees:void_deep_stone_blobs",
+      "oubliees:nebulite_ore",
+      "oubliees:void_shard_ore",
+      "oubliees:cosmic_opal_ore"
+    ],
+    [],
+    [],
+    [
+      "oubliees:void_crystals"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:allay",
+        "weight": 12,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:phantom",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:shulker",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

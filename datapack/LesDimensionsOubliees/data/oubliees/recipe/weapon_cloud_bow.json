@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:phantom_membrane",
+    "B": "minecraft:bow"
+  },
+  "result": {
+    "id": "minecraft:bow",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Arc des nuées",
+        "color": "#bfeaff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Arme légendaire — Royaume Céleste",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:power": 3,
+        "minecraft:punch": 1
+      },
+      "minecraft:rarity": "epic",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "weapon": "cloud_bow"
+        }
+      }
+    }
+  }
+}

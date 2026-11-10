@@ -1,0 +1,78 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#40101a",
+    "minecraft:visual/fog_color": "#3a1010",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:crimson_spore"
+        },
+        "probability": 0.03
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#3a0a10",
+    "grass_color": "#802028",
+    "foliage_color": "#802028"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "oubliees:corrupted_deep_stone_blobs",
+      "oubliees:corruptium_ore",
+      "oubliees:blood_ruby_ore",
+      "oubliees:blight_amber_ore"
+    ],
+    [],
+    [],
+    [
+      "oubliees:crimsonroot_sparse",
+      "minecraft:patch_waterlily"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:zombie",
+        "weight": 20,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:creeper",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:vex",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.7
+}

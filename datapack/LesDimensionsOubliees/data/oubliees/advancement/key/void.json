@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "minecraft:echo_shard",
+          "predicates": {
+            "minecraft:custom_data": {
+              "oubliees": {
+                "key": "void"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "oubliees:travel/key_void"
+  }
+}

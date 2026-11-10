@@ -1,0 +1,67 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MEM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:amethyst_shard",
+    "E": "minecraft:ender_eye"
+  },
+  "result": {
+    "id": "minecraft:echo_shard",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Clé — Royaume Céleste",
+        "color": "#bfeaff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:item_model": "minecraft:amethyst_shard",
+      "minecraft:lore": [
+        {
+          "text": "Ouvre un passage vers : Royaume Céleste",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Niveau conseillé : 1",
+          "color": "yellow",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Maintenez clic droit pour voyager.",
+          "color": "aqua",
+          "italic": false
+        },
+        {
+          "text": "Utilisée dans sa dimension, elle vous ramène.",
+          "color": "aqua",
+          "italic": false
+        }
+      ],
+      "minecraft:custom_data": {
+        "oubliees": {
+          "key": "celestial"
+        }
+      },
+      "minecraft:consumable": {
+        "consume_seconds": 1.6,
+        "animation": "bow",
+        "sound": "minecraft:block.portal.trigger",
+        "has_consume_particles": false
+      },
+      "minecraft:enchantment_glint_override": true,
+      "minecraft:rarity": "epic",
+      "minecraft:max_stack_size": 1
+    }
+  }
+}

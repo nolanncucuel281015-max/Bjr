@@ -1,0 +1,79 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#a8e0ff",
+    "minecraft:visual/fog_color": "#f0f8ff",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:white_ash"
+        },
+        "probability": 0.004
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:cave"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#7fd0ff",
+    "grass_color": "#a0f0e0",
+    "foliage_color": "#a0f0e0"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "oubliees:celestial_geode"
+    ],
+    [],
+    [],
+    [
+      "oubliees:celestial_deep_stone_blobs",
+      "oubliees:astral_silver_ore",
+      "oubliees:celestial_crystal_ore",
+      "oubliees:windstone_ore"
+    ],
+    [],
+    [],
+    [
+      "oubliees:cloudwood_dense",
+      "minecraft:patch_grass_forest"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:allay",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 12,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:phantom",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.7
+}

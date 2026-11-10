@@ -345,7 +345,7 @@ def build():
     toc = [("histoire", "L'histoire des Anciens Architectes"), ("installation", "Installation"), ("premiers-pas", "Premiers pas"),
            ("voyage", "Voyager dans les dimensions"), ("dimensions", "Les sept dimensions"), ("progression", "Progression RPG"),
            ("magie", "La magie"), ("armes", "Armes"), ("armures", "Armures"), ("artefacts", "Artefacts"), ("blocs", "Blocs"),
-           ("creatures", "Bestiaire et capacités"), ("commandes", "Commandes, touches et configuration"), ("faq", "Questions fréquentes")]
+           ("creatures", "Bestiaire et capacités"), ("commandes", "Commandes, touches et configuration"), ("datapack", "L'édition data pack (sans mod)"), ("faq", "Questions fréquentes")]
     parts.append('<section class="toc"><h1>Sommaire</h1><ol>' + "".join(
         f'<li><a href="#{a}">{esc(t)}</a></li>' for a, t in toc) + "</ol>"
         + '<p class="note">Ce manuel est généré à partir des données du mod : chaque valeur (dégâts, mana, niveau requis, '
@@ -785,6 +785,25 @@ Chaque créature a un œuf d'apparition (onglet créatif « Créatures »).</p>
            ("Trop de particules.", "Baissez particleMultiplier dans la configuration puis /fdimension reload."),
            ("Trop de monstres.", "Baissez creatureSpawnMultiplier, ou éclairez avec des torches (la lumière des blocs empêche leur apparition)."),
            ("Connexion refusée au serveur.", "Le client et le serveur doivent avoir exactement le même mod et la même Fabric API.")]
+    # ------------------------------------------------------------------ édition data pack
+    parts.append(sec("datapack", "L'édition data pack (sans mod)", f'''
+<p class="lead">Pour jouer <b>sans Fabric</b> (monde vanilla, serveur vanilla, Realms), installez
+<code>LesDimensionsOubliees.zip</code> comme pack de données : Créer un monde → Plus → Packs de données, ou copiez le zip dans
+<code>saves/&lt;monde&gt;/datapacks/</code> puis rouvrez le monde. Vous recevez le Grimoire des Anciens et un bâton de feu.</p>
+<div class="two"><div>{shot("dp_hud_fire_bolt", "Clic droit avec un bâton : cercle runique, barre d'action RPG (niveau, XP, mana, sort).")}</div>
+<div>{shot("dp_meteor", "Météore : un rocher de magma tombe sur la zone visée.")}</div></div>
+<div class="gallery">{shot("dp_frozen_prison", "Prison de glace.")}{shot("dp_chain_lightning", "Chaîne d'éclairs.")}
+{shot("dp_summons", "Invocations : sentinelle de neige géante et loups spectraux.")}{shot("dp_mob_levels", "Créatures à niveau, barres de vie et dégâts.")}
+{shot("dp_dim_celestial", "Royaume Céleste (blocs vanilla).")}{shot("dp_dim_corrupted", "Dimension Corrompue.")}
+{shot("dp_dim_chaos", "Terres du Chaos.")}{shot("dp_dim_depths", "Les Profondeurs.")}</div>
+<h2>Commandes du data pack</h2>
+{table(["Action", "Comment"], [["Lancer le sort", "Clic droit avec un bâton"], ["Sort suivant", "Accroupi + clic droit"],
+                              ["Fiche de personnage", "<code>/trigger oubliees.menu</code> (cliquez un sort pour le choisir)"],
+                              ["Voyager / revenir", "Maintenir clic droit avec la clé (la même clé ramène au point de départ)"]])}
+<p>Le data pack reprend les 7 dimensions en blocs vanilla, 20 sorts (4 par école), 14 armes, 7 armures, les niveaux 1 à 50 et
+les créatures à niveau. Un data pack ne peut pas ajouter de touches, de blocs, de créatures ni de modèles sur mesure : le mod
+reste la version complète. Détails dans <code>datapack/LISEZMOI.md</code>.</p>'''))
+
     parts.append(sec("faq", "Questions fréquentes", "".join(f'<div class="faq"><b>{esc(q)}</b><p>{esc(a)}</p></div>' for q, a in faq)
                      + '<p class="end">Bonne exploration, Architecte.</p>'))
 

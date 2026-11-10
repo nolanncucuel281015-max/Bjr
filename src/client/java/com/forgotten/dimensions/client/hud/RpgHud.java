@@ -49,6 +49,7 @@ public final class RpgHud {
     private static void render(DrawContext ctx, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.options.hudHidden || client.getDebugHud().shouldShowDebugHud()) return;
+        if (!com.forgotten.dimensions.util.config.FdConfig.get().rpgHud) return;
         PlayerProgress p = ClientData.progress();
         unitFrame(ctx, client, p);
         spellBar(ctx, client, p);

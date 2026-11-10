@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  M",
+    " S ",
+    "S  "
+  ],
+  "key": {
+    "M": "minecraft:ender_pearl",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "minecraft:carrot_on_a_stick",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Bâton du néant",
+        "color": "#b066ff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:item_model": "minecraft:end_rod",
+      "minecraft:lore": [
+        {
+          "text": "École : Néant",
+          "color": "#b066ff",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Téléportation — niv. 1",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Trait du néant — niv. 3",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Puits gravitationnel — niv. 20",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Singularité — niv. 40",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Clic droit : lancer le sort",
+          "color": "aqua",
+          "italic": false
+        },
+        {
+          "text": "Accroupi + clic droit : sort suivant",
+          "color": "aqua",
+          "italic": false
+        }
+      ],
+      "minecraft:custom_data": {
+        "oubliees": {
+          "staff": "void"
+        }
+      },
+      "minecraft:enchantment_glint_override": true,
+      "minecraft:rarity": "rare",
+      "minecraft:unbreakable": {}
+    }
+  }
+}

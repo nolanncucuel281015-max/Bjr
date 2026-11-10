@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:prismarine_crystals",
+    "B": "minecraft:diamond_helmet"
+  },
+  "result": {
+    "id": "minecraft:diamond_helmet",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Casque des abysses",
+        "color": "#3fd0c8",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Armure — Océan Oublié",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Ensemble complet :",
+          "color": "gold",
+          "italic": false
+        },
+        {
+          "text": "  Respiration et grâce du dauphin",
+          "color": "yellow",
+          "italic": false
+        }
+      ],
+      "minecraft:trim": {
+        "material": "minecraft:lapis",
+        "pattern": "minecraft:tide"
+      },
+      "minecraft:enchantments": {
+        "minecraft:protection": 3,
+        "minecraft:unbreaking": 2
+      },
+      "minecraft:rarity": "rare",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "set": "ocean"
+        }
+      }
+    }
+  }
+}

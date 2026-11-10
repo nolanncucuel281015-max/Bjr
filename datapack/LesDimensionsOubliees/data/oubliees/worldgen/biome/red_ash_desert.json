@@ -1,0 +1,73 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#a04030",
+    "minecraft:visual/fog_color": "#a05040",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:ash"
+        },
+        "probability": 0.03
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#6a1a10",
+    "grass_color": "#a05030",
+    "foliage_color": "#a05030"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "oubliees:corrupted_deep_stone_blobs",
+      "oubliees:corruptium_ore",
+      "oubliees:blood_ruby_ore",
+      "oubliees:blight_amber_ore"
+    ],
+    [],
+    [],
+    [
+      "minecraft:patch_dead_bush_2",
+      "minecraft:patch_cactus_desert"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:pig",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:silverfish",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

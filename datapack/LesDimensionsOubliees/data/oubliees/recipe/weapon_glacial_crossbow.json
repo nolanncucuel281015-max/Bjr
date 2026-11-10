@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:packed_ice",
+    "B": "minecraft:crossbow"
+  },
+  "result": {
+    "id": "minecraft:crossbow",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Arbalète glaciaire",
+        "color": "#a8e4ff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Arme légendaire — Monde Éternel",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:quick_charge": 3,
+        "minecraft:piercing": 4
+      },
+      "minecraft:rarity": "epic",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "weapon": "glacial_crossbow"
+        }
+      }
+    }
+  }
+}

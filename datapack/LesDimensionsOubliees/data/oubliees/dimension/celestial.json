@@ -1,0 +1,72 @@
+{
+  "type": "oubliees:celestial",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "oubliees:celestial",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "oubliees:sky_meadow",
+          "parameters": {
+            "temperature": 0.3,
+            "humidity": -0.4,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "oubliees:cloud_forest",
+          "parameters": {
+            "temperature": 0.3,
+            "humidity": 0.6,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "oubliees:floating_peaks",
+          "parameters": {
+            "temperature": -0.6,
+            "humidity": -0.5,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "oubliees:star_garden",
+          "parameters": {
+            "temperature": 0.7,
+            "humidity": 0.2,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "oubliees:suspended_ruins",
+          "parameters": {
+            "temperature": -0.3,
+            "humidity": 0.3,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:echo_shard"
+    },
+    "title": {
+      "text": "Les Profondeurs"
+    },
+    "description": {
+      "text": "Voyager vers Les Profondeurs.",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "enter": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "oubliees:depths"
+      }
+    }
+  },
+  "parent": "oubliees:dim_eternal"
+}

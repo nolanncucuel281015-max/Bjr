@@ -1,0 +1,84 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#301010",
+    "minecraft:visual/fog_color": "#3a1a14",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:ash"
+        },
+        "probability": 0.05
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:nether_cave"
+  ],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#ff6010",
+    "grass_color": "#602010",
+    "foliage_color": "#602010"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:basalt_pillar"
+    ],
+    [],
+    [
+      "oubliees:chaos_deep_stone_blobs",
+      "oubliees:magmatite_ore",
+      "oubliees:ember_garnet_ore",
+      "oubliees:brimstone_ore"
+    ],
+    [],
+    [],
+    [
+      "minecraft:small_basalt_columns",
+      "minecraft:large_basalt_columns"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:vindicator",
+        "weight": 12,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:ravager",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:ghast",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:ravager",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

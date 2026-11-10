@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:dragon_breath",
+    "B": "minecraft:bow"
+  },
+  "result": {
+    "id": "minecraft:bow",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Arc du néant",
+        "color": "#c070ff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Arme légendaire — Le Néant",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:power": 5,
+        "minecraft:flame": 1,
+        "minecraft:infinity": 1
+      },
+      "minecraft:rarity": "epic",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "weapon": "void_bow"
+        }
+      }
+    }
+  }
+}

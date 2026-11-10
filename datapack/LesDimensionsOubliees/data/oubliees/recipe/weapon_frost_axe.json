@@ -1,0 +1,58 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:blue_ice",
+    "B": "minecraft:diamond_axe"
+  },
+  "result": {
+    "id": "minecraft:diamond_axe",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Hache du givre",
+        "color": "#a8e4ff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Arme légendaire — Monde Éternel",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:sharpness": 3,
+        "minecraft:efficiency": 4
+      },
+      "minecraft:rarity": "epic",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "weapon": "frost_axe"
+        }
+      },
+      "minecraft:attribute_modifiers": [
+        {
+          "type": "minecraft:attack_damage",
+          "id": "minecraft:base_attack_damage",
+          "amount": 11,
+          "operation": "add_value",
+          "slot": "mainhand"
+        },
+        {
+          "type": "minecraft:attack_speed",
+          "id": "minecraft:base_attack_speed",
+          "amount": -3.0,
+          "operation": "add_value",
+          "slot": "mainhand"
+        }
+      ]
+    }
+  }
+}

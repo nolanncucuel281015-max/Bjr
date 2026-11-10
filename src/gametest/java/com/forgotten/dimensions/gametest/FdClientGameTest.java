@@ -29,6 +29,8 @@ public class FdClientGameTest implements FabricClientGameTest {
 
     @Override
     public void runTest(ClientGameTestContext context) {
+        String only = System.getProperty("fd.test.only");
+        if (only != null && !only.equals("client")) return;
         try (TestSingleplayerContext sp = context.worldBuilder().create()) {
             sp.getClientWorld().waitForChunksRender();
             sp.getServer().runCommand("time set noon");

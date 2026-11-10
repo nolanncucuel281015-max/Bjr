@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:echo_shard",
+    "B": "minecraft:netherite_pickaxe"
+  },
+  "result": {
+    "id": "minecraft:netherite_pickaxe",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Pioche des profondeurs",
+        "color": "#8a7aff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Arme légendaire — Les Profondeurs",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:efficiency": 5,
+        "minecraft:fortune": 3
+      },
+      "minecraft:rarity": "epic",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "weapon": "depths_pickaxe"
+        }
+      }
+    }
+  }
+}

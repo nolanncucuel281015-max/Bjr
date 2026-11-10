@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:magma_block",
+    "B": "minecraft:netherite_leggings"
+  },
+  "result": {
+    "id": "minecraft:netherite_leggings",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Jambières volcanique",
+        "color": "#ff7a20",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Armure — Terres du Chaos",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Ensemble complet :",
+          "color": "gold",
+          "italic": false
+        },
+        {
+          "text": "  Résistance au feu",
+          "color": "yellow",
+          "italic": false
+        }
+      ],
+      "minecraft:trim": {
+        "material": "minecraft:gold",
+        "pattern": "minecraft:snout"
+      },
+      "minecraft:enchantments": {
+        "minecraft:protection": 3,
+        "minecraft:unbreaking": 2
+      },
+      "minecraft:rarity": "rare",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "set": "chaos"
+        }
+      }
+    }
+  }
+}

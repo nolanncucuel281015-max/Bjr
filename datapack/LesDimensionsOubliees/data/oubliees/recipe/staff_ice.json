@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "  M",
+    " S ",
+    "S  "
+  ],
+  "key": {
+    "M": "minecraft:packed_ice",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "minecraft:carrot_on_a_stick",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Bâton de glace",
+        "color": "#8fe0ff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:item_model": "minecraft:breeze_rod",
+      "minecraft:lore": [
+        {
+          "text": "École : Glace",
+          "color": "#8fe0ff",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Éclat de glace — niv. 1",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Nova de givre — niv. 8",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Prison de glace — niv. 12",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "  Sentinelle de givre — niv. 16",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Clic droit : lancer le sort",
+          "color": "aqua",
+          "italic": false
+        },
+        {
+          "text": "Accroupi + clic droit : sort suivant",
+          "color": "aqua",
+          "italic": false
+        }
+      ],
+      "minecraft:custom_data": {
+        "oubliees": {
+          "staff": "ice"
+        }
+      },
+      "minecraft:enchantment_glint_override": true,
+      "minecraft:rarity": "rare",
+      "minecraft:unbreakable": {}
+    }
+  }
+}

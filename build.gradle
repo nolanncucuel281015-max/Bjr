@@ -79,4 +79,6 @@ jar {
 // ce qui fait abandonner le synchroniseur réseau du framework de test. Il est désactivé pour ce lancement.
 loom.runs.matching { it.name == "clientGameTest" }.configureEach {
     vmArg "-Dfabric.client.gametest.disableNetworkSynchronizer=true"
+    // FD_TEST_ONLY=datapack : ne lance qu'une classe de tests client (itérations rapides)
+    if (System.getenv("FD_TEST_ONLY")) vmArg "-Dfd.test.only=${System.getenv("FD_TEST_ONLY")}"
 }

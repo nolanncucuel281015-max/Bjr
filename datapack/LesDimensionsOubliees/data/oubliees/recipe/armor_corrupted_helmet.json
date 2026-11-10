@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:crimson_fungus",
+    "B": "minecraft:netherite_helmet"
+  },
+  "result": {
+    "id": "minecraft:netherite_helmet",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Casque corrompue",
+        "color": "#e0405a",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Armure — Dimension Corrompue",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Ensemble complet :",
+          "color": "gold",
+          "italic": false
+        },
+        {
+          "text": "  Force",
+          "color": "yellow",
+          "italic": false
+        }
+      ],
+      "minecraft:trim": {
+        "material": "minecraft:redstone",
+        "pattern": "minecraft:rib"
+      },
+      "minecraft:enchantments": {
+        "minecraft:protection": 3,
+        "minecraft:unbreaking": 2
+      },
+      "minecraft:rarity": "rare",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "set": "corrupted"
+        }
+      }
+    }
+  }
+}

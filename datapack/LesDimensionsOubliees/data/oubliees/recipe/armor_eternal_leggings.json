@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:blue_ice",
+    "B": "minecraft:diamond_leggings"
+  },
+  "result": {
+    "id": "minecraft:diamond_leggings",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Jambières du givre",
+        "color": "#a8e4ff",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Armure — Monde Éternel",
+          "color": "gray",
+          "italic": false
+        },
+        {
+          "text": "Ensemble complet :",
+          "color": "gold",
+          "italic": false
+        },
+        {
+          "text": "  Résistance",
+          "color": "yellow",
+          "italic": false
+        }
+      ],
+      "minecraft:trim": {
+        "material": "minecraft:iron",
+        "pattern": "minecraft:ward"
+      },
+      "minecraft:enchantments": {
+        "minecraft:protection": 3,
+        "minecraft:unbreaking": 2
+      },
+      "minecraft:rarity": "rare",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "set": "eternal"
+        }
+      }
+    }
+  }
+}

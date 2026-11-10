@@ -42,6 +42,8 @@ public final class FdConfig {
         public double creatureSpawnMultiplier = 1.0;
         /** Multiplicateur des récompenses (expérience des créatures tuées). */
         public double rewardMultiplier = 1.0;
+        /** Interface RPG du mod (cadre du personnage, barre de sorts). Réglage client. */
+        public boolean rpgHud = true;
         /** Plaques RPG au-dessus des créatures (niveau, nom, rang, barre de vie). Réglage client. */
         public boolean rpgNameplates = true;
         /** Chiffres de dégâts et de soins flottants. Réglage client. */

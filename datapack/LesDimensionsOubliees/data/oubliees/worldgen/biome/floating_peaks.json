@@ -1,0 +1,68 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#9fd0ff",
+    "minecraft:visual/fog_color": "#e0ecff"
+  },
+  "carvers": [
+    "minecraft:cave"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#7fd0ff",
+    "grass_color": "#c0e0f0",
+    "foliage_color": "#c0e0f0"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "oubliees:celestial_geode"
+    ],
+    [],
+    [],
+    [
+      "oubliees:celestial_deep_stone_blobs",
+      "oubliees:astral_silver_ore",
+      "oubliees:celestial_crystal_ore",
+      "oubliees:windstone_ore"
+    ],
+    [],
+    [],
+    [],
+    []
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "minecraft:parrot",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:vindicator",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "minecraft:phantom",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.1
+}

@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "MBM",
+    " M "
+  ],
+  "key": {
+    "M": "minecraft:heart_of_the_sea",
+    "B": "minecraft:trident"
+  },
+  "result": {
+    "id": "minecraft:trident",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {
+        "text": "Trident des abysses",
+        "color": "#3fd0c8",
+        "italic": false,
+        "bold": true
+      },
+      "minecraft:lore": [
+        {
+          "text": "Arme légendaire — Océan Oublié",
+          "color": "gray",
+          "italic": false
+        }
+      ],
+      "minecraft:enchantments": {
+        "minecraft:impaling": 4,
+        "minecraft:loyalty": 3
+      },
+      "minecraft:rarity": "epic",
+      "minecraft:custom_data": {
+        "oubliees": {
+          "weapon": "abyssal_trident"
+        }
+      }
+    }
+  }
+}

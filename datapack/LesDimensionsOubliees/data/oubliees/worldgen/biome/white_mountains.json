@@ -1,0 +1,73 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#d0e8ff",
+    "minecraft:visual/fog_color": "#ffffff",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:snowflake"
+        },
+        "probability": 0.03
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#a0d8ff",
+    "grass_color": "#e0f0ff",
+    "foliage_color": "#e0f0ff"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [
+      "oubliees:frost_geode"
+    ],
+    [],
+    [],
+    [
+      "oubliees:eternal_deep_stone_blobs",
+      "oubliees:frost_steel_ore",
+      "oubliees:everfrost_gem_ore",
+      "oubliees:rime_sapphire_ore"
+    ],
+    [],
+    [],
+    [],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:zoglin",
+        "weight": 14,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:ravager",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.7
+}

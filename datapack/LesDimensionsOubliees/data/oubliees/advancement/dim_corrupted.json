@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:crimson_fungus"
+    },
+    "title": {
+      "text": "Dimension Corrompue"
+    },
+    "description": {
+      "text": "Voyager vers Dimension Corrompue.",
+      "color": "gray"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "enter": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "oubliees:corrupted"
+      }
+    }
+  },
+  "parent": "oubliees:dim_celestial"
+}

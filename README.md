@@ -57,6 +57,21 @@ Captures prises automatiquement par le test client (`FdClientGameTest`) dans un 
 
 ---
 
+## Édition data pack (sans mod)
+
+Une **version data pack** existe pour jouer sans Fabric, sur un monde ou un serveur vanilla 1.21.11, et sur Realms.
+Elle contient :
+- les 7 dimensions, en blocs vanilla ;
+- les clés de voyage ;
+- 5 bâtons et 20 sorts avec effets 3D (entités d'affichage) ;
+- les niveaux 1 à 50 et le mana ;
+- les créatures à niveau avec barre de vie et chiffres de dégâts ;
+- 14 armes, 7 armures et un onglet de progrès.
+
+Un data pack ne peut pas ajouter de touches, de blocs, de créatures ni de modèles sur mesure. Le mod
+reste donc la version complète. Mode d'emploi : [`datapack/LISEZMOI.md`](datapack/LISEZMOI.md).
+Génération : `python3 tools/datapack/build_datapack.py`, qui produit `build/datapack/LesDimensionsOubliees.zip`.
+
 ## Prérequis
 
 | Outil | Version | Remarque |

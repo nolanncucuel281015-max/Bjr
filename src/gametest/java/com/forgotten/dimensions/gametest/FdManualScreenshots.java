@@ -37,6 +37,8 @@ public class FdManualScreenshots implements FabricClientGameTest {
 
     @Override
     public void runTest(ClientGameTestContext ctx) {
+        String only = System.getProperty("fd.test.only");
+        if (only != null && !only.equals("manual")) return;
         try (TestSingleplayerContext sp = ctx.worldBuilder().create()) {
             sp.getClientWorld().waitForChunksRender();
             sp.getServer().runCommand("time set noon");

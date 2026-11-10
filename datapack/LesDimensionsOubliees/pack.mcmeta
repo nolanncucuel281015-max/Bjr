@@ -1,0 +1,20 @@
+{
+  "pack": {
+    "description": [
+      {
+        "text": "Les Dimensions Oubliées",
+        "color": "gold",
+        "bold": true
+      },
+      {
+        "text": "\nÉdition data pack : 7 dimensions, magie, RPG",
+        "color": "gray"
+      }
+    ],
+    "min_format": [
+      94,
+      1
+    ],
+    "max_format": 94
+  }
+}

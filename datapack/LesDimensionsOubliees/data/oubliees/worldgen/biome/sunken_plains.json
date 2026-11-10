@@ -1,0 +1,79 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#5ac0e0",
+    "minecraft:visual/fog_color": "#80d0e0",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:underwater"
+        },
+        "probability": 0.01
+      }
+    ],
+    "minecraft:visual/water_fog_color": "#05304a"
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:canyon"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#2a80b0",
+    "grass_color": "#409080",
+    "foliage_color": "#409080"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "oubliees:ocean_deep_stone_blobs",
+      "oubliees:tidal_cobalt_ore",
+      "oubliees:abyssal_pearl_ore",
+      "oubliees:sea_jade_ore"
+    ],
+    [],
+    [],
+    [
+      "minecraft:seagrass_deep",
+      "minecraft:kelp_cold"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:guardian",
+        "weight": 12,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:drowned",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": [
+      {
+        "type": "minecraft:turtle",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ]
+  },
+  "temperature": 0.6
+}
