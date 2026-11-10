@@ -179,6 +179,23 @@ ARCHETYPES = {
 }
 
 
+# Pièces en relief des armures portées, positionnées par rapport à l'os du modèle humanoïde
+# (tête, corps, bras, jambes) ; rendues par ArmorDetailsFeatureRenderer au-dessus de l'armure vanilla.
+ARCHETYPES["armor_details"] = [
+    P("crest", (0, 0, 0), [B((-1, -13, -5), (2, 3, 10))]),
+    P("visor", (0, 0, 0), [B((-4.5, -6, -5.6), (9, 2, 1))]),
+    P("brow", (0, 0, 0), [B((-5.4, -9.2, -5.4), (11, 1, 11))]),
+    P("chest_plate", (0, 0, 0), [B((-4.5, 1, -3.8), (9, 7, 1)), B((-3.5, 8, -3.6), (7, 2, 1))]),
+    P("shoulder_r", (0, 0, 0), [B((-5.6, -4, -3.4), (6, 3, 7))]),
+    P("shoulder_l", (0, 0, 0), [B((-0.4, -4, -3.4), (6, 3, 7))]),
+    P("belt", (0, 0, 0), [B((-4.8, 10, -2.9), (10, 2, 6))]),
+    P("knee_r", (0, 0, 0), [B((-2.5, 3, -3.4), (5, 3, 1))]),
+    P("knee_l", (0, 0, 0), [B((-2.5, 3, -3.4), (5, 3, 1))]),
+    P("boot_r", (0, 0, 0), [B((-2.8, 9, -2.8), (6, 2, 6)), B((-2.4, 10.4, -4.0), (5, 2, 2))]),
+    P("boot_l", (0, 0, 0), [B((-2.8, 9, -2.8), (6, 2, 6)), B((-2.4, 10.4, -4.0), (5, 2, 2))]),
+]
+
+
 def layout(arch):
     """Attribue les coordonnées UV (rangement en étagères) et renvoie (modèle JSON, largeur, hauteur)."""
     parts = [dict(p, boxes=[dict(b) for b in p["boxes"]]) for p in ARCHETYPES[arch]]

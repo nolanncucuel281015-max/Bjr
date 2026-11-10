@@ -74,3 +74,9 @@ jar {
         rename { "${it}_${inputs.properties.archivesName}" }
     }
 }
+
+// Test client sous rendu logiciel (sans carte graphique) : certaines images prennent plus de 10 s,
+// ce qui fait abandonner le synchroniseur réseau du framework de test. Il est désactivé pour ce lancement.
+loom.runs.matching { it.name == "clientGameTest" }.configureEach {
+    vmArg "-Dfabric.client.gametest.disableNetworkSynchronizer=true"
+}

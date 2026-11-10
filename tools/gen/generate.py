@@ -35,7 +35,7 @@ OWNED_DIRS = [
     os.path.join(ASSETS, "blockstates"), os.path.join(ASSETS, "models"), os.path.join(ASSETS, "items"),
     os.path.join(ASSETS, "textures", "block"), os.path.join(ASSETS, "textures", "item"),
     os.path.join(ASSETS, "textures", "entity", "equipment"), os.path.join(ASSETS, "equipment"),
-    os.path.join(ASSETS, "textures", "entity", "creature"),
+    os.path.join(ASSETS, "textures", "entity", "creature"), os.path.join(ASSETS, "textures", "entity", "armor_detail"),
     os.path.join(DATA, "recipe"), os.path.join(DATA, "loot_table", "blocks"), os.path.join(DATA, "tags"),
     os.path.join(DATA, "loot_table", "entities"), os.path.join(ASSETS, "fd_entity_models"),
     os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"), os.path.join(DATA, "worldgen"),
@@ -632,6 +632,13 @@ for a in C.ARTIFACTS:
     tag_item(f"{NS}:artifacts", rid(a["id"]))
 
 # ===========================================================================
+# 6b. Modèles 3D des armes et armures (remplacent les modèles plats)
+# ===========================================================================
+import items3d as I3  # noqa: E402
+I3.write(sys.modules[__name__], WEAPONS, C.ARMOR_SETS, C.TIER_COLOR,
+         {lw["id"]: lw["color"] for lw in C.LEGENDARY_WEAPONS})
+
+# ===========================================================================
 # 7. Phase 4 : dimensions, biomes, surfaces, bois, portail et clés
 # ===========================================================================
 import dimensions as D  # noqa: E402
@@ -648,6 +655,12 @@ for arch in MG.ARCHETYPES:
     model, tw, th = MG.layout(arch)
     ARCH_LAYOUTS[arch] = (model, tw, th)
     wjson(os.path.join(ASSETS, "fd_entity_models", arch + ".json"), model)
+# Textures des pièces d'armure en relief (une par ensemble).
+_dm, _dw, _dh = ARCH_LAYOUTS["armor_details"]
+for a in C.ARMOR_SETS:
+    fake = {"id": "detail_" + a["id"], "colors": (a["color"], X.hue_shift(a["color"], 0.08, 0.15, 0.2), a["color"]),
+            "pattern": "plates"}
+    save_tex(os.path.join("entity", "armor_detail"), a["id"], MG.paint(_dm, _dw, _dh, fake))
 for cr in CR.CREATURES:
     cid = cr["id"]
     k = CR.DIM_SCALE[cr["dim"]]
