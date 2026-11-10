@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:abyssal_stone",
+    "forgotten_dimensions:blightstone",
+    "forgotten_dimensions:cinderstone",
+    "forgotten_dimensions:cloudstone",
+    "forgotten_dimensions:deep_abyssal_stone",
+    "forgotten_dimensions:deep_blightstone",
+    "forgotten_dimensions:deep_cinderstone",
+    "forgotten_dimensions:deep_cloudstone",
+    "forgotten_dimensions:deep_frostrock",
+    "forgotten_dimensions:deep_umbral_rock",
+    "forgotten_dimensions:deep_voidstone",
+    "forgotten_dimensions:frostrock",
+    "forgotten_dimensions:umbral_rock",
+    "forgotten_dimensions:voidstone"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "forgotten_dimensions:sky_emperor_core",
+    "B": "forgotten_dimensions:corruption_heart_core",
+    "C": "forgotten_dimensions:abyss_king_core",
+    "D": "forgotten_dimensions:volcanic_titan_core",
+    "E": "forgotten_dimensions:frost_queen_core",
+    "F": "forgotten_dimensions:depths_devourer_core",
+    "V": "forgotten_dimensions:void_fragment",
+    "N": "minecraft:nether_star"
+  },
+  "pattern": [
+    "ABC",
+    "DVE",
+    "FNF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:void_key"
+  }
+}

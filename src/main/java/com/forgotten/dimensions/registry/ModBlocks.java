@@ -3,6 +3,11 @@ package com.forgotten.dimensions.registry;
 import com.forgotten.dimensions.ForgottenDimensions;
 import com.forgotten.dimensions.block.AncientTechBlock;
 import com.forgotten.dimensions.block.MagicBlock;
+import com.forgotten.dimensions.block.DimensionalGateBlock;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.UntintedParticleLeavesBlock;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import com.forgotten.dimensions.content.BlockDef;
 import com.forgotten.dimensions.registry.generated.ContentTables;
 import net.minecraft.block.AbstractBlock;
@@ -56,6 +61,13 @@ public final class ModBlocks {
                 case WALL -> new WallBlock(settings);
                 case TECH -> new AncientTechBlock(def.behavior(), settings);
                 case MAGIC -> new MagicBlock(def.behavior(), settings);
+                case LOG -> new PillarBlock(settings);
+                case LEAVES -> new UntintedParticleLeavesBlock(0.01F, leafParticle(def.behavior()), settings
+                        .ticksRandomly().nonOpaque()
+                        .allowsSpawning((state, world, pos, type) -> false)
+                        .suffocates((state, world, pos) -> false)
+                        .blockVision((state, world, pos) -> false));
+                case GATE -> new DimensionalGateBlock(settings);
             };
             Registry.register(Registries.BLOCK, key, block);
             BLOCKS.put(def.id(), block);
@@ -98,7 +110,21 @@ public final class ModBlocks {
             case "METAL" -> BlockSoundGroup.METAL;
             case "GLASS" -> BlockSoundGroup.GLASS;
             case "AMETHYST_BLOCK" -> BlockSoundGroup.AMETHYST_BLOCK;
+            case "WOOD" -> BlockSoundGroup.WOOD;
+            case "GRASS" -> BlockSoundGroup.GRASS;
+            case "GRAVEL" -> BlockSoundGroup.ROOTED_DIRT;
+            case "SAND" -> BlockSoundGroup.SAND;
+            case "SNOW" -> BlockSoundGroup.SNOW;
+            case "MOSS" -> BlockSoundGroup.MOSS_BLOCK;
             default -> BlockSoundGroup.STONE;
+        };
+    }
+
+    private static ParticleEffect leafParticle(String name) {
+        return switch (name) {
+            case "CRIMSON_SPORE" -> ParticleTypes.CRIMSON_SPORE;
+            case "SNOWFLAKE" -> ParticleTypes.SNOWFLAKE;
+            default -> ParticleTypes.END_ROD;
         };
     }
 }

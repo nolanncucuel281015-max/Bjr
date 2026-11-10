@@ -36,6 +36,7 @@ public final class ServerTickHandler {
         if (tick % 20 == 0) SummonManager.tick(server);
         for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
             if (!player.isAlive()) continue;
+            com.forgotten.dimensions.dimension.DimensionTravel.rescueIfFalling(player);
             int phase = (tick + player.getId()) ;
             if (phase % 10 == 0) ManaManager.tick(player);
             if (phase % 20 == 0) perSecond(player, tick);

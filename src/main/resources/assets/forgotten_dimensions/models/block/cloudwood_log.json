@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "forgotten_dimensions:block/cloudwood_log_top",
+    "side": "forgotten_dimensions:block/cloudwood_log"
+  }
+}

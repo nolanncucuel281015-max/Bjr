@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 10,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "forgotten_dimensions:abyssal_stone"
+        },
+        "state": {
+          "Name": "forgotten_dimensions:sea_jade_ore"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "forgotten_dimensions:deep_abyssal_stone"
+        },
+        "state": {
+          "Name": "forgotten_dimensions:deep_sea_jade_ore"
+        }
+      }
+    ]
+  }
+}

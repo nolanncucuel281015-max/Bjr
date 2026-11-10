@@ -25,12 +25,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Heightmap;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -56,6 +53,10 @@ public final class FdCommand {
                 .then(literal("tp").then(argument("dimension", StringArgumentType.word())
                         .suggests((c, b) -> CommandSource.suggestMatching(FdDimensions.IDS, b))
                         .executes(FdCommand::tp)))
+                .then(literal("home").executes(c -> {
+                    com.forgotten.dimensions.dimension.DimensionTravel.returnHome(c.getSource().getPlayerOrThrow());
+                    return 1;
+                }))
                 .then(literal("give").then(argument("item", StringArgumentType.word())
                         .suggests((c, b) -> CommandSource.suggestMatching(allIds(), b))
                         .executes(c -> give(c, 1))
@@ -97,9 +98,7 @@ public final class FdCommand {
             c.getSource().sendError(Text.translatable("command.forgotten_dimensions.tp.missing", id));
             return 0;
         }
-        BlockPos top = target.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlockPos.ORIGIN);
-        player.teleport(target, top.getX() + 0.5, Math.max(top.getY(), target.getBottomY() + 1) + 1, top.getZ() + 0.5,
-                Set.of(), player.getYaw(), player.getPitch(), true);
+        com.forgotten.dimensions.dimension.DimensionTravel.travelTo(player, id);
         c.getSource().sendFeedback(() -> Text.translatable("command.forgotten_dimensions.tp.done",
                 Text.translatable("dimension.forgotten_dimensions." + id)), true);
         return 1;

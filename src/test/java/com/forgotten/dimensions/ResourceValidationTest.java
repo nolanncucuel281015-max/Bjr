@@ -115,7 +115,8 @@ class ResourceValidationTest {
                     var m = java.util.regex.Pattern.compile("\"" + NS + "([a-z0-9_]+)\"").matcher(Files.readString(p));
                     while (m.find()) {
                         String id = m.group(1);
-                        if (!known.contains(id) && !Files.exists(DATA.resolve("advancement/" + id + ".json"))) {
+                        if (!known.contains(id) && !Files.exists(DATA.resolve("advancement/" + id + ".json"))
+                                && !Files.exists(DATA.resolve("dimension/" + id + ".json"))) {
                             errors.add(p.getFileName() + " -> " + id);
                         }
                     }
@@ -123,5 +124,32 @@ class ResourceValidationTest {
             }
         }
         assertTrue(errors.isEmpty(), "objets inconnus : " + errors);
+    }
+
+    @Test
+    void dimensionsReferenceExistingBlocksBiomesAndFeatures() throws IOException {
+        List<String> known = allItemIds();
+        List<String> errors = new ArrayList<>();
+        Path wg = DATA.resolve("worldgen");
+        for (String dir : new String[]{"../dimension", "../dimension_type", "noise_settings", "biome", "configured_feature", "placed_feature"}) {
+            try (Stream<Path> files = Files.walk(wg.resolve(dir).normalize())) {
+                for (Path p : files.filter(f -> f.toString().endsWith(".json")).toList()) {
+                    var m = java.util.regex.Pattern.compile("\"" + NS + "([a-z0-9_]+)\"").matcher(Files.readString(p));
+                    while (m.find()) {
+                        String id = m.group(1);
+                        boolean ok = known.contains(id) || Files.exists(wg.resolve("biome/" + id + ".json"))
+                                || Files.exists(wg.resolve("placed_feature/" + id + ".json"))
+                                || Files.exists(wg.resolve("configured_feature/" + id + ".json"))
+                                || Files.exists(wg.resolve("noise_settings/" + id + ".json"))
+                                || Files.exists(DATA.resolve("dimension_type/" + id + ".json"))
+                                || id.endsWith("_floor") || id.endsWith("_roof");
+                        if (!ok) errors.add(p.getFileName() + " -> " + id);
+                    }
+                }
+            }
+        }
+        assertEquals(7, Files.list(DATA.resolve("dimension")).count(), "7 dimensions");
+        assertEquals(35, Files.list(wg.resolve("biome")).count(), "35 biomes");
+        assertTrue(errors.isEmpty(), "références de génération cassées : " + errors);
     }
 }

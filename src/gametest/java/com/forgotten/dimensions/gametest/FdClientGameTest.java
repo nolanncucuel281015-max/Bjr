@@ -31,7 +31,6 @@ public class FdClientGameTest implements FabricClientGameTest {
         try (TestSingleplayerContext sp = context.worldBuilder().create()) {
             sp.getClientWorld().waitForChunksRender();
             sp.getServer().runCommand("time set noon");
-            sp.getServer().runCommand("gamerule doDaylightCycle false");
             sp.getServer().runCommand("execute as @p at @s run tp @s ~ ~ ~ 0 10");
             for (int i = 0; i < SHOWCASE.size(); i++) {
                 int x = (i % 9) - 4, y = (i / 9) - 1;
@@ -72,6 +71,49 @@ public class FdClientGameTest implements FabricClientGameTest {
             context.waitTicks(5);
             context.takeScreenshot(TestScreenshotOptions.of("fd_05_inventory"));
             context.setScreen(() -> null);
+
+            // Phase 4 : voyage réel dans chacune des sept dimensions.
+            context.runOnClient(client -> client.options.getViewDistance().setValue(6));
+            for (String dim : com.forgotten.dimensions.dimension.FdDimensions.IDS) {
+                sp.getServer().runOnServer(server -> {
+                    var player = server.getPlayerManager().getPlayerList().get(0);
+                    if (!com.forgotten.dimensions.dimension.DimensionTravel.travelTo(player, dim)) {
+                        throw new AssertionError("dimension absente : " + dim);
+                    }
+                    var world = player.getEntityWorld();
+                    if (!world.getRegistryKey().equals(com.forgotten.dimensions.dimension.FdDimensions.key(dim))) {
+                        throw new AssertionError("le joueur n'est pas arrivé dans " + dim);
+                    }
+                    var pos = player.getBlockPos();
+                    if (!world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), net.minecraft.util.math.Direction.UP)) {
+                        throw new AssertionError(dim + " : pas de sol sous le joueur en " + pos);
+                    }
+                    int modBlocks = 0;
+                    // Plateformes sur l'eau (océan, lacs gelés) : le fond peut être loin dessous.
+                    int below = 220;
+                    for (net.minecraft.util.math.BlockPos q : net.minecraft.util.math.BlockPos.iterate(pos.add(-12, -below, -12), pos.add(12, 8, 12))) {
+                        if (net.minecraft.registry.Registries.BLOCK.getId(world.getBlockState(q).getBlock()).getNamespace()
+                                .equals(com.forgotten.dimensions.ForgottenDimensions.MOD_ID)) modBlocks++;
+                    }
+                    com.forgotten.dimensions.ForgottenDimensions.LOGGER.info("[client-test] {} : arrivée {} biome {}, {} blocs du mod autour",
+                            dim, pos, world.getBiome(pos).getKey().map(k -> k.getValue().toString()).orElse("?"), modBlocks);
+                    if (modBlocks < 50) throw new AssertionError(dim + " : terrain sans blocs du mod (" + modBlocks + ")");
+                    player.setPitch(8F);
+                    player.setYaw(180F);
+                    player.setHeadYaw(180F);
+                });
+                // Rendu logiciel (sans carte graphique) : attente fixe plutôt que « tous les chunks rendus ».
+                context.waitTicks(120);
+                context.takeScreenshot(TestScreenshotOptions.of("fd_dim_" + dim));
+            }
+            sp.getServer().runOnServer(server -> {
+                var player = server.getPlayerManager().getPlayerList().get(0);
+                com.forgotten.dimensions.dimension.DimensionTravel.returnHome(player);
+                if (com.forgotten.dimensions.dimension.DimensionTravel.isModDimension(player.getEntityWorld())) {
+                    throw new AssertionError("retour à la Surface échoué");
+                }
+            });
+            context.waitTicks(20);
         }
     }
 }

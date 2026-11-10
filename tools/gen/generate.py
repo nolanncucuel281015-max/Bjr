@@ -37,6 +37,7 @@ OWNED_DIRS = [
     os.path.join(ASSETS, "textures", "entity", "equipment"), os.path.join(ASSETS, "equipment"),
     os.path.join(DATA, "recipe"), os.path.join(DATA, "loot_table", "blocks"), os.path.join(DATA, "tags"),
     os.path.join(MCDATA, "tags"), os.path.join(DATA, "advancement"), os.path.join(DATA, "worldgen"),
+    os.path.join(DATA, "dimension"), os.path.join(DATA, "dimension_type"),
 ]
 
 LANG_EN, LANG_FR = {}, {}
@@ -87,12 +88,13 @@ clean_owned()
 # Blocs
 # ---------------------------------------------------------------------------
 def add_block(id, kind="CUBE", hardness=1.5, resistance=6.0, sound="STONE", light=0, tool=True, base="",
-              xp=(0, 0), behavior="none", level=0, en="", fr="", texture=None, loot="self", cutout=False):
+              xp=(0, 0), behavior="none", level=0, en="", fr="", texture=None, loot="self", cutout=False,
+              mineable="pickaxe"):
     BLOCKS.append(dict(id=id, kind=kind, hardness=hardness, resistance=resistance, sound=sound, light=light,
                        tool=tool, base=base, xp=xp, behavior=behavior, level=level, loot=loot, cutout=cutout))
     LANG_EN[f"block.{NS}.{id}"] = en
     LANG_FR[f"block.{NS}.{id}"] = fr
-    tag_block("minecraft:mineable/pickaxe", rid(id))
+    tag_block("minecraft:mineable/" + mineable, rid(id))
     if level == 1:
         tag_block("minecraft:needs_stone_tool", rid(id))
     elif level == 2:
@@ -100,7 +102,16 @@ def add_block(id, kind="CUBE", hardness=1.5, resistance=6.0, sound="STONE", ligh
     elif level == 3:
         tag_block("minecraft:needs_diamond_tool", rid(id))
     tex = texture or id
-    if kind in ("CUBE", "ORE", "TECH", "MAGIC"):
+    if kind == "LOG":
+        for suffix, parent in (("", "cube_column"), ("_horizontal", "cube_column_horizontal")):
+            wjson(os.path.join(ASSETS, "models", "block", id + suffix + ".json"),
+                  {"parent": "minecraft:block/" + parent, "textures": {"end": rid("block/" + id + "_top"), "side": rid("block/" + id)}})
+        wjson(os.path.join(ASSETS, "blockstates", id + ".json"), {"variants": {
+            "axis=x": {"model": rid("block/" + id + "_horizontal"), "x": 90, "y": 90},
+            "axis=y": {"model": rid("block/" + id)},
+            "axis=z": {"model": rid("block/" + id + "_horizontal"), "x": 90}}})
+        wjson(os.path.join(ASSETS, "items", id + ".json"), {"model": {"type": "minecraft:model", "model": rid("block/" + id)}})
+    if kind in ("CUBE", "ORE", "TECH", "MAGIC", "LEAVES", "GATE"):
         wjson(os.path.join(ASSETS, "blockstates", id + ".json"), {"variants": {"": {"model": rid("block/" + id)}}})
         wjson(os.path.join(ASSETS, "models", "block", id + ".json"),
               {"parent": "minecraft:block/cube_all", "textures": {"all": rid("block/" + tex)}})
@@ -138,7 +149,18 @@ def add_block(id, kind="CUBE", hardness=1.5, resistance=6.0, sound="STONE", ligh
               {"model": {"type": "minecraft:model", "model": rid("block/" + id + "_inventory")}})
         tag_block("minecraft:walls", rid(id)); tag_item("minecraft:walls", rid(id))
     # Loot table
-    if loot == "self":
+    if loot == "leaves":
+        shears_or_silk = {"condition": "minecraft:any_of", "terms": [
+            {"condition": "minecraft:match_tool", "predicate": {"items": "minecraft:shears"}},
+            {"condition": "minecraft:match_tool", "predicate": {"predicates": {"minecraft:enchantments": [
+                {"enchantments": "minecraft:silk_touch", "levels": {"min": 1}}]}}}]}
+        lt = {"type": "minecraft:block", "pools": [
+            {"bonus_rolls": 0.0, "rolls": 1.0, "entries": [{"type": "minecraft:item", "name": rid(id), "conditions": [shears_or_silk]}]},
+            {"bonus_rolls": 0.0, "rolls": 1.0, "conditions": [{"condition": "minecraft:inverted", "term": shears_or_silk},
+                                                               {"condition": "minecraft:random_chance", "chance": 0.05}],
+             "entries": [{"type": "minecraft:item", "name": "minecraft:stick"}]}],
+              "random_sequence": rid("blocks/" + id)}
+    elif loot == "self":
         lt = {"type": "minecraft:block", "pools": [{"bonus_rolls": 0.0, "rolls": 1.0, "conditions": [
             {"condition": "minecraft:survives_explosion"}], "entries": [{"type": "minecraft:item", "name": rid(id)}]}],
               "random_sequence": rid("blocks/" + id)}
@@ -605,6 +627,12 @@ for a in C.ARTIFACTS:
     m, e, c = ARTIFACT_RECIPES[a["id"]]
     shaped(a["id"], a["id"], ["MEM", "ECE", "MEM"], {"M": m, "E": e, "C": c}, 1, "misc")
     tag_item(f"{NS}:artifacts", rid(a["id"]))
+
+# ===========================================================================
+# 7. Phase 4 : dimensions, biomes, surfaces, bois, portail et clés
+# ===========================================================================
+import dimensions as D  # noqa: E402
+BIOMES = D.run(sys.modules[__name__])
 
 # Projectile magique (texture utilisée par le rendu des sorts)
 for school, rgb in (("fire", (0xFF, 0x70, 0x20)), ("ice", (0xA0, 0xE8, 0xFF)), ("lightning", (0xFF, 0xF0, 0x60)),

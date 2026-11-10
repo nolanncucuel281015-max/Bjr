@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": "forgotten_dimensions:depths_fragment",
+    "C": "forgotten_dimensions:architect_core"
+  },
+  "pattern": [
+    "FFF",
+    "FCF",
+    "FFF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:depths_key"
+  }
+}

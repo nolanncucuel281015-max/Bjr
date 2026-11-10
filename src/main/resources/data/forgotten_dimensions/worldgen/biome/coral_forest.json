@@ -1,0 +1,60 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#6ae0f0",
+    "minecraft:visual/fog_color": "#a0f0ff",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:underwater"
+        },
+        "probability": 0.02
+      }
+    ],
+    "minecraft:visual/water_fog_color": "#0a5060"
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:canyon"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#40d0e0",
+    "grass_color": "#40e0b0",
+    "foliage_color": "#40e0b0"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "forgotten_dimensions:ocean_deep_stone_blobs",
+      "forgotten_dimensions:tidal_cobalt_ore",
+      "forgotten_dimensions:abyssal_pearl_ore",
+      "forgotten_dimensions:sea_jade_ore"
+    ],
+    [],
+    [],
+    [
+      "minecraft:warm_ocean_vegetation",
+      "minecraft:seagrass_deep",
+      "minecraft:kelp_warm"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.9
+}

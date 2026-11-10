@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "forgotten_dimensions:block/crimsonroot_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "forgotten_dimensions:block/crimsonroot_log"
+    },
+    "axis=z": {
+      "model": "forgotten_dimensions:block/crimsonroot_log_horizontal",
+      "x": 90
+    }
+  }
+}

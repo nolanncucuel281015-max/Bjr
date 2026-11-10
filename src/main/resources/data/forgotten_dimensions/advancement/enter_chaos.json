@@ -1,0 +1,31 @@
+{
+  "parent": "forgotten_dimensions:root",
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:chaos_key",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.enter_chaos.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.enter_chaos.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "entered": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "forgotten_dimensions:chaos"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "entered"
+    ]
+  ]
+}

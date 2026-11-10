@@ -4,8 +4,9 @@ Mod RPG pour **Minecraft Java 1.21.11** (Fabric). Il ajoute la civilisation disp
 Architectes, ses fragments, sa technologie, la magie, une progression RPG complète, des armes et
 armures par centaines, et prépare les sept dimensions oubliées.
 
-> **État du projet : phases 1, 2 et 3 terminées sur 10.** Les dimensions, les créatures, les boss,
-> les structures, les quêtes, les PNJ et les musiques ne sont **pas encore** présents. La section
+> **État du projet : phases 1 à 4 terminées sur 10.** Les sept dimensions sont explorables. Les
+> créatures, les boss, les structures, les quêtes, les PNJ et les musiques originales ne sont
+> **pas encore** présents. La section
 > [Avancement](#avancement-par-phase) détaille ce qui est fait et ce qui reste à faire.
 
 ![Vitrine de blocs et HUD](docs/screenshots/world_hud.png)
@@ -16,8 +17,16 @@ armures par centaines, et prépare les sept dimensions oubliées.
 | **Armure de la Reine du Givre et Marteau Volcanique** | **Inventaire : armes, arc, arbalète, couronne** |
 | ![Armure](docs/screenshots/armor_third_person.png) | ![Inventaire](docs/screenshots/inventory.png) |
 
+| Royaume Céleste | Dimension Corrompue | Océan Oublié |
+|---|---|---|
+| ![](docs/screenshots/dim_celestial.png) | ![](docs/screenshots/dim_corrupted.png) | ![](docs/screenshots/dim_ocean.png) |
+| **Terres du Chaos** | **Monde Éternel** | **Les Profondeurs** |
+| ![](docs/screenshots/dim_chaos.png) | ![](docs/screenshots/dim_eternal.png) | ![](docs/screenshots/dim_depths.png) |
+| **Le Néant** | | |
+| ![](docs/screenshots/dim_void.png) | | |
+
 Captures prises automatiquement par le test client (`FdClientGameTest`) dans un vrai Minecraft
-1.21.11.
+1.21.11 (rendu logiciel, sans carte graphique).
 
 ---
 
@@ -131,7 +140,8 @@ Toutes les commandes exigent le niveau de permission « maître du jeu » (opér
 | Commande | Effet |
 |---|---|
 | `/fdimension list` | Liste les sept dimensions et indique si elles sont générées |
-| `/fdimension tp <dimension>` | Téléporte dans une dimension (signale qu'elle n'existe pas encore tant que la phase 4 n'est pas faite) |
+| `/fdimension tp <dimension>` | Voyage dans une dimension (même arrivée sûre et portail de retour que par le portail) |
+| `/fdimension home` | Retour au point de départ mémorisé (ou au point d'apparition) |
 | `/fdimension give <objet> [nombre]` | Donne un objet ou bloc du mod (auto-complétion) |
 | `/fdimension level set <joueur> <niveau>` | Fixe le niveau RPG (1 à 100) |
 | `/fdimension level get <joueur>` | Affiche niveau, expérience et points |
@@ -151,12 +161,50 @@ tant qu'il n'existe aucun boss à invoquer.
 | `K` | Arbre de compétences |
 | `B` | Livre de magie |
 
+## Les sept dimensions
+
+| Dimension | Terrain | Biomes |
+|---|---|---|
+| **Royaume Céleste** | îles flottantes au-dessus du vide, nuages bas | Prairie céleste, Forêt des nuages, Montagnes flottantes, Jardin des étoiles, Ruines suspendues |
+| **Dimension Corrompue** | continents, mers rouges, ciel écarlate | Forêt écarlate, Marais corrompu, Plaine des racines, Montagnes infectées, Désert de cendres rouges |
+| **Océan Oublié** | monde presque entièrement englouti (niveau de la mer à 150) | Récif lumineux, Abysses, Forêt de corail, Plaine engloutie, Tranchée obscure |
+| **Terres du Chaos** | monde volcanique à plafond, océan de lave | Océan de lave, Forêt de braises, Montagnes volcaniques, Désert de magma, Citadelle du chaos |
+| **Monde Éternel** | terres et mers gelées, neige permanente | Forêt givrée, Glacier éternel, Montagnes blanches, Lac gelé, Royaume de glace |
+| **Les Profondeurs** | immense réseau de cavernes à plafond | Cavernes cristallines, Forêt fongique, Abysses souterrains, Ruines enfouies, Royaume des ombres |
+| **Le Néant** | îles dans le vide cosmique | Désert du vide, Îles stellaires, Océan astral, Ruines dimensionnelles, Royaume du néant |
+
+Chaque dimension a son type (lumière, ciel, brouillard, nuages, plafond, lit), ses réglages de
+terrain, sa règle de surface (blocs de sol propres à chaque biome), ses 3 minerais en deux
+variantes, des poches de pierre profonde, des grottes, et des décorations : arbres de **bois des
+nuages**, de **racine pourpre** et de **pin de givre**, **géodes géantes** de cristaux (céleste,
+luminite, givre, néant), herbes et fleurs, coraux, colonnes de basalte, pics de glace, champignons
+géants, dripstone, plantes de chorus, particules d'ambiance (cendres, spores, neige, portail…).
+La génération est entièrement déterministe selon la graine du monde.
+
+### Voyager : portails et clés
+
+1. Fabriquer un **Portail dimensionnel** (pierre d'Architecte, obsidienne pleureuse, noyau
+   d'Architecte) et le poser.
+2. Fabriquer la **clé** d'une dimension : 8 fragments de cette dimension (minerais de fragments de
+   la Surface) autour d'un noyau d'Architecte.
+3. Clic droit sur le portail avec la clé : voyage (la clé n'est pas consommée). À l'arrivée, un
+   point sûr est cherché (sol solide, deux blocs libres, ni eau ni lave). Sinon une plateforme est
+   construite, à la surface de l'eau dans l'Océan. Un **portail de retour** est placé à côté.
+4. Clic droit à main vide sur un portail dans une dimension : retour au point de départ.
+
+La **clé du Néant** exige les six **cœurs des gardiens** (lâchés par les boss de la phase 6) : le
+Néant n'est donc accessible en survie qu'après les six gardiens, comme prévu par le scénario (en
+attendant, `/fdimension give` ou `/fdimension tp void`). Tomber sous le monde dans le Royaume
+Céleste ou le Néant ramène au point de départ au lieu de tuer. L'arrivée affiche un titre
+(« Chapitre III — Les dimensions », « Chapitre VII » pour le Néant). Un succès est débloqué par
+dimension visitée.
+
 ## Contenu du mod
 
 Tout le contenu ci-dessous est enregistré dans le jeu, a une texture, un modèle, une traduction
 FR/EN, une recette ou un moyen d'obtention, et est vérifié par les tests.
 
-### Blocs (262)
+### Blocs (282)
 
 - **58 minerais** : 21 matériaux × 2 variantes (pierre dimensionnelle et pierre profonde),
   plus 16 minerais de la Surface (fragment ancien et 7 fragments dimensionnels, en pierre et en
@@ -175,16 +223,20 @@ FR/EN, une recette ou un moyen d'obtention, et est vérifié par les tests.
   régénération de mana), source guérisseuse, pierre de protection (repousse les monstres), autel
   des sorts (affiche la maîtrise de magie), etc.
 
-Les **minerais de fragments se génèrent naturellement dans la Surface** (fragment ancien entre
-Y −48 et 48 ; fragments dimensionnels, plus rares, entre Y −64 et 16). Les 42 minerais
-dimensionnels sont prêts mais leur génération arrive avec les dimensions (phase 4) : ils sont
-disponibles en créatif et via `/fdimension give`.
+- **20 blocs de la phase 4** : 10 sols de surface (herbes et terres céleste, corrompue, givrée,
+  ombrale, astrale), 3 bois (bûches, planches utilisables comme des planches vanilla, feuilles qui
+  se décomposent) et le Portail dimensionnel.
 
-### Matériaux et objets (50)
+Les **minerais de fragments se génèrent dans la Surface** (fragment ancien entre Y −48 et 48 ;
+fragments dimensionnels, plus rares, entre Y −64 et 16), et les **42 minerais dimensionnels se
+génèrent dans leur dimension**.
+
+### Matériaux et objets (63)
 
 21 matériaux (7 lingots avec leur minerai brut, 14 gemmes), 7 fragments dimensionnels, 7
 essences dimensionnelles, fragment ancien, noyau d'Architecte, alliage primordial et 5 projectiles
-de sort (objets techniques utilisés pour l'affichage des sorts).
+de sort (objets techniques utilisés pour l'affichage des sorts), 7 clés dimensionnelles et 6 cœurs
+de gardiens.
 
 ### Armes (100)
 
@@ -286,21 +338,26 @@ correspondantes (aucune option factice n'est exposée).
 xvfb-run ./gradlew runClientGameTest   # test client avec captures d'écran (nécessite un affichage)
 ```
 
-- **JUnit (18 tests, `src/test`)** : courbe d'expérience, formules de mana et de puissance,
+- **JUnit (19 tests, `src/test`)** : courbe d'expérience, formules de mana et de puissance,
   recharges, expérience de combat, quantités exigées (≥ 50 minerais, ≥ 100 armes, 30 armures,
   30 artefacts, 50 sorts), unicité des identifiants, aller-retour du codec de progression, et
   **validation des ressources** (aucune texture, aucun modèle ni objet référencé inexistant ;
-  chaque bloc a un état et une loot table ; traductions FR et EN complètes et alignées).
-- **GameTests serveur (12 tests, `src/gametest`)**, dans un vrai serveur Minecraft : registres
+  chaque bloc a un état et une loot table ; traductions FR et EN complètes et alignées ; 7
+  dimensions et 35 biomes dont toutes les références de génération existent).
+- **GameTests serveur (14 tests, `src/gametest`)**, dans un vrai serveur Minecraft : registres
   complets, recettes, loot tables, succès et commande chargés ; montée de niveau et points ;
   compétence qui modifie réellement la vie maximale ; prérequis ; lancement de sort (mana,
   recharge, verrouillage par niveau, projectile créé, mana insuffisant) ; dégâts et effet d'école ;
   artefact (vie et mana max) et détection d'ensemble d'armure ; persistance NBT ; émission de
   redstone ; présence d'un effet pour chaque artefact et arme légendaire ; minerais de fragments
-  injectés dans les biomes de la Surface.
-- **Test client (`FdClientGameTest`)** : crée un monde, place une vitrine de blocs, équipe une
-  armure, ouvre les écrans du mod et enregistre des captures dans
-  `build/run/clientGameTest/screenshots/`.
+  injectés dans les biomes de la Surface ; types de dimension, réglages de terrain et 35 biomes
+  chargés ; chaque clé ouvre sa dimension.
+- **Test client (`FdClientGameTest`)** : crée un vrai monde, place une vitrine de blocs, équipe
+  une armure, ouvre les écrans du mod, puis **voyage dans les sept dimensions** : il vérifie
+  l'arrivée (bon monde, sol solide), que le terrain est fait des blocs du mod, prend une capture
+  dans chacune et revient à la Surface. Captures dans `build/run/clientGameTest/screenshots/`.
+  (Le serveur GameTest seul ne crée pas les dimensions des packs de données : c'est pourquoi la
+  génération réelle est testée côté client.)
 
 ## Architecture du code
 
@@ -310,7 +367,8 @@ src/main/java/com/forgotten/dimensions/
   registry/                       ModBlocks, ModItems, ModEntities, ModAttachments, ModItemGroups
   registry/generated/             ContentTables.java (généré, ne pas modifier)
   content/                        définitions (BlockDef, WeaponDef, ArmorSetDef, FdRarity…)
-  block/                          AncientTechBlock, MagicBlock
+  block/                          AncientTechBlock, MagicBlock, DimensionalGateBlock
+  world/generation/               ajout des minerais de fragments à la Surface
   item/                           armes, arcs, arbalètes, artefacts, effets légendaires, armures
   magic/                          sorts, exécuteur, mana, recharges, zones, invocations, ciblage
   progression/                    niveaux, expérience, compétences, spécialisations
@@ -318,7 +376,7 @@ src/main/java/com/forgotten/dimensions/
   event/                          ticks serveur, combat, monde, minage
   network/                        paquets client → serveur, tous revalidés côté serveur
   command/                        /fdimension
-  dimension/                      identifiants des 7 dimensions (génération : phase 4)
+  dimension/                      identifiants des 7 dimensions, voyage, arrivée sûre, retour
   mixin/                          un seul mixin : modification centralisée des dégâts reçus
   util/                           configuration, cache joueur, succès, effets
 src/client/java/…/client/         HUD, écrans, raccourcis, infobulles, rendu du projectile
@@ -370,18 +428,19 @@ jamais modifié. Les traductions de l'interface, des sorts et des compétences s
 | 1 | Projet Fabric 1.21.11, Gradle, métadonnées | ✅ terminé, compile |
 | 2 | Registres : blocs, objets, armes, armures, artefacts, entité de sort | ✅ terminé et testé |
 | 3 | Progression, mana, compétences, magie, HUD et écrans associés | ✅ terminé et testé |
-| 4 | Sept dimensions, biomes, génération, portails | ⏳ à faire (identifiants et commande prêts) |
+| 4 | Sept dimensions, 35 biomes, génération, portails | ✅ terminé et testé (y compris en jeu) |
 | 5 | 60 créatures et leurs IA | ⏳ à faire |
 | 6 | 14 boss, barres de vie, arènes | ⏳ à faire |
 | 7 | 25 structures et donjons | ⏳ à faire |
 | 8 | Quêtes, PNJ, journal, livre des dimensions, bestiaire | ⏳ à faire |
-| 9 | Sons et musiques originaux | ⏳ à faire (les sorts utilisent pour l'instant des sons de Minecraft) |
+| 9 | Sons et musiques originaux | ⏳ à faire (sorts et dimensions utilisent pour l'instant des sons et musiques de Minecraft) |
 | 10 | Optimisation finale, tests multijoueur à plusieurs clients | ⏳ à faire |
 
-Ce qui manque explicitement aujourd'hui : génération naturelle des minerais dimensionnels (arrive
-avec la phase 4), dimensions, créatures, boss, structures, quêtes, PNJ, musiques
-et sons originaux, histoire scénarisée en chapitres (seuls les 7 fragments d'archives des
-terminaux existent).
+Ce qui manque explicitement aujourd'hui : créatures dans les dimensions (elles sont vides
+d'êtres vivants jusqu'à la phase 5), boss (les cœurs de gardiens ne s'obtiennent donc qu'en
+créatif), structures et donjons (les biomes « Ruines » et « Citadelle » n'ont pour l'instant que
+des blocs épars), quêtes, PNJ, musiques et sons originaux (les dimensions jouent des musiques de
+Minecraft), histoire scénarisée complète (7 archives des terminaux et titres de chapitres).
 
 ## Licence
 

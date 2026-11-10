@@ -1,0 +1,31 @@
+{
+  "feature": "forgotten_dimensions:void_crystals",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 2
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "offset": [
+          0,
+          -1,
+          0
+        ],
+        "blocks": "forgotten_dimensions:astral_moss"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

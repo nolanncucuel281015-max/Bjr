@@ -1,0 +1,54 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#000000",
+    "minecraft:visual/fog_color": "#140a20",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:portal"
+        },
+        "probability": 0.006
+      }
+    ]
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#4020a0",
+    "grass_color": "#604080",
+    "foliage_color": "#604080"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "forgotten_dimensions:ruin_blocks_void"
+    ],
+    [],
+    [
+      "forgotten_dimensions:void_deep_stone_blobs",
+      "forgotten_dimensions:nebulite_ore",
+      "forgotten_dimensions:void_shard_ore",
+      "forgotten_dimensions:cosmic_opal_ore"
+    ],
+    [],
+    [],
+    [],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.5
+}

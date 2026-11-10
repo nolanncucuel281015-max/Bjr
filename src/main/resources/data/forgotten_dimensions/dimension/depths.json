@@ -1,0 +1,72 @@
+{
+  "type": "forgotten_dimensions:depths",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "forgotten_dimensions:depths",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "forgotten_dimensions:crystal_caverns",
+          "parameters": {
+            "temperature": 0.3,
+            "humidity": -0.4,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "forgotten_dimensions:fungal_forest",
+          "parameters": {
+            "temperature": 0.6,
+            "humidity": 0.6,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "forgotten_dimensions:underground_abyss",
+          "parameters": {
+            "temperature": -0.6,
+            "humidity": -0.6,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "forgotten_dimensions:buried_ruins",
+          "parameters": {
+            "temperature": 0.0,
+            "humidity": 0.3,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "forgotten_dimensions:shadow_realm",
+          "parameters": {
+            "temperature": -0.3,
+            "humidity": 0.8,
+            "continentalness": 0.0,
+            "erosion": 0.0,
+            "weirdness": 0.0,
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -212,4 +212,43 @@ public class FdGameTests {
         }
         ctx.complete();
     }
+
+    private static final Map<String, List<String>> BIOMES = Map.of(
+            "celestial", List.of("sky_meadow", "cloud_forest", "floating_peaks", "star_garden", "suspended_ruins"),
+            "corrupted", List.of("scarlet_forest", "corrupted_swamp", "root_plains", "infected_mountains", "red_ash_desert"),
+            "ocean", List.of("luminous_reef", "abyss", "coral_forest", "sunken_plains", "dark_trench"),
+            "chaos", List.of("lava_ocean", "ember_forest", "volcanic_mountains", "magma_desert", "chaos_citadel"),
+            "eternal", List.of("frozen_forest", "eternal_glacier", "white_mountains", "frozen_lake", "ice_kingdom"),
+            "depths", List.of("crystal_caverns", "fungal_forest", "underground_abyss", "buried_ruins", "shadow_realm"),
+            "void", List.of("void_desert", "stellar_islands", "astral_ocean", "dimensional_ruins", "void_realm"));
+
+    /**
+     * Le serveur GameTest crée son monde avec les seules dimensions vanilla : on vérifie ici que les
+     * types de dimension, réglages de bruit et 35 biomes du mod sont chargés (JSON valides). La
+     * génération réelle et le voyage sont testés dans FdClientGameTest, sur un vrai monde.
+     */
+    @GameTest
+    public void dimensionDataLoaded(TestContext ctx) {
+        var reg = ctx.getWorld().getRegistryManager();
+        var types = reg.getOrThrow(RegistryKeys.DIMENSION_TYPE);
+        var noise = reg.getOrThrow(RegistryKeys.CHUNK_GENERATOR_SETTINGS);
+        var biomes = reg.getOrThrow(RegistryKeys.BIOME);
+        for (String dim : com.forgotten.dimensions.dimension.FdDimensions.IDS) {
+            ctx.assertTrue(types.containsId(ForgottenDimensions.id(dim)), "type de dimension : " + dim);
+            ctx.assertTrue(noise.containsId(ForgottenDimensions.id(dim)), "réglages de bruit : " + dim);
+            for (String b : BIOMES.get(dim)) ctx.assertTrue(biomes.containsId(ForgottenDimensions.id(b)), "biome : " + b);
+        }
+        ctx.complete();
+    }
+
+    @GameTest
+    public void keysOpenTheirDimension(TestContext ctx) {
+        for (String dim : com.forgotten.dimensions.dimension.FdDimensions.IDS) {
+            ctx.assertEquals(dim, com.forgotten.dimensions.dimension.FdDimensions.dimensionOfKey(ModItems.get(dim + "_key")), "clé " + dim);
+        }
+        ctx.assertTrue(com.forgotten.dimensions.dimension.FdDimensions.dimensionOfKey(ModItems.get("celestial_crystal")) == null, "objet ordinaire");
+        MinecraftServer server = ctx.getWorld().getServer();
+        ctx.assertTrue(server.getRecipeManager().get(RegistryKey.of(RegistryKeys.RECIPE, ForgottenDimensions.id("void_key"))).isPresent(), "recette clé du Néant");
+        ctx.complete();
+    }
 }

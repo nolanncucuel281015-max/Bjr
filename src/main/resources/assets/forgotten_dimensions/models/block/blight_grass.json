@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "forgotten_dimensions:block/blight_grass_top",
+    "side": "forgotten_dimensions:block/blight_grass_side",
+    "bottom": "forgotten_dimensions:block/blight_soil"
+  }
+}

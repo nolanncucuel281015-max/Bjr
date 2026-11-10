@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "forgotten_dimensions:block/astral_moss_top",
+    "side": "forgotten_dimensions:block/astral_moss_side",
+    "bottom": "forgotten_dimensions:block/astral_sand"
+  }
+}

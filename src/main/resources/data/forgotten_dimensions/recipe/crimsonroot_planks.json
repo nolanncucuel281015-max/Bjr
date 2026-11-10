@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "forgotten_dimensions:crimsonroot_log"
+  ],
+  "result": {
+    "count": 4,
+    "id": "forgotten_dimensions:crimsonroot_planks"
+  }
+}

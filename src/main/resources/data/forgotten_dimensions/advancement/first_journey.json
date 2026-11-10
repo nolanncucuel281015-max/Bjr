@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:dimensional_gate",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.first_journey.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.first_journey.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "granted"
+    ]
+  ],
+  "parent": "forgotten_dimensions:root"
+}

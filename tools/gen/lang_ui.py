@@ -109,6 +109,14 @@ UI = {
     f"command.{NS}.reload.done": ("Configuration reloaded", "Configuration rechargée"),
     f"command.{NS}.reload.error": ("Invalid configuration file, defaults used (see log)", "Fichier de configuration invalide, valeurs par défaut utilisées (voir le journal)"),
 }
+UI.update({
+    f"chapter.{NS}.3": ("Chapter III — The Dimensions", "Chapitre III — Les dimensions"),
+    f"chapter.{NS}.7": ("Chapter VII — The World Devourer", "Chapitre VII — Le Dévoreur de Mondes"),
+    f"message.{NS}.fall_rescue": ("The ancient gate pulls you back from the abyss.", "Le portail ancien vous arrache à l'abîme."),
+    f"message.{NS}.gate.already_here": ("You are already in this dimension.", "Vous êtes déjà dans cette dimension."),
+    f"message.{NS}.gate.need_key": ("The gate needs a dimensional key.", "Le portail exige une clé dimensionnelle."),
+    f"tag.item.{NS}.dimension_keys": ("Dimensional Keys", "Clés dimensionnelles"),
+})
 for d_id, en, fr in (("celestial", "Celestial Kingdom", "Royaume Céleste"), ("corrupted", "Corrupted Dimension", "Dimension Corrompue"),
                      ("ocean", "Forgotten Ocean", "Océan Oublié"), ("chaos", "Lands of Chaos", "Terres du Chaos"),
                      ("eternal", "Eternal World", "Monde Éternel"), ("depths", "The Depths", "Les Profondeurs"),
@@ -248,6 +256,8 @@ ADVANCEMENTS = [
      ("Skill Adept", "Adepte"), ("Spend 10 skill points.", "Dépensez 10 points de compétence."), "task"),
     ("specialization", "minecraft:written_book", "level_25", ("granted",),
      ("A Chosen Path", "Une voie choisie"), ("Choose a specialization.", "Choisissez une spécialisation."), "goal"),
+    ("first_journey", "forgotten_dimensions:dimensional_gate", "root", ("granted",),
+     ("Through the Gate", "À travers le portail"), ("Travel through a Dimensional Gate.", "Voyagez par un Portail dimensionnel."), "goal"),
     ("first_artifact", "forgotten_dimensions:heart_of_the_ancients", "root", ("inventory", "#forgotten_dimensions:artifacts"),
      ("Relic Hunter", "Chasseur de reliques"), ("Obtain an artifact.", "Obtenez un artefact."), "task"),
     ("first_legendary", "forgotten_dimensions:celestial_blade", "first_artifact", ("inventory", "#forgotten_dimensions:weapons/legendary"),

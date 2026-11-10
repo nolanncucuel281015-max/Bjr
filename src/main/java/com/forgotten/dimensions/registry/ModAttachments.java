@@ -35,6 +35,12 @@ public final class ModAttachments {
                     .copyOnDeath()
                     .syncWith(PacketCodecs.codec(SpellCooldowns.CODEC), AttachmentSyncPredicate.targetOnly()));
 
+    /** Point de retour des portails (persistant, non synchronisé : seul le serveur en a besoin). */
+    public static final AttachmentType<com.forgotten.dimensions.progression.ReturnPoint> RETURN_POINT = AttachmentRegistry.create(
+            ForgottenDimensions.id("return_point"), b -> b
+                    .persistent(com.forgotten.dimensions.progression.ReturnPoint.CODEC)
+                    .copyOnDeath());
+
     private ModAttachments() {}
 
     public static void register() {

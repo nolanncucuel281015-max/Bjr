@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 8,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "forgotten_dimensions:frostrock"
+        },
+        "state": {
+          "Name": "forgotten_dimensions:rime_sapphire_ore"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "forgotten_dimensions:deep_frostrock"
+        },
+        "state": {
+          "Name": "forgotten_dimensions:deep_rime_sapphire_ore"
+        }
+      }
+    ]
+  }
+}

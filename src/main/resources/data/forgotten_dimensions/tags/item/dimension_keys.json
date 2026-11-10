@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:celestial_key",
+    "forgotten_dimensions:chaos_key",
+    "forgotten_dimensions:corrupted_key",
+    "forgotten_dimensions:depths_key",
+    "forgotten_dimensions:eternal_key",
+    "forgotten_dimensions:ocean_key",
+    "forgotten_dimensions:void_key"
+  ]
+}

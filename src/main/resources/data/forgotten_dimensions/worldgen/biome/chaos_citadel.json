@@ -1,0 +1,56 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#200404",
+    "minecraft:visual/fog_color": "#2a0606",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:soul_fire_flame"
+        },
+        "probability": 0.004
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:nether_cave"
+  ],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#ff6010",
+    "grass_color": "#401010",
+    "foliage_color": "#401010"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "forgotten_dimensions:chaos_deep_stone_blobs",
+      "forgotten_dimensions:magmatite_ore",
+      "forgotten_dimensions:ember_garnet_ore",
+      "forgotten_dimensions:brimstone_ore"
+    ],
+    [],
+    [],
+    [
+      "minecraft:patch_soul_fire"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

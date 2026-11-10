@@ -1,0 +1,31 @@
+{
+  "parent": "forgotten_dimensions:root",
+  "display": {
+    "icon": {
+      "id": "forgotten_dimensions:celestial_key",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.forgotten_dimensions.enter_celestial.title"
+    },
+    "description": {
+      "translate": "advancements.forgotten_dimensions.enter_celestial.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "entered": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "forgotten_dimensions:celestial"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "entered"
+    ]
+  ]
+}

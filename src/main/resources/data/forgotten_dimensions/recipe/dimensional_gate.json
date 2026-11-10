@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": "forgotten_dimensions:architect_stone",
+    "O": "minecraft:crying_obsidian",
+    "C": "forgotten_dimensions:architect_core"
+  },
+  "pattern": [
+    "SOS",
+    "OCO",
+    "SOS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "forgotten_dimensions:dimensional_gate"
+  }
+}

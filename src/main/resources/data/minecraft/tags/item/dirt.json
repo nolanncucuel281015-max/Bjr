@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "forgotten_dimensions:astral_moss",
+    "forgotten_dimensions:astral_sand",
+    "forgotten_dimensions:blight_grass",
+    "forgotten_dimensions:blight_soil",
+    "forgotten_dimensions:frost_grass",
+    "forgotten_dimensions:frost_soil",
+    "forgotten_dimensions:sky_grass",
+    "forgotten_dimensions:sky_soil",
+    "forgotten_dimensions:umbral_moss",
+    "forgotten_dimensions:umbral_soil"
+  ]
+}

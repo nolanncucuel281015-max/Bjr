@@ -1,0 +1,60 @@
+{
+  "attributes": {
+    "minecraft:visual/sky_color": "#a0c8ff",
+    "minecraft:visual/fog_color": "#e8f8ff",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:end_rod"
+        },
+        "probability": 0.002
+      }
+    ]
+  },
+  "carvers": [
+    "minecraft:cave",
+    "minecraft:cave_extra_underground",
+    "minecraft:canyon"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "water_color": "#a0e0ff",
+    "grass_color": "#d0f0ff",
+    "foliage_color": "#d0f0ff"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:ice_spike"
+    ],
+    [],
+    [
+      "forgotten_dimensions:eternal_deep_stone_blobs",
+      "forgotten_dimensions:frost_steel_ore",
+      "forgotten_dimensions:everfrost_gem_ore",
+      "forgotten_dimensions:rime_sapphire_ore"
+    ],
+    [],
+    [],
+    [],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -0.9
+}
