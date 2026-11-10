@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.forgotten.dimensions.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "LivingEntityRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

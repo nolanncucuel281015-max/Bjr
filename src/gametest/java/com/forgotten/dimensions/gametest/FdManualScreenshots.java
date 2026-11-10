@@ -305,6 +305,55 @@ public class FdManualScreenshots implements FabricClientGameTest {
             shot(ctx, "summon_cast_after", false);
             sp.getServer().runCommand("kill @e[type=!player]");
             ctx.runOnClient(c -> c.options.setPerspective(Perspective.FIRST_PERSON));
+
+            // ---------------------------------------------------------- interface RPG
+            ctx.waitTicks(30);
+            sp.getServer().runOnServer(server -> server.getPlayerManager().getPlayerList().get(0).getEntityWorld()
+                    .getEntitiesByClass(net.minecraft.entity.LivingEntity.class, new net.minecraft.util.math.Box(origin, origin).expand(48),
+                            e -> !(e instanceof net.minecraft.entity.player.PlayerEntity)).forEach(net.minecraft.entity.Entity::discard));
+            sp.getServer().runCommand("fdimension level set @p 30");
+            cmd(sp, String.format(java.util.Locale.ROOT, "tp @s %.2f %.2f %.2f 0 6", origin.x, origin.y, origin.z));
+            String[][] foes = {{"cloud_guardian", "-3.5", "8"}, {"storm_herald", "0", "10"}, {"corrupted_zombie", "3.5", "7"},
+                    {"sky_serpent", "-1.5", "6"}};
+            for (String[] f : foes) {
+                cmd(sp, "summon forgotten_dimensions:" + f[0] + " ~" + f[1] + " ~ ~" + f[2] + " {NoAI:1b,PersistenceRequired:1b,Rotation:[180f,0f]}");
+            }
+            sp.getServer().runOnServer(server -> {
+                var p = server.getPlayerManager().getPlayerList().get(0);
+                var e = com.forgotten.dimensions.entity.summon.SummonEntities.get(com.forgotten.dimensions.magic.SummonType.FROST_SENTINEL)
+                        .create(p.getEntityWorld(), net.minecraft.entity.SpawnReason.COMMAND);
+                e.refreshPositionAndAngles(origin.x + 4.5, origin.y, origin.z + 4, 200F, 0F);
+                e.bind(p, 5F, 120);
+                e.setAiDisabled(true);
+                p.getEntityWorld().spawnEntity(e);
+            });
+            ctx.waitTicks(30);
+            // Quelques coups : traînée de vie et chiffres de dégâts.
+            sp.getServer().runCommand("damage @e[type=forgotten_dimensions:cloud_guardian,limit=1] 14");
+            sp.getServer().runCommand("damage @e[type=forgotten_dimensions:storm_herald,limit=1] 60");
+            ctx.waitTicks(4);
+            sp.getServer().runCommand("damage @e[type=forgotten_dimensions:corrupted_zombie,limit=1] 9");
+            sp.getServer().runCommand("damage @e[type=forgotten_dimensions:sky_serpent,limit=1] 5");
+            ctx.waitTicks(5);
+            shot(ctx, "rpg_plates", false);
+            // Fiche de personnage
+            ctx.setScreen(() -> new com.forgotten.dimensions.client.screen.CharacterScreen());
+            ctx.waitTicks(5);
+            shot(ctx, "rpg_character_sheet", false);
+            ctx.setScreen(() -> null);
+            // Passage de niveau : titre, colonne dorée, cercle runique
+            sp.getServer().runCommand("kill @e[type=!player]");
+            ctx.runOnClient(c -> c.options.setPerspective(Perspective.THIRD_PERSON_BACK));
+            cmd(sp, String.format(java.util.Locale.ROOT, "tp @s %.2f %.2f %.2f 0 15", origin.x, origin.y, origin.z));
+            ctx.waitTicks(10);
+            sp.getServer().runOnServer(server -> {
+                var p = server.getPlayerManager().getPlayerList().get(0);
+                com.forgotten.dimensions.progression.ProgressionManager.addXp(p,
+                        com.forgotten.dimensions.progression.ExperienceCurve.xpToNext(30) + 5, com.forgotten.dimensions.progression.XpSource.COMMAND);
+            });
+            ctx.waitTicks(12);
+            shot(ctx, "rpg_level_up", false);
+            ctx.runOnClient(c -> c.options.setPerspective(Perspective.FIRST_PERSON));
         }
     }
 }

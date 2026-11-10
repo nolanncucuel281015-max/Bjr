@@ -165,6 +165,7 @@ tant qu'il n'existe aucun boss à invoquer.
 | **Clic droit** avec un bâton ou une baguette | Lancer le sort actif |
 | `G` | Changer de sort (sort débloqué suivant du grimoire actif) |
 | `V` | Basculer entre sorts d'attaque et sorts d'invocation |
+| `J` | Fiche de personnage |
 | `K` | Arbre de compétences |
 | `B` | Livre de magie |
 
@@ -403,8 +404,23 @@ niveau requis, des particules et des sons.
 
 ### Interface
 
-- **HUD** compact (coin supérieur gauche) : niveau, barre d'expérience, barre de mana, sort actif
-  avec recharge, points de compétence disponibles. La vie et les effets restent ceux de Minecraft.
+- **Cadre du personnage** (haut gauche) : portrait, badge de niveau, nom, spécialisation ou points
+  de compétence à dépenser, barres chiffrées de vie, de mana et d'expérience.
+- **Barre de sorts** façon MMO (bas droite, ou sous le cadre si l'écran est étroit) : sorts débloqués
+  du grimoire actif autour du sort sélectionné, icône d'école, recharge en volet sombre avec les
+  secondes restantes, voile bleu quand le mana manque, grimoire actif et rappel des touches.
+- **Plaques RPG** au-dessus des créatures (`RpgPlates`, mixin `LivingEntityRendererMixin`) : niveau
+  coloré selon l'écart avec le joueur (gris, vert, jaune, orange, rouge, « ?? »), rang (★ élite,
+  ☠ mini-boss), barre de vie avec traînée des dégâts récents ; plaque verte ✦ pour les invocations.
+  Le niveau d'une créature du mod dépend de sa dimension et de son rang (`CreatureLevels`) et module
+  l'expérience gagnée (×0,1 pour une créature bien plus faible, jusqu'à ×1,5 pour une plus forte).
+- **Chiffres de dégâts et de soins** flottants, déduits des variations de vie synchronisées (aucun
+  paquet réseau ajouté).
+- **Passage de niveau** : grand titre « NIVEAU n », sous-titre des points gagnés, colonne de lumière
+  dorée, onde et cercle runique.
+- **Fiche de personnage** (`J`) : personnage en 3D, niveau, expérience, attributs (vie, armure,
+  dégâts, vitesses, chance), magie (mana, coûts, recharges, puissance et maîtrise par école) et
+  points investis par arbre.
 - **Arbre de compétences** (`K`) et **Livre de magie** (`B`), utilisables à la souris et au clavier.
 - **Infobulles** : rareté, description, école de magie, dégâts des projectiles, bonus d'ensemble.
 
@@ -426,6 +442,8 @@ Fichier `config/forgotten_dimensions.json` (créé au premier lancement, recharg
 | `rewardMultiplier` | 1.0 | Expérience des créatures tuées |
 | `creatureSpawnMultiplier` | 1.0 | Fréquence d'apparition naturelle des créatures (0 = aucune) |
 | `spellVisuals` | true | Effets 3D des sorts (false = particules seules) |
+| `rpgNameplates` | true | Plaques RPG au-dessus des créatures (réglage client) |
+| `damageNumbers` | true | Chiffres de dégâts et de soins flottants (réglage client) |
 
 Le réglage de fréquence des structures sera ajouté avec la phase 7 (aucune option factice n'est
 exposée).

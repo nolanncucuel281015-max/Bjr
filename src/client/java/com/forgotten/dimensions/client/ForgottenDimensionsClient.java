@@ -40,6 +40,7 @@ public final class ForgottenDimensionsClient implements ClientModInitializer {
                 (type, renderer, helper, ctx) -> registerArmorDetails(renderer, helper, ctx, detailsLayer));
         ModKeyBindings.register();
         RpgHud.register();
+        com.forgotten.dimensions.client.render.RpgPlates.register();
         FdTooltips.register();
     }
 }

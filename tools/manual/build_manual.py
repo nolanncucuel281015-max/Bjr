@@ -281,13 +281,14 @@ def annotated_hud():
         return ""
     im = Image.open(src).convert("RGB")
     k = im.size[0] / 854.0
-    crop = im.crop((0, 0, int(240 * k), int(96 * k))).resize((720, 288), Image.NEAREST)
-    out = Image.new("RGB", (1010, 288), (251, 246, 234))
+    g = 2 * k  # capture en échelle d'interface 2
+    crop = im.crop((0, 0, int(166 * g), int(57 * g))).resize((680, 232), Image.NEAREST)
+    out = Image.new("RGB", (1010, 232), (251, 246, 234))
     out.paste(crop, (0, 0))
     d = ImageDraw.Draw(out)
     f = _font(24)
-    # (n, y du repère, cible x, cible y) en coordonnées de l'image agrandie
-    marks = [(1, 22, 150, 36), (2, 74, 600, 36), (3, 128, 690, 90), (4, 182, 690, 150), (5, 240, 260, 222)]
+    # (n, y du repère, cible x, cible y) en coordonnées de l'image agrandie (cadre du personnage)
+    marks = [(1, 2, 96, 80), (2, 40, 66, 152), (3, 80, 560, 50), (4, 120, 470, 94), (5, 160, 470, 140), (6, 196, 470, 182)]
     for n, my, tx, ty in marks:
         d.line([(778, my + 18), (tx, ty)], fill=(184, 134, 43), width=4)
         d.ellipse([tx - 7, ty - 7, tx + 7, ty + 7], fill=(184, 134, 43))
@@ -403,24 +404,41 @@ sauvegardée avec chaque joueur.</p>'''))
 <div class="two"><div>
 <h2>L'interface</h2>
 {f'<img class="wide" src="{hud}" alt="">' if hud else ''}
-<ol class="legend"><li><b>Niveau RPG</b> (1 à 100), distinct de l'expérience de Minecraft.</li>
-<li><b>Points de compétence</b> à dépenser (touche <kbd>K</kbd>).</li>
-<li><b>Barre d'expérience</b> vers le niveau suivant.</li>
+<ol class="legend"><li><b>Portrait</b> de votre personnage.</li>
+<li><b>Badge de niveau RPG</b> (1 à 100), distinct de l'expérience de Minecraft.</li>
+<li><b>Points de compétence</b> à dépenser (touche <kbd>K</kbd>), ou votre spécialisation.</li>
+<li><b>Vie</b> (absorption comprise), en chiffres.</li>
 <li><b>Mana</b> actuel / maximum, régénéré en continu.</li>
-<li><b>Sort actif</b> et son temps de recharge, avec le rappel des commandes : <b>clic droit avec un bâton ou une
-baguette</b> pour le lancer, <kbd>G</kbd> pour changer, et le <b>grimoire actif</b> (« ⚔ Attaque » ou « ✦ Invocation »,
-<kbd>V</kbd> pour basculer).</li></ol>
+<li><b>Expérience</b> vers le niveau suivant.</li></ol>
+<p>En bas à droite, la <b>barre de sorts</b> montre les sorts débloqués du grimoire actif (« ⚔ Attaque » ou « ✦ Invocation »,
+<kbd>V</kbd> pour basculer) autour du sort sélectionné (cadre doré, <kbd>G</kbd> pour changer) : l'icône de son école, la
+recharge en volet sombre avec les secondes restantes, un voile bleu si le mana manque.</p>
 </div><div>
 <h2>Les touches</h2>
 {table(["Touche", "Action"], [["<b>Clic droit</b> (bâton ou baguette en main)", "Lancer le sort actif"], ["<kbd>G</kbd>", "Changer de sort (sort suivant du grimoire actif)"],
                              ["<kbd>V</kbd>", "Basculer sorts d'attaque / sorts d'invocation"],
-                             ["<kbd>K</kbd>", "Arbre de compétences"], ["<kbd>B</kbd>", "Livre de magie"]])}
+                             ["<kbd>K</kbd>", "Arbre de compétences"], ["<kbd>B</kbd>", "Livre de magie"],
+                             ["<kbd>J</kbd>", "Fiche de personnage"]])}
 <p class="small">Modifiables dans Options → Commandes → « Dimensions Oubliées ».</p>
 <h2>Gagner de l'expérience</h2>
-<ul><li>Vaincre des créatures (plus si elles sont fortes, beaucoup pour les boss).</li>
+<ul><li>Vaincre des créatures (plus si elles sont fortes, beaucoup pour les boss). Leur <b>niveau</b> compte : une créature
+grise (bien plus faible que vous) ne rapporte presque rien, une orange ou rouge rapporte jusqu'à 50 % de plus.</li>
 <li>Miner des minerais (8 XP pour ceux du mod, 3 pour les autres).</li>
 <li>Découvrir un nouveau biome (25 XP).</li><li>Lancer des sorts.</li></ul>
 </div></div>
+<h2>Combat et progression façon RPG</h2>
+<div class="two"><div>{shot("manual_rpg_plates", "Plaques des créatures : niveau, rang, barre de vie et chiffres de dégâts.")}</div>
+<div><p>Au-dessus de chaque créature hostile, une <b>plaque</b> affiche son <b>niveau</b>, coloré selon l'écart avec le vôtre
+(<span style="color:#888">gris</span> : bien plus faible, <span style="color:#3a3">vert</span>, <span style="color:#b90">jaune</span> :
+de votre niveau, <span style="color:#d70">orange</span>, <span style="color:#c22">rouge</span> : dangereux, « ?? » : bien trop fort),
+son rang (★ élite, ☠ mini-boss) et sa <b>barre de vie</b> ; la partie blanche montre les dégâts qui viennent d'être infligés.
+Vos invocations ont une plaque verte marquée ✦. Les <b>chiffres de dégâts</b> jaillissent à chaque coup (orange pour les
+gros coups) et les soins en vert.</p>
+<p>Le niveau d'une créature du mod dépend de sa dimension (Royaume Céleste vers 6, Néant vers 82) et de son rang ; celui des
+créatures de Minecraft de leur vie et de la dimension.</p></div></div>
+<div class="two"><div>{shot("manual_rpg_level_up", "Passage de niveau : grand titre, colonne de lumière dorée, cercle runique.")}</div>
+<div>{shot("manual_rpg_character_sheet", "La fiche de personnage (touche J).")}</div></div>
+<p class="small">Les plaques et les chiffres se désactivent avec les options <code>rpgNameplates</code> et <code>damageNumbers</code>.</p>
 <h2>Chapitre 2 : les premiers fragments</h2>
 <p>Tout commence sous vos pieds. Des fragments de la technologie des Architectes et des sept mondes se cachent dans la roche
 de la Surface. Une pioche en fer suffit pour les miner.</p>

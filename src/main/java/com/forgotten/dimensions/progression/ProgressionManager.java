@@ -112,6 +112,23 @@ public final class ProgressionManager {
                 SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 1.0F, 0.8F);
         player.getEntityWorld().spawnParticles(ParticleTypes.TOTEM_OF_UNDYING, player.getX(), player.getY() + 1.0,
                 player.getZ(), 30, 0.5, 0.8, 0.5, 0.3);
+        // Célébration façon RPG : grand titre, colonne de lumière dorée, onde et cercle runique.
+        int points = ExperienceCurve.totalSkillPoints(newLevel) - ExperienceCurve.totalSkillPoints(oldLevel);
+        player.networkHandler.sendPacket(new net.minecraft.network.packet.s2c.play.TitleFadeS2CPacket(8, 50, 20));
+        player.networkHandler.sendPacket(new net.minecraft.network.packet.s2c.play.TitleS2CPacket(
+                Text.translatable("title.forgotten_dimensions.level_up", newLevel).formatted(Formatting.GOLD, Formatting.BOLD)));
+        player.networkHandler.sendPacket(new net.minecraft.network.packet.s2c.play.SubtitleS2CPacket(
+                Text.translatable("title.forgotten_dimensions.level_up.sub", points).formatted(Formatting.YELLOW)));
+        var world = player.getEntityWorld();
+        var pos = player.getEntityPos().add(0, 0.05, 0);
+        com.forgotten.dimensions.magic.SpellVisuals.spawn(world, com.forgotten.dimensions.magic.SpellVisual.PILLAR,
+                com.forgotten.dimensions.magic.SpellSchool.LIGHTNING, pos, 1.4F, 40, net.minecraft.util.math.Vec3d.ZERO, player);
+        com.forgotten.dimensions.magic.SpellVisuals.spawn(world, com.forgotten.dimensions.magic.SpellVisual.NOVA,
+                com.forgotten.dimensions.magic.SpellSchool.LIGHTNING, pos, 5F, 24);
+        com.forgotten.dimensions.magic.SpellVisuals.spawn(world, com.forgotten.dimensions.magic.SpellVisual.CAST_CIRCLE,
+                com.forgotten.dimensions.magic.SpellSchool.LIGHTNING, pos, 2.6F, 50, net.minecraft.util.math.Vec3d.ZERO, player);
+        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE,
+                SoundCategory.PLAYERS, 0.8F, 1.0F);
         grantLevelAdvancements(player, newLevel);
     }
 

@@ -41,4 +41,17 @@ class FormulasTest {
         assertTrue(later.until().containsKey("a"));
         assertEquals(0, later.remaining("b", 60));
     }
+
+    @Test
+    void creatureLevelScalesExperience() {
+        // Créature bien plus faible : presque pas d'expérience ; plus forte : bonus.
+        assertEquals(0.1, com.forgotten.dimensions.progression.CreatureLevels.xpFactor(50, 30), 1e-9);
+        assertEquals(1.0, com.forgotten.dimensions.progression.CreatureLevels.xpFactor(20, 21), 1e-9);
+        assertEquals(1.5, com.forgotten.dimensions.progression.CreatureLevels.xpFactor(10, 25), 1e-9);
+        assertEquals(1.0, com.forgotten.dimensions.progression.CreatureLevels.xpFactor(10, -1), 1e-9, "invocations / joueurs");
+        // Couleur du niveau : gris, vert, jaune, orange, rouge.
+        assertEquals(0xFF9A9A9A, com.forgotten.dimensions.progression.CreatureLevels.color(40, 20));
+        assertEquals(0xFFFFE060, com.forgotten.dimensions.progression.CreatureLevels.color(40, 41));
+        assertEquals(0xFFFF3A3A, com.forgotten.dimensions.progression.CreatureLevels.color(10, 30));
+    }
 }

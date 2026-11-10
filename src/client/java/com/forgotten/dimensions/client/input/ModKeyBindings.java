@@ -34,6 +34,7 @@ public final class ModKeyBindings {
     public static KeyBinding switchMode;
     public static KeyBinding openSkills;
     public static KeyBinding openSpellBook;
+    public static KeyBinding openCharacter;
 
     private ModKeyBindings() {}
 
@@ -44,6 +45,7 @@ public final class ModKeyBindings {
         switchMode = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.switch_spell_mode", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, CATEGORY));
         openSkills = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.open_skills", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY));
         openSpellBook = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.open_spell_book", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_B, CATEGORY));
+        openCharacter = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.forgotten_dimensions.open_character", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_J, CATEGORY));
         ClientTickEvents.END_CLIENT_TICK.register(ModKeyBindings::tick);
     }
 
@@ -60,6 +62,9 @@ public final class ModKeyBindings {
         }
         while (openSkills.wasPressed()) {
             client.setScreen(new SkillTreeScreen());
+        }
+        while (openCharacter.wasPressed()) {
+            client.setScreen(new com.forgotten.dimensions.client.screen.CharacterScreen());
         }
         while (openSpellBook.wasPressed()) {
             client.setScreen(new SpellBookScreen());

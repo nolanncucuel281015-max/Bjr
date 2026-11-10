@@ -25,6 +25,10 @@
     "fabric-api": "*"
   },
   "mixins": [
-    "forgotten_dimensions.mixins.json"
+    "forgotten_dimensions.mixins.json",
+    {
+      "config": "forgotten_dimensions.client.mixins.json",
+      "environment": "client"
+    }
   ]
 }

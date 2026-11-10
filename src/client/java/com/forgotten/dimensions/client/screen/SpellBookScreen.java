@@ -18,7 +18,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.List;
 
-/** Livre de magie : les 50 sorts par école, état de déblocage, sélection du sort actif. */
+/** Livre de magie : les 55 sorts par école (invocations marquées ✦), état de déblocage, sélection du sort actif. */
 public class SpellBookScreen extends Screen {
     private static SpellSchool selected = SpellSchool.FIRE;
     private PlayerProgress shown;
@@ -49,18 +49,18 @@ public class SpellBookScreen extends Screen {
             Spell sp = spells.get(i);
             boolean unlocked = SpellCaster.isUnlocked(shown, sp);
             boolean active = sp.id().equals(shown.selectedSpell());
-            MutableText label = Text.literal(active ? "▶ " : "").append(Text.translatable(sp.translationKey()));
+            MutableText label = Text.literal(active ? "▶ " : sp.isSummon() ? "✦ " : "").append(Text.translatable(sp.translationKey()));
             if (!unlocked) label = Text.literal("🔒 ").append(Text.translatable(sp.translationKey())).formatted(Formatting.DARK_GRAY);
             else if (active) label = label.formatted(Formatting.YELLOW);
             int bx = cx - 155 + (i % 2) * 160;
-            int by = top + 52 + (i / 2) * 24;
+            int by = top + 52 + (i / 2) * 22;
             ButtonWidget btn = ButtonWidget.builder(label, b -> ClientPlayNetworking.send(new SelectSpellPayload(sp.id())))
                     .dimensions(bx, by, 150, 20).tooltip(Tooltip.of(tooltip(sp, unlocked))).build();
             btn.active = unlocked;
             addDrawableChild(btn);
         }
         addDrawableChild(ButtonWidget.builder(Text.translatable("gui.done"), b -> close())
-                .dimensions(cx - 50, top + 180, 100, 20).build());
+                .dimensions(cx - 50, top + 192, 100, 20).build());
     }
 
     private Text tooltip(Spell sp, boolean unlocked) {

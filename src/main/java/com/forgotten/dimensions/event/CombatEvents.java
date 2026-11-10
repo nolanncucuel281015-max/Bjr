@@ -66,7 +66,10 @@ public final class CombatEvents {
         }
         if (player == null) return;
         boolean boss = entity.getType().isIn(LegendaryEffects.BOSSES);
-        int xp = (int) Math.round(killXp(entity.getMaxHealth(), entity instanceof Monster, boss) * FdConfig.get().rewardMultiplier);
+        // Écart de niveau (plaques RPG) : une créature bien plus faible rapporte peu, une plus forte davantage.
+        double levelFactor = com.forgotten.dimensions.progression.CreatureLevels.xpFactor(ProgressionManager.get(player).level(),
+                com.forgotten.dimensions.progression.CreatureLevels.of(entity));
+        int xp = (int) Math.round(killXp(entity.getMaxHealth(), entity instanceof Monster, boss) * FdConfig.get().rewardMultiplier * levelFactor);
         ProgressionManager.addXp(player, xp, boss ? XpSource.BOSS : XpSource.COMBAT);
         int secondWind = Skills.rank(ProgressionManager.get(player), Skills.SECOND_WIND);
         if (secondWind > 0 && source.getAttacker() == player) player.heal(secondWind * 2.0F);
