@@ -127,12 +127,7 @@ public class FdManualScreenshots implements FabricClientGameTest {
             ctx.waitTicks(25);
             shot(ctx, "portal_2_arrival_title", false);
             ctx.waitTicks(80);
-            sp.getServer().runOnServer(server -> {
-                var p = server.getPlayerManager().getPlayerList().get(0);
-                p.setYaw(-90F);
-                p.setHeadYaw(-90F);
-                p.setPitch(25F);
-            });
+            cmd(sp, "tp @s ~ ~ ~ -90 25");
             ctx.waitTicks(20);
             shot(ctx, "portal_3_return_gate", false);
 
@@ -149,21 +144,13 @@ public class FdManualScreenshots implements FabricClientGameTest {
                     var p = server.getPlayerManager().getPlayerList().get(0);
                     p.getAbilities().flying = true;
                     p.sendAbilitiesUpdate();
-                    if (open) p.requestTeleport(p.getX() + 4, p.getY() + 24, p.getZ());
-                    p.setYaw(90F);
-                    p.setHeadYaw(90F);
-                    p.setPitch(open ? 24F : 8F);
                 });
+                // La rotation doit passer par /tp : le client garde sa caméra si on ne change que le serveur.
+                cmd(sp, open ? "tp @s ~4 ~24 ~ 90 24" : "tp @s ~ ~ ~ 90 8");
                 ctx.waitTicks(120);
                 shot(ctx, "dim_" + dim + "_panorama", true);
                 // Petite scène dégagée devant le joueur, puis les créatures de la dimension, immobiles, face à lui.
-                sp.getServer().runOnServer(server -> {
-                    var p = server.getPlayerManager().getPlayerList().get(0);
-                    if (open) p.requestTeleport(p.getX() - 4, p.getY() - 24, p.getZ());
-                    p.setYaw(90F);
-                    p.setHeadYaw(90F);
-                    p.setPitch(12F);
-                });
+                cmd(sp, open ? "tp @s ~-4 ~-24 ~ 90 12" : "tp @s ~ ~ ~ 90 12");
                 ctx.waitTicks(10);
                 sp.getServer().runCommand("kill @e[type=!player]");
                 cmd(sp, "fill ~-24 ~-1 ~-11 ~-2 ~-1 ~11 forgotten_dimensions:polished_" + stones.get(dim));
