@@ -1,4 +1,5 @@
 execute unless score @s oubliees.level matches 1.. run function oubliees:player/first_join
+execute unless entity @s[tag=oubliees.recipes] run function oubliees:player/recipes
 scoreboard players remove @s[scores={oubliees.cd=1..}] oubliees.cd 1
 function oubliees:player/school
 execute if score @s oubliees.use matches 1.. run function oubliees:player/use

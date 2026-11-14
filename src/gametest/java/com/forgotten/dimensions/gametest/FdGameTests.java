@@ -419,4 +419,14 @@ public class FdGameTests {
         // n'ont jamais d'équipe (getScoreboardTeam renvoie null).
         ctx.complete();
     }
+
+    @GameTest
+    public void modRecipesAreInTheRecipeBook(TestContext ctx) {
+        FakePlayer p = player(ctx, "fd_recipes");
+        int unlocked = com.forgotten.dimensions.event.WorldEvents.unlockModRecipes(p);
+        ctx.assertTrue(unlocked > 600, "toutes les recettes du mod débloquées (" + unlocked + ")");
+        var key = net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.RECIPE, ForgottenDimensions.id("iron_greatsword"));
+        ctx.assertTrue(p.getRecipeBook().isUnlocked(key), "la grande épée de fer est dans le livre de recettes");
+        ctx.complete();
+    }
 }

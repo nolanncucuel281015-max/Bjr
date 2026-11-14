@@ -8,12 +8,6 @@ scoreboard players set @s oubliees.cd 0
 scoreboard players operation @s oubliees.killsl = @s oubliees.kills
 function oubliees:guide/give
 give @s carrot_on_a_stick[custom_name={"text":"Bâton de feu","color":"#ff7a20","italic":false,"bold":true},item_model="minecraft:blaze_rod",lore=[{"text":"École : Feu","color":"#ff7a20","italic":false},{"text":"","color":"gray","italic":false},{"text":"  Trait de feu — niv. 1","color":"gray","italic":false},{"text":"  Nova de feu — niv. 8","color":"gray","italic":false},{"text":"  Colonne de flammes — niv. 15","color":"gray","italic":false},{"text":"  Météore — niv. 25","color":"gray","italic":false},{"text":"","color":"gray","italic":false},{"text":"Clic droit : lancer le sort","color":"aqua","italic":false},{"text":"Accroupi + clic droit : sort suivant","color":"aqua","italic":false}],custom_data={"oubliees":{"staff":"fire"}},enchantment_glint_override=true,rarity="rare",unbreakable={}]
-recipe give @s oubliees:staff_fire
-recipe give @s oubliees:staff_ice
-recipe give @s oubliees:staff_lightning
-recipe give @s oubliees:staff_nature
-recipe give @s oubliees:staff_void
-recipe give @s oubliees:key_celestial
 title @s times 10 70 20
 title @s subtitle {"text":"Clic droit avec le bâton pour lancer un sort","color":"yellow"}
 title @s title {"text":"Les Dimensions Oubliées","color":"gold","bold":true}

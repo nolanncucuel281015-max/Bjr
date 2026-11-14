@@ -385,6 +385,7 @@ execute as @e[tag={NS}.lv] at @s if entity @a[distance=..24] run function {NS}:m
     # --- joueur
     fn("player/tick", f"""
 execute unless score @s {NS}.level matches 1.. run function {NS}:player/first_join
+execute unless entity @s[tag={NS}.recipes] run function {NS}:player/recipes
 scoreboard players remove @s[scores={{{NS}.cd=1..}}] {NS}.cd 1
 function {NS}:player/school
 execute if score @s {NS}.use matches 1.. run function {NS}:player/use
@@ -412,12 +413,6 @@ scoreboard players set @s {NS}.cd 0
 scoreboard players operation @s {NS}.killsl = @s {NS}.kills
 function {NS}:guide/give
 give @s carrot_on_a_stick[{comp_snbt(starter)}]
-recipe give @s {NS}:staff_fire
-recipe give @s {NS}:staff_ice
-recipe give @s {NS}:staff_lightning
-recipe give @s {NS}:staff_nature
-recipe give @s {NS}:staff_void
-recipe give @s {NS}:key_celestial
 title @s times 10 70 20
 title @s subtitle {snbt(T("Clic droit avec le bâton pour lancer un sort", "yellow"))}
 title @s title {snbt(T("Les Dimensions Oubliées", "gold", bold=True))}
@@ -425,6 +420,10 @@ tellraw @s [{snbt(T("✦ Bienvenue ! ", "gold", bold=True))},{snbt(T("Lisez le G
 playsound minecraft:ui.toast.challenge_complete master @s ~ ~ ~ 0.6 1.2
 advancement grant @s only {NS}:root
 """)
+
+    # Toutes les recettes du pack dans le livre de recettes de l'établi
+    names = sorted(f[:-5] for f in os.listdir(os.path.join(DATA, "recipe")))
+    fn("player/recipes", [f"recipe give @s {NS}:{n}" for n in names] + [f"tag @s add {NS}.recipes"])
 
     fn("player/second", f"""
 # Régénération du mana : 2 + niveau / 10 par seconde

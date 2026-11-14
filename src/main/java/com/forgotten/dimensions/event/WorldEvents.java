@@ -26,7 +26,10 @@ public final class WorldEvents {
     private WorldEvents() {}
 
     public static void register() {
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> onJoin(handler.getPlayer()));
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            onJoin(handler.getPlayer());
+            unlockModRecipes(handler.getPlayer());
+        });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> PlayerCache.remove(handler.getPlayer().getUuid()));
         ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> onJoin(newPlayer));
 
@@ -45,6 +48,17 @@ public final class WorldEvents {
             SummonManager.clear();
             PlayerCache.clear();
         });
+    }
+
+    /**
+     * Débloque toutes les recettes du mod dans le livre de recettes (établi, four...) : elles y apparaissent
+     * dès la connexion, avec les ingrédients surlignés quand on les possède.
+     */
+    public static int unlockModRecipes(ServerPlayerEntity player) {
+        var recipes = player.getEntityWorld().getServer().getRecipeManager().values().stream()
+                .filter(r -> r.id().getValue().getNamespace().equals(com.forgotten.dimensions.ForgottenDimensions.MOD_ID))
+                .toList();
+        return player.unlockRecipes(recipes);
     }
 
     private static void onJoin(ServerPlayerEntity player) {
