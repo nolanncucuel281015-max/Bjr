@@ -160,6 +160,9 @@ for it in EXTRA_ITEMS:
 # ---------------------------------------------------------------------------
 # durability, speed, damage bonus, enchantability, incorrect-for (niveau), école de magie
 TIERS = [
+    # Palier de départ : fer de Minecraft (avant les dimensions). L'épée, la lance et l'arbalète en fer existent déjà
+    # dans Minecraft : le mod n'en ajoute pas (voir IRON_VANILLA).
+    dict(id="iron", rarity="COMMON", dur=250, speed=6.0, dmg=2.0, ench=14, level="IRON", school="LIGHTNING"),
     dict(id="astral_silver", rarity="COMMON", dur=320, speed=6.5, dmg=2.0, ench=14, level="IRON", school="LIGHTNING"),
     dict(id="celestial_crystal", rarity="UNCOMMON", dur=420, speed=7.0, dmg=2.5, ench=18, level="IRON", school="LIGHTNING"),
     dict(id="corruptium", rarity="UNCOMMON", dur=520, speed=7.0, dmg=3.0, ench=12, level="IRON", school="NATURE"),
@@ -172,6 +175,7 @@ TIERS = [
     dict(id="primordial", rarity="MYTHIC", dur=3000, speed=10.0, dmg=7.0, ench=22, level="NETHERITE", school="FIRE"),
 ]
 TIER_NAMES = {
+    "iron": ("Iron", "de fer"),
     "astral_silver": ("Astral Silver", "d'argent astral"),
     "celestial_crystal": ("Celestial Crystal", "de cristal céleste"),
     "corruptium": ("Corruptium", "de corruptium"),
@@ -184,9 +188,22 @@ TIER_NAMES = {
     "primordial": ("Primordial", "primordial"),
 }
 TIER_ITEM = {t["id"]: (mat_item(t["id"]) if t["id"] in MAT_BY_ID else "primordial_alloy") for t in TIERS}
+TIER_ITEM["iron"] = "iron_ingot"
 TIER_COLOR = {t["id"]: (MAT_BY_ID[t["id"]]["color"] if t["id"] in MAT_BY_ID else (0xF0, 0xE0, 0x90)) for t in TIERS}
+TIER_COLOR["iron"] = (0xD8, 0xD8, 0xDC)
+# Armes en fer déjà présentes dans Minecraft (même recette) : pas de doublon dans le mod.
+IRON_VANILLA = {"sword", "spear", "crossbow"}
 
-# Catégories d'armes (9 x 10 paliers = 90) + 10 légendaires = 100
+
+def has_weapon(tier, category):
+    return not (tier == "iron" and category in IRON_VANILLA)
+
+
+def tier_item_id(tier):
+    """Identifiant complet de l'objet de recette et de réparation du palier."""
+    return "minecraft:iron_ingot" if tier == "iron" else "forgotten_dimensions:" + TIER_ITEM[tier]
+
+# Catégories d'armes (9 x 10 paliers = 90, + 6 en fer) + 10 légendaires = 106
 WEAPON_CATEGORIES = [
     dict(id="sword", en="Sword", fr="Épée", fr_g="f"),
     dict(id="greatsword", en="Greatsword", fr="Grande épée", fr_g="f"),

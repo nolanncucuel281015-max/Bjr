@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Planches illustrées des crafts des 100 armes du mod (grilles d'établi avec icônes).
+"""Planches illustrées des crafts des 106 armes du mod (grilles d'établi avec icônes).
 
 Sortie : docs/crafts/armes_*.png (une planche par matériau, une pour les types, une pour les
 légendaires) et docs/crafts/Crafts des armes.pdf (toutes les planches).
@@ -27,9 +27,11 @@ DATA = os.path.join(ROOT, "src", "main", "resources", "data", NS, "recipe")
 OUT = os.path.join(ROOT, "docs", "crafts")
 CLIENT_JAR = "/root/.gradle/caches/fabric-loom/1.21.11/minecraft-client.jar"
 VANILLA_TEX = {"minecraft:stick": "item/stick", "minecraft:string": "item/string", "minecraft:amethyst_shard": "item/amethyst_shard",
-               "minecraft:tripwire_hook": "block/tripwire_hook", "minecraft:nether_star": "item/nether_star"}
+               "minecraft:tripwire_hook": "block/tripwire_hook", "minecraft:nether_star": "item/nether_star",
+               "minecraft:iron_ingot": "item/iron_ingot"}
 FR_VANILLA = {"minecraft:stick": "Bâton", "minecraft:string": "Ficelle", "minecraft:amethyst_shard": "Éclat d'améthyste",
-              "minecraft:tripwire_hook": "Crochet", "minecraft:nether_star": "Étoile du Nether"}
+              "minecraft:tripwire_hook": "Crochet", "minecraft:nether_star": "Étoile du Nether",
+              "minecraft:iron_ingot": "Lingot de fer"}
 FR = json.load(open(os.path.join(ROOT, "src", "main", "resources", "assets", NS, "lang", "fr_fr.json"), encoding="utf-8"))
 
 BG = (40, 32, 48)
@@ -148,8 +150,12 @@ def main():
               [f"magmatite_{c}" for c in cats])
     p.save(os.path.join(OUT, "armes_0_types.png"))
     pages.append(p)
-    # 2. Une planche par matériau (9 armes chacune)
-    for i, t in enumerate(C.TIERS, 1):
+    # 2. Le fer (début du jeu) puis une planche par matériau des dimensions (9 armes chacune)
+    p = sheet("Armes de fer", "Pour commencer, avant les dimensions. L'épée, la lance et l'arbalète en fer sont celles de Minecraft.",
+              [f"iron_{c}" for c in cats if C.has_weapon("iron", c)], color=(216, 216, 220))
+    p.save(os.path.join(OUT, "armes_00_fer.png"))
+    pages.append(p)
+    for i, t in enumerate([t for t in C.TIERS if t["id"] != "iron"], 1):
         en, fr = C.TIER_NAMES[t["id"]]
         mat = name(f"{NS}:{C.TIER_ITEM[t['id']]}")
         col = RARITY_COLOR[t["rarity"]]
@@ -164,7 +170,7 @@ def main():
     pages.append(p)
     pdf = os.path.join(OUT, "Crafts des armes.pdf")
     pages[0].save(pdf, save_all=True, append_images=pages[1:], resolution=110)
-    print(f"{len(pages)} planches, {9 * 11 + 1} recettes -> {OUT}")
+    print(f"{len(pages)} planches -> {OUT}")
 
 
 if __name__ == "__main__":

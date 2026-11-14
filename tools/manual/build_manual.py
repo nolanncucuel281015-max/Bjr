@@ -340,7 +340,7 @@ def build():
 <div class="cover-kicker">Mod RPG pour Minecraft Java 1.21.11 · Fabric</div>
 <div class="cover-title">Les Dimensions<br>Oubliées</div>
 <div class="cover-sub">Manuel du joueur</div>
-<div class="cover-meta">Sept dimensions · 60 créatures · 55 sorts · 100 armes · 30 armures · 30 artefacts</div></div></section>''')
+<div class="cover-meta">Sept dimensions · 60 créatures · 55 sorts · 106 armes · 30 armures · 30 artefacts</div></div></section>''')
 
     toc = [("histoire", "L'histoire des Anciens Architectes"), ("installation", "Installation"), ("premiers-pas", "Premiers pas"),
            ("voyage", "Voyager dans les dimensions"), ("dimensions", "Les sept dimensions"), ("progression", "Progression RPG"),
@@ -647,11 +647,11 @@ invocations (réglable).</p>
             ("crossbow", "Arbalète", "carreaux renforcés selon le palier")]
     tier_rows = [[icon_html(f"{t['id']}_sword"), f"<b>{esc(C.MAT_BY_ID[t['id']]['fr'] if t['id'] in C.MAT_BY_ID else 'Primordial')}</b>"
                   + f" <span class='small'>({esc(name(C.TIER_ITEM[t['id']]))})</span>", rar(t["rarity"]),
-                  f"+{t['dmg']:g}", str(t["dur"]), SCHOOL_FR[t["school"]]] for t in C.TIERS]
+                  f"+{t['dmg']:g}", str(t["dur"]), SCHOOL_FR[t["school"]]] for t in C.TIERS if t["id"] != "iron"]
     grid = ""
     for cat, cfr, _ in cats:
         grid += f'<div class="catrow"><div class="catname">{cfr}</div>' + "".join(
-            f'<div class="cell">{icon_html(f"{t["id"]}_{cat}")}<span>{esc(name(t["id"] + "_" + cat))}</span></div>' for t in C.TIERS) + "</div>"
+            f'<div class="cell">{icon_html(f"{t["id"]}_{cat}")}<span>{esc(name(t["id"] + "_" + cat))}</span></div>' for t in C.TIERS if t["id"] != "iron") + "</div>"
     leg_rows = []
     leg_recipes = ""
     for lw in C.LEGENDARY_WEAPONS:
@@ -659,7 +659,8 @@ invocations (réglable).</p>
     for rid in ("celestial_blade", "world_ender"):
         leg_recipes += recipe_html(rid)
     parts.append(sec("armes", "Armes", f'''
-<p class="lead">100 armes : 9 catégories × 10 paliers de matériau, plus 10 armes légendaires. Toutes sont modélisées en 3D.</p>
+<p class="lead">106 armes : 9 catégories × 10 paliers de matériau, 6 armes en fer pour bien commencer, et 10 armes légendaires.
+Toutes sont modélisées en 3D.</p>
 {shot("manual_items_showcase", "Vitrine : armes 3D dans les cadres, armures en relief sur les supports.", "hero")}
 <div class="two"><div>{shot("manual_items_frames_closeup", "Armes 3D (lance, dague, arc, épées).")}</div>
 <div>{shot("manual_first_person_blade", "L'Épée Céleste en main.")}</div></div>
@@ -670,6 +671,10 @@ suivent les formes classiques (épée : 2 matériaux + 1 bâton, etc.).</p>
 {table(["", "Matériau", "Rareté", "Dégâts", "Durabilité", "École"], tier_rows)}
 <div class="recipes">{recipe_html("astral_silver_sword")}{recipe_html("magmatite_staff")}{recipe_html("nebulite_bow")}</div>
 <h2>Catalogue des 90 armes</h2><div class="catalog">{grid}</div>
+<h2>Les armes en fer</h2>
+<p>Avant même d'ouvrir une dimension, le <b>lingot de fer</b> donne six armes du mod (mêmes recettes que les autres paliers) :</p>
+<div class="catalog"><div class="catrow"><div class="catname">Fer</div>{"".join(f'<div class="cell">{icon_html("iron_" + c)}<span>{esc(name("iron_" + c))}</span></div>' for c, _f, _d in cats if C.has_weapon("iron", c))}</div></div>
+<p class="small">L'épée, la lance et l'arbalète en fer sont celles de Minecraft (le mod n'en fait pas de doublon).</p>
 <h2>Armes légendaires</h2>
 <p>Recette : l'arme de base du même palier entourée de 4 essences et de 4 fragments de la dimension. La Fin des Mondes exige
 l'alliage primordial, une étoile du Nether et un noyau d'Architecte.</p>

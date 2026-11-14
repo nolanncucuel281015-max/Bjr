@@ -304,9 +304,10 @@ essences dimensionnelles, fragment ancien, noyau d'Architecte, alliage primordia
 de sort (objets techniques utilisés pour l'affichage des sorts), 7 clés dimensionnelles et 6 cœurs
 de gardiens.
 
-### Armes (100)
+### Armes (106)
 
-9 catégories × 10 paliers (argent astral → primordial) + 10 armes légendaires.
+9 catégories × 10 paliers (argent astral → primordial), 6 armes en fer pour le début du jeu (grande épée, dague,
+hache de combat, bâton magique, arc, baguette ; l'épée, la lance et l'arbalète en fer sont celles de Minecraft) + 10 armes légendaires.
 
 | Catégorie | Particularité |
 |---|---|
@@ -331,7 +332,7 @@ d'Appel-Tempête (carreaux foudroyants), et **Fin des Mondes** (mythique, bonus 
 
 ### Modèles 3D
 
-Les **100 armes** ont des modèles 3D (lames, gardes, manches et pommeaux en relief, haches doubles,
+Les **106 armes** ont des modèles 3D (lames, gardes, manches et pommeaux en relief, haches doubles,
 lances, bâtons surmontés d'une orbe, arcs courbés avec corde et flèche pendant la tension,
 arbalètes et leurs états de chargement), en main, dans l'inventaire, au sol et dans les cadres.
 Les **armures** ont des icônes en volume et, une fois portées, de vraies pièces en relief :

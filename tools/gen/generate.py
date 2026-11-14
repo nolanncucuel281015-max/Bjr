@@ -445,7 +445,7 @@ for mb in C.MAGIC_BLOCKS:
 # ===========================================================================
 WEAPONS = []
 for t in C.TIERS:
-    tag_item(f"{NS}:repair/{C.TIER_ITEM[t['id']]}", rid(C.TIER_ITEM[t["id"]]))
+    tag_item(f"{NS}:repair/{C.TIER_ITEM[t['id']]}", C.tier_item_id(t["id"]))
 WEAPON_RECIPES = {
     "sword": (["X", "X", "#"], {}),
     "greatsword": ([" X ", " X ", "X#X"], {}),
@@ -517,6 +517,8 @@ def weapon_assets(id, category, rgb, accent=None):
 
 for cat in C.WEAPON_CATEGORIES:
     for t in C.TIERS:
+        if not C.has_weapon(t["id"], cat["id"]):
+            continue
         wid = f"{t['id']}_{cat['id']}"
         en_m, fr_m = C.TIER_NAMES[t["id"]]
         rgb = C.TIER_COLOR[t["id"]]
@@ -528,7 +530,7 @@ for cat in C.WEAPON_CATEGORIES:
         LANG_FR[f"item.{NS}.{wid}"] = fr_name
         WEAPONS.append(dict(id=wid, category=cat["id"].upper(), tier=t["id"], rarity=t["rarity"], legendary=""))
         pattern, extra = WEAPON_RECIPES[cat["id"]]
-        key = {"X": C.TIER_ITEM[t["id"]], "#": "minecraft:stick"}
+        key = {"X": C.tier_item_id(t["id"]), "#": "minecraft:stick"}
         key.update(extra)
         shaped(wid, wid, pattern, {k: v for k, v in key.items() if any(k in row for row in pattern)}, 1, "combat")
         for tg in CAT_TAGS[cat["id"]]:
