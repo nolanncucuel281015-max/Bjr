@@ -403,4 +403,20 @@ public class FdGameTests {
             ctx.complete();
         });
     }
+
+    @GameTest
+    public void spellsHitOtherPlayers(TestContext ctx) {
+        FakePlayer caster = player(ctx, "fd_pvp_a");
+        FakePlayer other = player(ctx, "fd_pvp_b");
+        ctx.assertTrue(com.forgotten.dimensions.magic.SpellTargeting.isEnemy(caster, other), "un autre joueur est une cible des sorts");
+        ctx.assertTrue(!com.forgotten.dimensions.magic.SpellTargeting.isEnemy(caster, caster), "jamais soi-même");
+        ctx.assertTrue(com.forgotten.dimensions.magic.SpellTargeting.alliesAround(caster, 5).stream().noneMatch(p -> p == other),
+                "un adversaire n'est pas soigné par les sorts de soin");
+        other.changeGameMode(net.minecraft.world.GameMode.CREATIVE);
+        ctx.assertTrue(!com.forgotten.dimensions.magic.SpellTargeting.isEnemy(caster, other), "épargne les joueurs en créatif");
+        other.changeGameMode(net.minecraft.world.GameMode.SURVIVAL);
+        // Les coéquipiers sans tir allié sont épargnés (SpellTargeting) ; non testable ici : les FakePlayer de Fabric
+        // n'ont jamais d'équipe (getScoreboardTeam renvoie null).
+        ctx.complete();
+    }
 }

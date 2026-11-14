@@ -26,7 +26,13 @@ public final class SpellTargeting {
     public static boolean isEnemy(ServerPlayerEntity caster, Entity e) {
         if (!(e instanceof LivingEntity living) || !living.isAlive() || e == caster) return false;
         if (e instanceof ArmorStandEntity || e instanceof MerchantEntity) return false;
-        if (e instanceof PlayerEntity other) return FdConfig.get().spellFriendlyFire && !other.isCreative() && !other.isSpectator();
+        if (e instanceof PlayerEntity other) {
+            // Joueurs : selon la configuration, le PvP du serveur et les équipes (shouldDamagePlayer).
+            if (!FdConfig.get().spellPvp || other.isCreative() || other.isSpectator()) return false;
+            var team = caster.getScoreboardTeam();
+            if (team != null && team.isEqual(other.getScoreboardTeam()) && !team.isFriendlyFireAllowed()) return false;
+            return caster.shouldDamagePlayer(other);
+        }
         if (e instanceof TameableEntity t && t.isTamed()) return false;
         if (e instanceof IronGolemEntity g && g.isPlayerCreated()) return false;
         return !SummonManager.isSummon(e);
@@ -40,7 +46,9 @@ public final class SpellTargeting {
 
     public static List<ServerPlayerEntity> alliesAround(ServerPlayerEntity caster, double radius) {
         Box box = caster.getBoundingBox().expand(radius);
-        return caster.getEntityWorld().getEntitiesByClass(ServerPlayerEntity.class, box, p -> p.isAlive() && !p.isSpectator());
+        // Alliés soignés et renforcés : soi-même et les joueurs qui ne sont pas des cibles (coéquipiers, PvP désactivé).
+        return caster.getEntityWorld().getEntitiesByClass(ServerPlayerEntity.class, box,
+                p -> p.isAlive() && !p.isSpectator() && (p == caster || !isEnemy(caster, p)));
     }
 
     /** Point visé (bloc touché ou portée maximale). */

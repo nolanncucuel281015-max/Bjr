@@ -59,6 +59,10 @@ les outils de Minecraft : fonctions, objets à composants, entités d'affichage,
 - un trou noir en rotation ;
 - de vrais éclairs.
 
+**Joueurs (PvP)** : les sorts touchent aussi les autres joueurs. Ils épargnent le lanceur et les joueurs en
+créatif ou spectateur. Le réglage PvP du serveur (`pvp` dans `server.properties`) et le tir allié des
+équipes (`/team modify <équipe> friendlyFire false`) s'appliquent.
+
 **Invocations** :
 - 3 loups spectraux ;
 - un golem de fer « Gardien de pierre » ;

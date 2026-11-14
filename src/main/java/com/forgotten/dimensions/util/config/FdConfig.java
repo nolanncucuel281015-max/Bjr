@@ -36,8 +36,11 @@ public final class FdConfig {
         public boolean spellVisuals = true;
         /** Durée de base des invocations, en secondes. */
         public int summonDurationSeconds = 30;
-        /** Les sorts offensifs touchent-ils les autres joueurs ? */
-        public boolean spellFriendlyFire = false;
+        /**
+         * Les sorts offensifs touchent-ils les autres joueurs ? Jamais soi-même, ni les joueurs en créatif ou
+         * spectateur, ni les coéquipiers (équipes sans tir allié), ni quand le PvP du serveur est désactivé.
+         */
+        public boolean spellPvp = true;
         /** Fréquence d'apparition naturelle des créatures du mod (0 = aucune, 1 = normal). */
         public double creatureSpawnMultiplier = 1.0;
         /** Multiplicateur des récompenses (expérience des créatures tuées). */

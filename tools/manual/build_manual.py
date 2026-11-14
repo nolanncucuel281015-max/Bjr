@@ -635,8 +635,9 @@ Un <b>Bloc de cristal de mana</b> rend 30 points au clic droit (toutes les 30 se
 spécialisation Mage, et de 3 % par point de <b>maîtrise de l'école</b>. La maîtrise (de 0 à 10) grandit avec le nombre de sorts
 lancés dans l'école ; l'<b>Autel des sorts</b> l'affiche au clic droit.</p>
 <p>Effets des écoles : le <b>feu</b> enflamme, la <b>glace</b> ralentit et gèle, la <b>foudre</b> inflige +50 % aux cibles mouillées,
-la <b>nature</b> empoisonne, le <b>néant</b> flétrit. Les sorts offensifs épargnent les autres joueurs, vos animaux et vos
-invocations (réglable).</p>
+la <b>nature</b> empoisonne, le <b>néant</b> flétrit. Les sorts offensifs touchent aussi les <b>autres joueurs</b> (PvP), sauf ceux en créatif ou spectateur, vos coéquipiers
+sans tir allié, et si le PvP du serveur est coupé. Vos animaux et vos invocations sont épargnés ; les soins ne profitent qu'à vous
+et à vos alliés.</p>
 {spell_tables}'''))
 
     # ------------------------------------------------------------------ armes
@@ -770,7 +771,7 @@ Chaque créature a un œuf d'apparition (onglet créatif « Créatures »).</p>
     conf = [["xpMultiplier", "1.0", "Expérience RPG gagnée"], ["biomeDiscoveryXp", "25", "XP par nouveau biome"],
             ["manaRegenMultiplier", "1.0", "Régénération de mana"], ["spellDamageMultiplier", "1.0", "Puissance des sorts"],
             ["spellCooldownMultiplier", "1.0", "Recharge des sorts"], ["particleMultiplier", "1.0", "Densité des particules (0 = aucune)"],
-            ["summonDurationSeconds", "30", "Durée des invocations"], ["spellFriendlyFire", "false", "Sorts sur les autres joueurs"],
+            ["summonDurationSeconds", "30", "Durée des invocations"], ["spellPvp", "true", "Sorts sur les autres joueurs (PvP)"],
             ["rewardMultiplier", "1.0", "XP des créatures"], ["creatureSpawnMultiplier", "1.0", "Fréquence des créatures"],
             ["spellVisuals", "true", "Effets 3D des sorts (false = particules seules)"]]
     parts.append(sec("commandes", "Commandes, touches et configuration", f'''

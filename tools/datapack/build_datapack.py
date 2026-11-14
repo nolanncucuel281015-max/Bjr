@@ -573,7 +573,14 @@ function {NS}:player/check_level
         "void": ["effect give @s minecraft:wither 4 1", "particle minecraft:reverse_portal ~ ~1 ~ 0.3 0.5 0.3 0.05 20"],
     }
     for sid, *_ in SCHOOLS:
-        fn(f"spell/hit/{sid}", [f"$damage @s $(dmg) {SCHOOL[sid][8]} by @p[tag={NS}.caster]"] + effects[sid])
+        fn(f"spell/hit/{sid}", [
+            "# Joueurs : jamais en créatif ou spectateur ; le PvP du serveur et le tir allié des équipes sont",
+            "# appliqués par Minecraft (damage ... by <joueur>). Les effets ne suivent que si le coup a porté.",
+            "execute if entity @s[type=player,gamemode=creative] run return 0",
+            "execute if entity @s[type=player,gamemode=spectator] run return 0",
+            f"$execute store success score #ok {NS}.tmp run damage @s $(dmg) {SCHOOL[sid][8]} by @p[tag={NS}.caster]",
+            f"execute if score #ok {NS}.tmp matches 0 run return 0"] + effects[sid])
+
 
     # Rayon instantané (projectile magique)
     for sid, *_ in SCHOOLS:
@@ -1059,7 +1066,7 @@ def build_mobs():
                                    "zoglin", "guardian", "elder_guardian", "shulker", "silverfish", "endermite", "vex", "breeze",
                                    "creaking", "warden"]]})
     wjson(os.path.join(DATA, "tags", "entity_type", "non_target.json"), {"values": [
-        f"minecraft:{t}" for t in ["player", "item", "experience_orb", "arrow", "spectral_arrow", "trident", "marker",
+        f"minecraft:{t}" for t in ["item", "experience_orb", "arrow", "spectral_arrow", "trident", "marker",
                                    "block_display", "item_display", "text_display", "interaction", "armor_stand",
                                    "area_effect_cloud", "item_frame", "glow_item_frame", "painting", "falling_block", "lightning_bolt",
                                    "snowball", "egg", "ender_pearl", "splash_potion", "lingering_potion", "fireball", "small_fireball", "wither_skull",

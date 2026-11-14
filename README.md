@@ -454,7 +454,7 @@ Fichier `config/forgotten_dimensions.json` (créé au premier lancement, recharg
 | `spellCooldownMultiplier` | 1.0 | Temps de recharge des sorts |
 | `particleMultiplier` | 1.0 | Densité des particules des sorts (0 = aucune) |
 | `summonDurationSeconds` | 30 | Durée de base des invocations |
-| `spellFriendlyFire` | false | Les sorts offensifs touchent-ils les autres joueurs |
+| `spellPvp` | true | Les sorts touchent les autres joueurs (jamais soi-même, ni en créatif/spectateur, ni les coéquipiers sans tir allié, ni si le PvP du serveur est coupé) |
 | `rewardMultiplier` | 1.0 | Expérience des créatures tuées |
 | `creatureSpawnMultiplier` | 1.0 | Fréquence d'apparition naturelle des créatures (0 = aucune) |
 | `spellVisuals` | true | Effets 3D des sorts (false = particules seules) |
