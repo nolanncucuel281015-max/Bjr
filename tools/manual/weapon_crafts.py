@@ -28,10 +28,12 @@ OUT = os.path.join(ROOT, "docs", "crafts")
 CLIENT_JAR = "/root/.gradle/caches/fabric-loom/1.21.11/minecraft-client.jar"
 VANILLA_TEX = {"minecraft:stick": "item/stick", "minecraft:string": "item/string", "minecraft:amethyst_shard": "item/amethyst_shard",
                "minecraft:tripwire_hook": "block/tripwire_hook", "minecraft:nether_star": "item/nether_star",
-               "minecraft:iron_ingot": "item/iron_ingot"}
+               "minecraft:iron_ingot": "item/iron_ingot", "minecraft:diamond": "item/diamond",
+               "minecraft:stone_bricks": "block/stone_bricks", "minecraft:crying_obsidian": "block/crying_obsidian"}
 FR_VANILLA = {"minecraft:stick": "Bâton", "minecraft:string": "Ficelle", "minecraft:amethyst_shard": "Éclat d'améthyste",
               "minecraft:tripwire_hook": "Crochet", "minecraft:nether_star": "Étoile du Nether",
-              "minecraft:iron_ingot": "Lingot de fer"}
+              "minecraft:iron_ingot": "Lingot de fer", "minecraft:diamond": "Diamant",
+              "minecraft:stone_bricks": "Briques de pierre", "minecraft:crying_obsidian": "Obsidienne pleureuse"}
 FR = json.load(open(os.path.join(ROOT, "src", "main", "resources", "assets", NS, "lang", "fr_fr.json"), encoding="utf-8"))
 
 BG = (40, 32, 48)
